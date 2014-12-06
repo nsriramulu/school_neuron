@@ -1,0 +1,80 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                    http://www.springframework.org/schema/security 
+                    http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<!-- This is where we configure Spring-Security -->
+	<security:http auto-config="true" use-expressions="true"
+		access-denied-page="/auth/denied">
+
+		<security:intercept-url pattern="/userSelfService/login.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/userRegister/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/userSelfService/validateSecretAnswer"
+			access="permitAll" />
+		<security:intercept-url pattern="/userSelfService/validateEmailId"
+			access="permitAll" />
+		<security:intercept-url pattern="/userSelfService/fetchLanguageBased.do"
+			access="permitAll" />		
+		<!-- <security:intercept-url pattern="/userSelfService/**"
+			access="isFullyAuthenticated()" /> -->
+			<security:intercept-url pattern="/userSelfService/changePassword"
+			access="isFullyAuthenticated()" />
+			<security:intercept-url pattern="/userSelfService/passwordChange"
+			access="isFullyAuthenticated()" />
+			<security:intercept-url pattern="/userSelfService/home"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/editProfile"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/updateUser"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/updateSecretQuestion.do"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/updatePassword"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/displayAccount"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/servicesHome"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/searchServices"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/cancelAppRequest"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/deactivateApp"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/raiseAppRequest"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/processApplicationApproval"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/processUserApproval"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/uploadPhoto"
+                     access="isFullyAuthenticated()" />
+              <security:intercept-url pattern="/userSelfService/loadProfilePhoto.do"
+                     access="isFullyAuthenticated()" />
+		<security:intercept-url pattern="/umass/main/admin"
+			access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/umass/main/common"
+			access="hasRole('ROLE_USER')" />
+
+		<security:form-login login-page="/userSelfService/login.do"
+			authentication-failure-handler-ref ="myAuthenticationFailureHandler"
+			authentication-success-handler-ref="myAuthenticationSuccessHandler"
+			default-target-url="/userSelfService/home"  />
+		<security:logout invalidate-session="false"	success-handler-ref="myLogoutSuccessHandler" logout-url="/j_spring_security_logout"  />
+		<session-management invalid-session-url="/userSelfService/sessionExpired" />
+	</security:http>
+	<beans:bean id="myAuthenticationSuccessHandler" class="com.cts.umaas.service.SimpleAuthenticationSuccessHandler"></beans:bean>
+    <beans:bean id="myAuthenticationFailureHandler" class="com.cts.umaas.service.SimpleAuthenticationFailureHandler"></beans:bean>
+    <beans:bean id="myLogoutSuccessHandler" class="com.cts.umaas.service.SimpleLogoutSuccessHandler"></beans:bean>
+	<authentication-manager>
+		<authentication-provider ref="customUserDetailsAuthenticationProvider" />
+	</authentication-manager>
+
+
+</beans:beans> 

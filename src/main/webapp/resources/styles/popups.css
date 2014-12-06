@@ -1,0 +1,68 @@
+ .popup-header{
+	background-color:#2da5da;
+	color:#fff;
+	padding:10px 20px;
+	font-size:14px;
+}
+
+.popup-text{
+	color:#89969e;
+	font-size:13px;
+}
+.modal-body * {
+	position:relative;
+}
+.modal-content label{
+	color:#89969e;
+	font-size:13px;
+	}
+.modal-content .secret-select select {
+	width:100%;
+}
+
+.modal-content input[type="text"]{
+	border:1px solid #ccc;
+	color:#475e66;
+	width:100%;
+}
+.modal-footer {
+	padding-top:10px;
+	padding-bottom:10px;
+}
+.modal-content button{
+	margin-bottom:5px;
+	background-color:#0f678d;
+	border:0px;
+	color:#fff;
+	width:100%;
+	border-radius:0 !important;
+}
+.modal-content button,.cancel-buttonorg{
+	margin-bottom:5px;
+	background-color:#2da5da;
+	border:0px;
+	color:#fff;
+	width:100%;
+	border-radius:0 !important;
+}
+.modal-content button,.continue-button1{
+	margin-bottom:5px;
+	background-color:#0f678d;
+	border:0px;
+	color:#fff;
+	width:100%;
+	border-radius:0 !important;
+}
+#forgot-password-modal .modal-content {
+	margin-top:200px;
+	margin-left:25%;
+	width:350px;
+	height:270px;
+	
+}
+.padding-bottom-required {
+	padding-bottom:10px;
+}
+.close {
+	opacity:1;
+}
