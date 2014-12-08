@@ -63,31 +63,35 @@ $(document).ready(function(){
 	});
 	
 	
-	$( ".commentBox" ).keypress(function() {
-		var $div = $('<div />').appendTo('body');
-		$div.addClass('modal-backdrop').css('opacity','0.5');
-		postId = $(this).attr('id');
-		commentCount = document.getElementById(postId+"_comment").value;
-		var json = { "postId" : postId, "comment" : $('comment'), "commentCount" : commentCount};
-		$.ajax({
-			type: "POST",
-			cache: false,
-			url: "submitComment.do",
-			data: json,
-			dataType: "json",
-			success: function(data){
-				$div.remove();
-				if(data.STATUS=="SUCCESS"){
-//					$('#postSuccessMessage').html(data.MESSAGE);
-//					$('#success-post-popup').modal('show');
-					window.location = 'home.do';
+	$( ".commentBox" ).keypress(function(event) {
+		if ( event.which == 13 && $(this).val().trim()!='') {
+			var $div = $('<div />').appendTo('body');
+			$div.addClass('modal-backdrop').css('opacity','0.5');
+			var url = "submitComment.do";
+			postId = $(this).attr('id').split('_commentText')[0];
+			commentCount = $('#'+postId+'_comment').text();
+			var json = { "postId" : postId, "comment" : $(this).val(), "commentCount" : commentCount};
+			$.ajax({
+				type: "POST",
+				cache: false,
+				url: url,
+				data: json,
+				dataType: "json",
+				success: function(data){
+					$div.remove();
+					if(data.STATUS=="SUCCESS"){
+//						$('#postSuccessMessage').html(data.MESSAGE);
+//						$('#success-post-popup').modal('show'); JSON.stringify(json)
+						$('#'+postId+'_commentText').val('');
+						$('#'+postId+'_comment').text(parseInt(commentCount)+1);
+					}
+					else{
+						$('#postFailureMessage').html(data.MESSAGE);
+						$('#failure-post-popup').modal('show');
+					}
 				}
-				else{
-					$('#postFailureMessage').html(data.MESSAGE);
-					$('#failure-post-popup').modal('show');
-				}
-			}
-		});
+			});
+		}
 	});
 	
 //	$('.dashboard-button').click(function() {

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sn.service.PostService;
 
+
 /**
  * The Class UserSelfServiceController is the major controller for self-service module.
  */

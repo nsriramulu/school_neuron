@@ -167,9 +167,9 @@ public class Post implements Serializable {
 	java.util.Set<com.sn.entity.PostLike> postLikes;
 	/**
 	 */
-	@OneToMany(mappedBy = "posts", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
-	@XmlElement(name = "", namespace = "")
-	java.util.Set<com.sn.entity.Comment> comments;
+//	@OneToMany(mappedBy = "posts", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
+//	@XmlElement(name = "", namespace = "")
+//	java.util.Set<com.sn.entity.Comment> comments;
 	/**
 	 */ 
 	@OneToMany(mappedBy = "posts", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
@@ -384,22 +384,6 @@ public class Post implements Serializable {
 
 	/**
 	 */
-	public void setComments(Set<Comment> comments) {
-		this.comments = comments;
-	}
-
-	/**
-	 */
-	@JsonIgnore
-	public Set<Comment> getComments() {
-		if (comments == null) {
-			comments = new java.util.LinkedHashSet<com.sn.entity.Comment>();
-		}
-		return comments;
-	}
-
-	/**
-	 */
 	public void setPostClasses(Set<PostClass> postClasses) {
 		this.postClasses = postClasses;
 	}
@@ -448,7 +432,6 @@ public class Post implements Serializable {
 		setUsersByUpdatedBy(that.getUsersByUpdatedBy());
 		setUsersByCreatedBy(that.getUsersByCreatedBy());
 		setPostLikes(new java.util.LinkedHashSet<com.sn.entity.PostLike>(that.getPostLikes()));
-		setComments(new java.util.LinkedHashSet<com.sn.entity.Comment>(that.getComments()));
 		setPostClasses(new java.util.LinkedHashSet<com.sn.entity.PostClass>(that.getPostClasses()));
 	}
 

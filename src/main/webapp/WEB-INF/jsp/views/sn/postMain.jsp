@@ -37,10 +37,13 @@
 					<p class="">${post.message}</p>
 				</div>
 				<div class="col-xs-12">
-					<i class="icon-large icon-certificate pointerCursor"></i><span
-						class="pointerWithLine">Appreciate</span> <span class="badge" id="${post.id}_like">${post.likeCount}</span>
-					&nbsp;&nbsp;&nbsp; <i class="icon-large icon-chat pointerCursor"></i><span
-						class="pointerWithLine">Discuss</span> <span class="badge" id="${post.id}_comment">${post.commentCount}</span>
+					<i class="icon-large icon-certificate pointerCursor"></i>
+					<span class="pointerWithLine">Appreciate</span> 
+					<a href="" class="like_link"><span class="badge" id="${post.id}_like">${post.likeCount}</span></a>
+					&nbsp;&nbsp;&nbsp; 
+					<i class="icon-large icon-chat pointerCursor"></i>
+					<span class="pointerWithLine">Discuss</span> 
+					<a href="" class="comment_link"><span class="badge" id="${post.id}_comment">${post.commentCount}</span></a>
 				</div>
 				<div class="row col-sm-9 cmpinfo">
 					<div class="col-sm-2">
@@ -48,7 +51,7 @@
 							height="25">
 					</div>
 					<div class="col-sm-10 leftPaddingZero">
-						<input type="text" id="${post.id}" class="commentBox"
+						<input type="text" id="${post.id}_commentText" class="commentBox"
 							placeholder="Discuss your thoughts..." />
 					</div>
 				</div>

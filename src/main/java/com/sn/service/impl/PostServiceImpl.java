@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sn.constants.ResponseStatus;
+import com.sn.dao.CommentDAO;
 import com.sn.dao.PostDAO;
 import com.sn.entity.Class;
+import com.sn.entity.Comment;
 import com.sn.entity.Post;
 import com.sn.entity.PostClass;
 import com.sn.entity.User;
@@ -21,7 +23,8 @@ import com.sn.utils.JSONUtils;
 public class PostServiceImpl implements PostService {
 	@Autowired
 	PostDAO postDAO;
-
+	@Autowired
+	CommentDAO commentDAO;
 	@Override
 	public String submitPost(String postText, Integer classId, String type) {
 		String response = "";
@@ -73,10 +76,25 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public String submitComment(Integer postId, String comment, Integer commentCount, Integer userId) {
+	public String submitComment(Integer postId, String commentText, Integer commentCount, Integer userId) {
+		String response = "";
+		Comment comment = new Comment();
+		comment.setComment(commentText);
+		comment.setPostId(postId);
+		User user = new User();
+		user.setUid(userId);
+		comment.setUsersByCreatedBy(user);
+		comment.setCreatedDate(Calendar.getInstance());
 		Post post = new Post();
 		post.setId(postId);
 		post.setCommentCount(commentCount+1);
-		return "";//postDAO.getPostsByUserAndClass(teacherId, classIds);
+		if(commentDAO.insertComment(comment) &&	postDAO.updatePost(post))
+		{
+			response = JSONUtils.getSuccessJSONResponse(ResponseStatus.SUCCESS.getCode());
+		}
+		else{
+			response = JSONUtils.getErrorJSONRresponse(ResponseStatus.FAILURE.getCode());
+		}
+		return response;
 	}
 }

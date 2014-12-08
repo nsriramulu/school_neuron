@@ -9,6 +9,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -42,6 +44,7 @@ public class Comment implements Serializable {
 	 */
 
 	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(fetch = FetchType.EAGER)
 	@Id
 	@XmlElement
@@ -90,10 +93,10 @@ public class Comment implements Serializable {
 	User usersByCreatedBy;
 	/**
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({ @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false) })
-	@XmlTransient
-	Post posts;
+	@Column(name = "post_id")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Integer postId;
 	/**
 	 */
 	@OneToMany(mappedBy = "comments", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
@@ -186,17 +189,12 @@ public class Comment implements Serializable {
 		return usersByCreatedBy;
 	}
 
-	/**
-	 */
-	public void setPosts(Post posts) {
-		this.posts = posts;
+	public Integer getPostId() {
+		return postId;
 	}
 
-	/**
-	 */
-	@JsonIgnore
-	public Post getPosts() {
-		return posts;
+	public void setPostId(Integer postId) {
+		this.postId = postId;
 	}
 
 	/**
@@ -232,7 +230,6 @@ public class Comment implements Serializable {
 		setUpdatedDate(that.getUpdatedDate());
 		setUsersByUpdatedBy(that.getUsersByUpdatedBy());
 		setUsersByCreatedBy(that.getUsersByCreatedBy());
-		setPosts(that.getPosts());
 		setCommentLikes(new java.util.LinkedHashSet<com.sn.entity.CommentLike>(that.getCommentLikes()));
 	}
 

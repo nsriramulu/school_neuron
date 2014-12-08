@@ -3,18 +3,16 @@ package com.sn.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Junction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
 import com.sn.dao.PostDAO;
 import com.sn.entity.Post;
-import com.sn.entity.User;
 import com.sn.utils.HibernateUtil;
 
 @Component("postDAO")
@@ -56,7 +54,7 @@ public class PostDAOImpl implements PostDAO{
 			//	        }
 			//	        criteria.add(disjunction);
 			Criterion criterion= Restrictions.or(Restrictions.eq("usersByCreatedBy.uid", userId), 
-									Restrictions.in("classId", classIds));
+					Restrictions.in("classId", classIds));
 			criteria.add(criterion);
 			criteria.addOrder(Order.desc("createdDate"));
 			posts = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
@@ -93,6 +91,33 @@ public class PostDAOImpl implements PostDAO{
 				session.close();
 		}
 		return posts;
+	}
+
+	@Override
+	public boolean updatePost(Post post) {
+		Boolean isUpdated = true;
+		Session session = HibernateUtil.getOpenSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+			Query query = session.createQuery("update Post set commentCount = :commentCount" +
+					" where id = :id");
+			query.setParameter("commentCount", post.getCommentCount());
+			query.setParameter("id", post.getId());
+			query.executeUpdate();
+			transaction.commit();
+		} catch (RuntimeException e) {
+			isUpdated = false;
+			e.printStackTrace();
+			isUpdated = false;
+			if (transaction != null) {
+				transaction.rollback();
+			}
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return isUpdated;
 	}
 }
 
