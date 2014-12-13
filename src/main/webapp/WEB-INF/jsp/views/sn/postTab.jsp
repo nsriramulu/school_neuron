@@ -21,6 +21,28 @@
 			<textarea id="updateText"
 				placeholder="Send an Update to Parents and Students"></textarea>
 		</div>
+			<div class="col-sm-12 paddingTop5">
+		<div class="col-sm-6">
+			<span class="whiteText"></span> 
+				<select class="dropdown_module"	id="postClass">
+					<option id="0">Class</option>
+					<option id="1">6th 'D'</option>
+					<option id="2">7th 'A'</option>
+					<option id="3">10th 'C'</option>
+				</select> 
+				<i class="icon-large icon-attach pointerCursor" id="upload_post" title="Attach File"></i>
+			<!-- <i class="icon-large icon-alarm pointerCursor" id="schedule_post" title="Schedule to post automatically"></i> -->
+			<!-- <input type="file" id="post_file" class=""> -->
+		</div>
+		<div class="col-sm-3">
+			<button type="button" id="schedule_post-btn" class="continue-button">Schedule</button>
+		</div>
+		<div class="col-sm-3">
+			<button type="button" id="submit-post-btn" class="continue-button">Send</button>
+		</div>
+	</div>
+	<div class="buttons_module"></div>
+	<div class="row"></div>
 	</div>
 	<!-- update tab end -->
 	<!-- event tab start -->
@@ -64,9 +86,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- event tab end -->
-	<div class="col-sm-12 paddingTop5">
+			<div class="col-sm-12 paddingTop5 darkGreyBg">
 		<div class="col-sm-6">
 			<span class="whiteText"></span> 
 				<select class="dropdown_module"	id="postClass">
@@ -80,14 +100,16 @@
 			<!-- <input type="file" id="post_file" class=""> -->
 		</div>
 		<div class="col-sm-3">
-			<button type="button" id="schedule_post-btn" class="continue-button">Schedule</button>
+			<button type="button" id="schedule_event-btn" class="continue-button">Schedule</button>
 		</div>
 		<div class="col-sm-3">
-			<button type="button" id="submit-post-btn" class="continue-button">Send</button>
+			<button type="button" id="submit-event-btn" class="continue-button">Send</button>
 		</div>
 	</div>
 	<div class="buttons_module"></div>
 	<div class="row"></div>
+	</div>
+	<!-- event tab end -->
 </div>
 <!-- schedule modal dialog start-->
   <div class="modal fade" id="schedule-options-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
