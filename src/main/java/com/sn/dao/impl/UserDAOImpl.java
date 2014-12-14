@@ -1,17 +1,52 @@
 package com.sn.dao.impl;
 
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Set;
 
-import com.sn.dao.UserProfileDAO;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.context.annotation.Role;
+import org.springframework.stereotype.Component;
+
+import com.sn.dao.UserDAO;
+import com.sn.entity.Post;
+import com.sn.entity.User;
+import com.sn.utils.HibernateUtil;
+import com.sn.vo.UserDetailsVO;
+import com.sn.vo.UserProfileVO;
 
 /**
- * Implements {@link UserProfileDAO}}
- * @see {@link UserProfileDAO} for more details
+ * Implements {@link UserDAO}}
+ * @see {@link UserDAO} for more details
  * @author 424969
  *
  */
-@Repository
-public class UserProfileDAOImpl implements UserProfileDAO {
+@Component("usereDAO")
+public class UserDAOImpl implements UserDAO {
+
+	@Override
+	public User authenticateUser(String userName, String password) {
+		Session session = HibernateUtil.getOpenSession();
+		Transaction transaction = null;
+		User user = null;
+		try {
+			transaction = session.beginTransaction();
+			Criteria criteria = session.createCriteria(User.class)
+					.add(Restrictions.eq("username", userName))
+					.add(Restrictions.eq("password", password));
+			List<User> userObj = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			if(userObj != null && !userObj.isEmpty()){
+				user = (User) userObj.get(0);
+			}
+			transaction.commit();
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return user;
+	}
 	
 		/* (non-Javadoc)
 	 * @see com.cts.umaas.dao.UserProfileDAO#getRoleIdForGiveUserId(java.lang.Long)

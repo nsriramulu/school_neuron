@@ -8,11 +8,11 @@
 			<div class="col-sm-2">
 				<div class="row">
 					<div class="col-sm-12 paddingTop10">
-						<i class="icon-large icon-home pointerCursor" id="homeIcon" title="Home"></i> 
+						<!-- <i class="icon-large icon-home pointerCursor" id="homeIcon" title="Home"></i> 
 						<i class="icon-large icon-globe pointerCursor" title="Notifications"><span class="badge"></span></i>
 						<i class="icon-large icon-envelope pointerCursor" title="Private Message"><span class="badge">2</span></i>
 						<i class="icon-large icon-settings pointerCursor" title="Settngs"></i> 
-						<a href="<c:url value="/j_spring_security_logout"/>"><i class="icon-large icon-off pointerCursor" title="Logout"></i></a>
+						<i class="icon-large icon-off pointerCursor" title="Logout"></i>-->
 					</div>
 				</div>
 			</div>

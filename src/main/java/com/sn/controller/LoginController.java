@@ -1,20 +1,19 @@
 package com.sn.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.sn.common.WebContextHolder;
 
 /**
  * The Class UserSelfServiceController is the major controller for self-service module.
  */
 @Controller
-@RequestMapping(value = "/sn")
+//@RequestMapping(value = "/sn")
 public class LoginController {
 	
 	@Autowired
@@ -40,5 +39,28 @@ public class LoginController {
 			view = "error";
 		}
 		return view;
+	}
+	
+	/**
+	 * Sessionexpirted.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
+	@RequestMapping(value = "/sessionExpired", method = RequestMethod.GET)
+	public String sessionexpirted(ModelMap model) {
+		WebContextHolder.get().getSession().invalidate();
+		return "session-expired";
+	}
+	
+	/**
+	 * Display error page.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
+	@RequestMapping(value = "error", method = RequestMethod.GET)
+	public String displayErrorPage(ModelMap model) {
+		return "error";
 	}
 }

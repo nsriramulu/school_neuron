@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">        
 <tiles-definitions>
-    <definition name="sn.definition"  template="/WEB-INF/jsp/layouts/layout.jsp">
+    <definition name="sn.postLogin.definition"  template="/WEB-INF/jsp/layouts/layout.jsp">
         <put-attribute name="title" value="" />
         <put-attribute name="header" value="/WEB-INF/jsp/layouts/header.jsp" />
         <put-attribute name="profile" value="/WEB-INF/jsp/layouts/profile.jsp" />
@@ -11,11 +11,32 @@
         <put-attribute name="body" value="" />
         <put-attribute name="footer" value="/WEB-INF/jsp/layouts/footer.jsp" />
     </definition>
-	<definition name="home" extends="sn.definition">
+    <definition name="sn.preLogin.definition"  template="/WEB-INF/jsp/layouts/preLoginlayout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/jsp/layouts/preLoginheader.jsp" />
+        <put-attribute name="profile" value="" />
+        <put-attribute name="menu" value="" />
+        <put-attribute name="noticeSection" value="" />
+        <put-attribute name="postTab" value="" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/jsp/layouts/footer.jsp" />
+    </definition>
+	<definition name="home" extends="sn.postLogin.definition">
 		<put-attribute name="postTab" value="/WEB-INF/jsp/views/sn/postTab.jsp" />
 		<put-attribute name="body" value="/WEB-INF/jsp/views/sn/postMain.jsp" />
     </definition>
-    <definition name="manageClass" extends="sn.definition">
+    <definition name="manageClass" extends="sn.postLogin.definition">
 		<put-attribute name="body" value="/WEB-INF/jsp/views/sn/manageClass.jsp" />
     </definition>
+    <definition name="login" extends="sn.preLogin.definition">
+         <put-attribute name="body" value="/WEB-INF/jsp/views/sn/login.jsp" />
+     </definition>
+     	<definition name="error" extends="sn.preLogin.definition">
+		<put-attribute name="title" value="Error" />
+		<put-attribute name="body" value="/WEB-INF/jsp/views/sn/error.jsp" />
+	</definition>
+	<definition name="session-expired" extends="sn.preLogin.definition">
+	        <put-attribute name="title" value="Session Expired" />
+	        <put-attribute name="body" value="/WEB-INF/jsp/views/sn/sessionExpired.jsp" />
+	</definition>
 </tiles-definitions>

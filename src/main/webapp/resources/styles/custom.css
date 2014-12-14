@@ -43,49 +43,45 @@ body.admin {
 	width:100%;
 }
 .login-container {
-	margin-top:30px;
-	padding-bottom:20px;
-}
-.banner-container {
-	padding-left:0;
+margin-top: 30px;
 }
 .banner-image {
 	max-width:100%;
-	width:100%;
+	height:100%;
 }
 
 .login-welcome {
-	font-size:16px;
+	font-size:14px;
 	padding-top:10px;
-	padding-bottom:10px;
-	color:#465d65;
+	padding-bottom:5px;
+border-bottom:4px solid #e6e6e6;
+	color:#313131;
 }
 .login-form {
-	padding-top:10px;
-	padding-bottom:10px;
-}
-.login-form .row {
-	padding-bottom:10px;
+font-size: 12px;
+color: #465d66;
+padding-top: 10px;
+padding-bottom: 10px;
 }
 .login-form input[type="text"], .login-form input[type="password"], .login-form input[type="submit"], .login-form input[type="reset"] {
-	width:100%;
+width: 100%;
 }
 .login-form input[type="submit"], .login-form input[type="reset"] {
-	background-color:#0f678d;
-	padding-top:7px;
-	padding-bottom:7px;
-	border:0px;
-	color:#fff;
-	margin-top:5px;
+background-image: url(../images/normal_bt.jpg);
+background-repeat: repeat-x;
+padding-top: 5px;
+padding-bottom: 5px;
+border: 1px solid #CCC;
+border-radius: 3px;
+color: #555;
+font-size: 11px;
+font-weight: bold;
+margin-top: 5px;
 }
-.login-form input[type="reset"] {
-	background-color:#2da5da;
-	border:0px;
-	color:#fff;
-	margin-top:5px;
+.login-form input[type="submit"]:hover , .login-form input[type="reset"]:hover{
+background-image:url(../images/press_bt.jpg);
+color:#fff;
 }
-
-
 .logged-user-left {
 	
 }
@@ -368,18 +364,16 @@ body.admin {
 	padding-bottom:20px;
 }
 .banner-container {
-	padding-left:0;
-	display:table-cell;
+padding-left: 0px;
+padding-right: 5px;
 }
-.banner-image {
-	max-width:100%;
-	width:100%;
-}
-
 .login-module {
-	background-color:#edeef0;
-	display:table-cell;
-	padding-bottom:29px;
+border-left: 1px solid #ccc;
+padding-bottom: 8px;
+}
+.profile-head, .services-head, .password-head {
+padding-bottom: 10px;
+border-bottom: 1px solid #ccc;
 }
 .login-module-head, .features-head {
 	background-color:#1b96d1;
@@ -1490,4 +1484,151 @@ padding: 36px 36px;
 }
 .dataTables_filter {
    padding-right: 10px;
+}
+.no-padding-right {
+	padding-right:0;
+}
+.underlined-link {
+color: #0379b4;
+text-decoration: underline;
+font-size: 11px;
+}
+.forgot-id {
+padding-left: 4px;
+}
+.sign-up {
+background-image: url(../images/signup_normal_bt.jpg);
+background-repeat: repeat-x;
+border: 1px solid #666;
+border-radius: 3px;
+color: #fff;
+font-size: 12px;
+padding-top: 5px;
+padding-bottom: 5px;
+font-weight: bold;
+}
+.border-required {
+border: 1px solid #CCC;
+}
+.features-text {
+background-color: #fff;
+margin-bottom: 30px;
+}
+.margin-top-15 {
+margin-top: 15px;
+}
+.margin-top-10 {
+margin-top: 10px;
+}
+.loginAdvBg{
+background-image: url(../images/light_grey_bg.png);
+background-size: 100% auto;
+background-repeat: no-repeat;
+}
+.forgot {
+	padding-top:5px;
+}
+.forgot a{
+	padding-right:8px;
+}
+.forgot-password {
+	border-right: 1px solid #1d95d1;
+}
+.forgot, .signup-container {
+	border-bottom:1px solid #ccc;
+}
+.wordwrap{
+	word-wrap: break-word;
+}
+
+/* for mobile */
+@media all and (min-width: 320px) and (max-width:767px){
+.mobile-padding-top {
+	padding-top:10px;
+}
+.username{
+	padding:10px 0px 0px 0px;
+}
+
+.welcomeText1 {
+font-size: 11px;
+color: #2c455e;
+font-family: Arial, Helvetica, sans-serif;
+}
+.welcomeText {
+font-size: 11px;
+color: #2c455e;
+font-family: Arial, Helvetica, sans-serif;
+border-right: 1px solid #2c455e;
+}
+}
+
+@media all and (min-width: 320px) and (max-width:479px){
+.personName {
+	font-size:16px;
+}
+.details {
+	font-size:10px;
+	padding:0;
+}
+.sideHeading {
+	font-size:10px;
+	margin: 0px;
+}
+.form-feilds {
+
+padding: 0px !important;
+}
+}
+
+@media all and (min-width: 768px){
+	.profile-buttons{
+	position:relative;
+	padding-top:-6px;
+	top:-28px;
+	}}
+/* for mobile */
+@media (max-width:767px){
+	
+	.login-module {
+		padding-left:5px;
+		padding-right:0px;
+		opacity:1;
+	}
+	.login-container {
+		margin-top:0px;
+	}
+}
+
+@media (min-width:320px) and (max-width:479px){
+.footer{
+	font-size:11px !important;
+}
+.logo img{
+	max-width:100%;
+padding-top:10px;
+}
+.title img{
+	max-width:100%;
+}
+}
+/* for tablet */
+@media (min-width:768px) and (max-width:991px) {
+.login-container {
+}
+.banner-image {
+	height:100%;
+}
+.login-button {
+	padding-right:3px;
+}
+.reset-button {
+	padding-left:3px;
+}
+}
+
+/* for desktop */
+@media (min-width:992px){
+.banner-image {
+}
 }

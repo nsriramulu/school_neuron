@@ -19,15 +19,15 @@
  	<mvc:resources mapping="/uploadedImgURL/**" location="${profilePhotoPath}"/>
 	<mvc:resources mapping="/tenant_images/**" location="${logopath}"/>
 	<mvc:annotation-driven />
-	<!-- <mvc:interceptors>
+	<mvc:interceptors>
 	   <bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
 	       <property name="cacheSeconds" value="0"/>
 	       <property name="useExpiresHeader" value="true"/>
 	       <property name="useCacheControlHeader" value="true"/>
 	       <property name="useCacheControlNoStore" value="true"/>
 	   </bean>
-	   <bean class="com.cts.umaas.common.RequestValidateInterceptor" />
-	</mvc:interceptors> 
+	</mvc:interceptors>
+	<!--
 	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 	    <property name="staticMethod" value="com.cts.umaas.utility.ServiceProvider.setServiceUrl"/>
 	    <property name="arguments">
@@ -96,4 +96,5 @@
 		</list>
 	</property>
 </bean>-->
+<import resource="security-config.xml"/>
 </beans>

@@ -57,6 +57,7 @@ public class PostServiceImpl implements PostService {
 			isSuccess = false;
 		}
 		if(isSuccess){
+			//EmailUtils.sendEmail()
 			response = JSONUtils.getSuccessJSONResponse(ResponseStatus.SUCCESS.getCode());
 		}
 		else{

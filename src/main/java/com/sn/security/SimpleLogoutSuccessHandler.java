@@ -1,4 +1,4 @@
-package com.sn.service;
+package com.sn.security;
 
 import java.io.IOException;
 
@@ -34,7 +34,7 @@ public class SimpleLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler{
 			}
 		}
 		request.getSession().invalidate();
-		setDefaultTargetUrl("/userSelfService/login.do?id="+param);
+		setDefaultTargetUrl("/login.do?id="+param);
 		Cookie cookie = new Cookie("JSESSIONID", null); cookie.setPath(request.getContextPath() + "/"); 
 		cookie.setHttpOnly(true);
 		cookie.setSecure(true);

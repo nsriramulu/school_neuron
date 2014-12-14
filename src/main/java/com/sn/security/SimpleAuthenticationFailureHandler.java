@@ -1,4 +1,4 @@
-package com.sn.service;
+package com.sn.security;
 
 import java.io.IOException;
 
@@ -6,8 +6,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.AuthenticationException;
+
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 /**
@@ -28,9 +30,9 @@ public class SimpleAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 		String param=(String)request.getSession().getAttribute("tenantKey");
 		String userName=(String)request.getSession().getAttribute("username");
 		if(StringUtils.isNotBlank(userName)){
-			setDefaultFailureUrl("/userSelfService/login.do?id="+param+"&error=true&lang="+request.getSession().getAttribute("selectedLanguage")+"&userName="+request.getSession().getAttribute("username"));
+			setDefaultFailureUrl("/sn/login.do?id="+param+"&error=true&lang="+request.getSession().getAttribute("selectedLanguage")+"&userName="+request.getSession().getAttribute("username"));
 		}else{
-			setDefaultFailureUrl("/userSelfService/login.do?id="+param+"&error=true&lang="+request.getSession().getAttribute("selectedLanguage"));
+			setDefaultFailureUrl("/sn/login.do?id="+param+"&error=true&lang="+request.getSession().getAttribute("selectedLanguage"));
 		}
 		request.getSession().invalidate();
 	  super.onAuthenticationFailure(request, response, exception);
