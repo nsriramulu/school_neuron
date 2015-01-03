@@ -147,6 +147,23 @@ public class Post implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 	@XmlElement
 	Calendar updatedDate;
+	
+	@Column(name = "is_scheduled")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Boolean isScheduled;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "scheduled_date")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Calendar scheduledDate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "post_date")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Calendar postDate;
 
 	/**
 	 */
@@ -172,7 +189,7 @@ public class Post implements Serializable {
 //	java.util.Set<com.sn.entity.Comment> comments;
 	/**
 	 */ 
-	@OneToMany(mappedBy = "posts", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "posts", cascade = { CascadeType.REMOVE }, fetch = FetchType.EAGER)
 	@XmlElement(name = "", namespace = "")
 	java.util.Set<com.sn.entity.PostClass> postClasses;
 
@@ -338,6 +355,30 @@ public class Post implements Serializable {
 	 */
 	public Calendar getUpdatedDate() {
 		return this.updatedDate;
+	}
+
+	public Boolean getIsScheduled() {
+		return isScheduled;
+	}
+
+	public void setIsScheduled(Boolean isScheduled) {
+		this.isScheduled = isScheduled;
+	}
+
+	public Calendar getScheduledDate() {
+		return scheduledDate;
+	}
+
+	public void setScheduledDate(Calendar scheduledDate) {
+		this.scheduledDate = scheduledDate;
+	}
+
+	public Calendar getPostDate() {
+		return postDate;
+	}
+
+	public void setPostDate(Calendar postDate) {
+		this.postDate = postDate;
 	}
 
 	/**

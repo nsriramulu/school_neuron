@@ -27,7 +27,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @Table(catalog = "test", name = "schools")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(namespace = "core/org/sn/core/domain", name = "Schools")
-public class Schools implements Serializable {
+public class School implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -416,14 +416,14 @@ public class Schools implements Serializable {
 
 	/**
 	 */
-	public Schools() {
+	public School() {
 	}
 
 	/**
 	 * Copies the contents of the specified bean into this bean.
 	 *
 	 */
-	public void copy(Schools that) {
+	public void copy(School that) {
 		setId(that.getId());
 		setCode(that.getCode());
 		setName(that.getName());
@@ -492,9 +492,9 @@ public class Schools implements Serializable {
 	public boolean equals(Object obj) {
 		if (obj == this)
 			return true;
-		if (!(obj instanceof Schools))
+		if (!(obj instanceof School))
 			return false;
-		Schools equalCheck = (Schools) obj;
+		School equalCheck = (School) obj;
 		if ((id == null && equalCheck.id != null) || (id != null && equalCheck.id == null))
 			return false;
 		if (id != null && !id.equals(equalCheck.id))

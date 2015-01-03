@@ -58,7 +58,12 @@ public class Class implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 	@XmlElement
 	Boolean isActive;
-
+	
+	@Column(name = "section")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	String section;
+	
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -67,7 +72,7 @@ public class Class implements Serializable {
 	User users;
 	/**
 	 */
-	@OneToMany(mappedBy = "classesBySubjectId", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "classesBySubjectId", cascade = { CascadeType.REMOVE }, fetch = FetchType.EAGER)
 	@XmlElement(name = "", namespace = "")
 	java.util.Set<com.sn.entity.ClassSubjectTeacher> classSubjectTeachersForClassId;
 	/**
@@ -120,6 +125,14 @@ public class Class implements Serializable {
 	 */
 	public Boolean getIsActive() {
 		return this.isActive;
+	}
+
+	public String getSection() {
+		return section;
+	}
+
+	public void setSection(String section) {
+		this.section = section;
 	}
 
 	/**

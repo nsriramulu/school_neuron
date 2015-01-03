@@ -251,7 +251,7 @@ public class User implements Serializable {
 	 */
 	@OneToMany(mappedBy = "users", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	@XmlElement(name = "", namespace = "")
-	java.util.Set<com.sn.entity.Schools> schoolses;
+	java.util.Set<com.sn.entity.School> schoolses;
 	/**
 	 */
 	@OneToMany(mappedBy = "usersByUpdatedBy", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
@@ -694,16 +694,16 @@ public class User implements Serializable {
 
 	/**
 	 */
-	public void setSchoolses(Set<Schools> schoolses) {
+	public void setSchoolses(Set<School> schoolses) {
 		this.schoolses = schoolses;
 	}
 
 	/**
 	 */
 	@JsonIgnore
-	public Set<Schools> getSchoolses() {
+	public Set<School> getSchoolses() {
 		if (schoolses == null) {
-			schoolses = new java.util.LinkedHashSet<com.sn.entity.Schools>();
+			schoolses = new java.util.LinkedHashSet<com.sn.entity.School>();
 		}
 		return schoolses;
 	}
@@ -846,7 +846,7 @@ public class User implements Serializable {
 		setPostLikes(new java.util.LinkedHashSet<com.sn.entity.PostLike>(that.getPostLikes()));
 		setClassSubjectTeachers(new java.util.LinkedHashSet<com.sn.entity.ClassSubjectTeacher>(that.getClassSubjectTeachers()));
 		setPostsesForUpdatedBy(new java.util.LinkedHashSet<com.sn.entity.Post>(that.getPostsesForUpdatedBy()));
-		setSchoolses(new java.util.LinkedHashSet<com.sn.entity.Schools>(that.getSchoolses()));
+		setSchoolses(new java.util.LinkedHashSet<com.sn.entity.School>(that.getSchoolses()));
 		setPostsesForCreatedBy(new java.util.LinkedHashSet<com.sn.entity.Post>(that.getPostsesForCreatedBy()));
 		setMessageUserses(new java.util.LinkedHashSet<com.sn.entity.MessageUsers>(that.getMessageUserses()));
 		setClasseses(new java.util.LinkedHashSet<com.sn.entity.Class>(that.getClasseses()));

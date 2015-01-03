@@ -41,19 +41,19 @@ public class ClassSubjectTeacher implements Serializable {
 
 	/**
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumns({ @JoinColumn(name = "teacher_id", referencedColumnName = "uid", nullable = false) })
 	@XmlTransient
 	User users;
 	/**
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumns({ @JoinColumn(name = "subject_id", referencedColumnName = "id", nullable = false) })
 	@XmlTransient
 	Class classesBySubjectId;
 	/**
 	 */
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumns({ @JoinColumn(name = "class_id", referencedColumnName = "id", nullable = false) })
 	@XmlTransient
 	Class classesByClassId;
