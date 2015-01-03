@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sn.common.WebContextHolder;
 import com.sn.service.PostService;
 
 
@@ -40,10 +41,25 @@ public class PostController {
 		return postService.submitPost(post, Integer.parseInt(postClass), type);
 	}
 	
+	@RequestMapping(value = "/addLike", method = RequestMethod.POST)
+	public @ResponseBody String addLike(ModelMap model,@RequestParam(value = "postId") Integer postId,
+			@RequestParam(value = "likeCount") Integer likeCount) {
+		return postService.addLike(postId, likeCount, WebContextHolder.get().getLoggedInUser().getUid());
+	}
+	
 	@RequestMapping(value = "/submitComment", method = RequestMethod.POST)
 	public @ResponseBody String submitComment(ModelMap model,@RequestParam(value = "postId") Integer postId,
 			@RequestParam(value = "comment") String comment,
 			@RequestParam(value = "commentCount") Integer commentCount) {
-		return postService.submitComment(postId, comment, commentCount, 1);
+		return postService.submitComment(postId, comment, commentCount, WebContextHolder.get().getLoggedInUser().getUid());
+	}
+	
+	@RequestMapping(value = "/schedulePost", method = RequestMethod.POST)
+	public @ResponseBody String schedulePost(ModelMap model,@RequestParam(value = "post") String post,
+			@RequestParam(value = "postClass") String postClass,
+			@RequestParam(value = "type") String type,
+			@RequestParam(value = "date") String date,
+			@RequestParam(value = "time") String time) {
+		return postService.schedulePost(post, Integer.parseInt(postClass), type, date, time);
 	}
 }

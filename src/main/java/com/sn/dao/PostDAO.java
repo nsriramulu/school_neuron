@@ -7,10 +7,16 @@ import com.sn.entity.Post;
 public interface PostDAO {
 	boolean insertPost(Post post);
 	
-	boolean updatePost(Post post);
+	boolean updateCommentCount(Post post);
 	
 	List<Post> getPostsByClass(Integer classId);
 
 	List<Post> getPostsByUserAndClass(Integer createdById, List<Integer> classId);
+
+	List<Post> getScheduledPosts();
+
+	boolean updateLikeCount(Post post);
+
+	boolean updateIsScheduled(Post post);
 }
 

@@ -1,21 +1,33 @@
 package com.sn.service.impl;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class ApplicationInitializer implements ServletContextListener {
-
-	@Override
-	public void contextInitialized(ServletContextEvent arg0) {
-		System.out.println("Init Connections.....");
-		TenantConnectionProvider.init();
-		//TenantLoggerProvider.init();
-	}
+import com.sn.quartz.JobScheduler;
+@Component
+public class ApplicationInitializer {
+	@Autowired
+	JobScheduler jobScheduler;
 	
-	@Override
-	public void contextDestroyed(ServletContextEvent arg0) {
-		System.out.println("Close Connections.....");
-//		TenantConnectionProvider.shutDownAllSessionFactory();
+	private static Boolean isInitialized = false;
+	
+	@PostConstruct
+	public void contextInitialized() {
+		synchronized (isInitialized) {
+			if(!isInitialized){
+				System.out.println("Init Connections.....");
+				TenantConnectionProvider.init();
+				jobScheduler.init();
+				isInitialized = true;
+			}
+		}
 	}
+
+	//	@Override
+	//	public void contextDestroyed(ServletContextEvent arg0) {
+	//		System.out.println("Close Connections.....");
+	////		TenantConnectionProvider.shutDownAllSessionFactory();
+	//	}
 }

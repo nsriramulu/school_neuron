@@ -38,12 +38,12 @@
 				</div>
 				<div class="col-xs-12">
 					<i class="icon-large icon-certificate pointerCursor"></i>
-					<span class="pointerWithLine">Appreciate</span> 
-					<a href="" class="like_link"><span class="badge" id="${post.id}_like">${post.likeCount}</span></a>
+					<span class="pointerWithLine like_link" id="${post.id}_like">Appreciate</span> 
+					<span class="badge pointerCursor" id="${post.id}_likeCount">${post.likeCount}</span>
 					&nbsp;&nbsp;&nbsp; 
 					<i class="icon-large icon-chat pointerCursor"></i>
-					<span class="pointerWithLine">Discuss</span> 
-					<a href="" class="comment_link"><span class="badge" id="${post.id}_comment">${post.commentCount}</span></a>
+					<span class="pointerWithLine comment_link" id="${post.id}_comment">Discuss</span> 
+					<a class="comment_link"><span class="badge" id="${post.id}_commentCount">${post.commentCount}</span></a>
 				</div>
 				<div class="row col-sm-9 cmpinfo">
 					<div class="col-sm-2">
