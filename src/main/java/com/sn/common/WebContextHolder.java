@@ -1,7 +1,6 @@
 package com.sn.common;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.ServletContext;
@@ -19,7 +18,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.context.Theme;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -28,11 +26,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ThemeResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
-
-import com.sn.entity.ClassSubjectTeacher;
-import com.sn.entity.School;
-import com.sn.entity.User;
-import com.sn.vo.UserProfileVO;
 
 /**
  * The Class WebContextHolder holds spring request, session... objects.
@@ -243,26 +236,5 @@ public final class WebContextHolder {
             return null;
         }
     }
-    
-    public School getLoggedInUserSchool(){
-    	UserProfileVO userProfileVO = (UserProfileVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	return userProfileVO.getSchool();
-    }
-    
-    public UserProfileVO getLoggedInUserProfile(){
-    	UserProfileVO userProfileVO = (UserProfileVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	return userProfileVO;
-    }
-    
-    public User getLoggedInUser(){
-    	UserProfileVO userProfileVO = (UserProfileVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	User user = userProfileVO.getUser();
-    	return user;
-    }
-    
-    public List<ClassSubjectTeacher> getRespectiveClasses(){
-    	UserProfileVO userProfileVO = (UserProfileVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	List<ClassSubjectTeacher> classSubjectTeachers = userProfileVO.getClasses();
-    	return classSubjectTeachers;
-    }
+
 }

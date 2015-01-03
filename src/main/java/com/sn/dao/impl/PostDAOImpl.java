@@ -53,9 +53,8 @@ public class PostDAOImpl implements PostDAO{
 			//	            disjunction = disjunction.add(Restrictions.eq("classId", classId));
 			//	        }
 			//	        criteria.add(disjunction);
-			Criterion criterion= Restrictions.and(Restrictions.eqOrIsNull("isScheduled", false), Restrictions.or(Restrictions.eq("usersByCreatedBy.uid", userId), 
-					Restrictions.in("classId", classIds)));
-			
+			Criterion criterion= Restrictions.or(Restrictions.eq("usersByCreatedBy.uid", userId), 
+					Restrictions.in("classId", classIds));
 			criteria.add(criterion);
 			criteria.addOrder(Order.desc("createdDate"));
 			posts = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
@@ -95,7 +94,7 @@ public class PostDAOImpl implements PostDAO{
 	}
 
 	@Override
-	public boolean updateCommentCount(Post post) {
+	public boolean updatePost(Post post) {
 		Boolean isUpdated = true;
 		Session session = HibernateUtil.getOpenSession();
 		Transaction transaction = null;
@@ -104,85 +103,6 @@ public class PostDAOImpl implements PostDAO{
 			Query query = session.createQuery("update Post set commentCount = :commentCount" +
 					" where id = :id");
 			query.setParameter("commentCount", post.getCommentCount());
-			query.setParameter("id", post.getId());
-			query.executeUpdate();
-			transaction.commit();
-		} catch (RuntimeException e) {
-			isUpdated = false;
-			e.printStackTrace();
-			isUpdated = false;
-			if (transaction != null) {
-				transaction.rollback();
-			}
-		} finally {
-			if (session != null)
-				session.close();
-		}
-		return isUpdated;
-	}
-	
-	@Override
-	public boolean updateLikeCount(Post post) {
-		Boolean isUpdated = true;
-		Session session = HibernateUtil.getOpenSession();
-		Transaction transaction = null;
-		try {
-			transaction = session.beginTransaction();
-			Query query = session.createQuery("update Post set likeCount = :likeCount" +
-					" where id = :id");
-			query.setParameter("likeCount", post.getLikeCount());
-			query.setParameter("id", post.getId());
-			query.executeUpdate();
-			transaction.commit();
-		} catch (RuntimeException e) {
-			isUpdated = false;
-			e.printStackTrace();
-			isUpdated = false;
-			if (transaction != null) {
-				transaction.rollback();
-			}
-		} finally {
-			if (session != null)
-				session.close();
-		}
-		return isUpdated;
-	}
-
-	@Override
-	public List<Post> getScheduledPosts() {
-		Session session = HibernateUtil.getOpenSession();
-		Transaction transaction=null;
-		List<Post> posts=null;
-		try {
-			transaction=session.beginTransaction();
-			Criteria criteria = session.createCriteria(Post.class);
-			Criterion criterion= Restrictions.eq("isScheduled", true);
-			criteria.add(criterion);
-			criteria.addOrder(Order.desc("createdDate"));
-			posts = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-			transaction.commit();
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-			if (transaction != null)
-				transaction.rollback();
-
-		}finally {
-			if (session != null)
-				session.close();
-		}
-		return posts;
-	}
-	
-	@Override
-	public boolean updateIsScheduled(Post post) {
-		Boolean isUpdated = true;
-		Session session = HibernateUtil.getOpenSession();
-		Transaction transaction = null;
-		try {
-			transaction = session.beginTransaction();
-			Query query = session.createQuery("update Post set isScheduled = :isScheduled" +
-					" where id = :id");
-			query.setParameter("isScheduled", post.getIsScheduled());
 			query.setParameter("id", post.getId());
 			query.executeUpdate();
 			transaction.commit();

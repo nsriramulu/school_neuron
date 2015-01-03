@@ -28,8 +28,7 @@
         <mapping class="com.sn.entity.Messages"></mapping>
         <mapping class="com.sn.entity.MessageUsers"></mapping>
         <mapping class="com.sn.entity.ProductAdmin"></mapping>
-        <mapping class="com.sn.entity.School"></mapping>
+        <mapping class="com.sn.entity.Schools"></mapping>
         <mapping class="com.sn.entity.UserUploads"></mapping>
-        <mapping class="com.sn.entity.Like"></mapping>
     </session-factory>
 </hibernate-configuration>

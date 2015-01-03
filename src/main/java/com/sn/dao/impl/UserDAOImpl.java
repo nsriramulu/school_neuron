@@ -1,17 +1,28 @@
 package com.sn.dao.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.context.annotation.Role;
 import org.springframework.stereotype.Component;
 
 import com.sn.dao.UserDAO;
+import com.sn.entity.Post;
 import com.sn.entity.User;
 import com.sn.utils.HibernateUtil;
+import com.sn.vo.UserDetailsVO;
+import com.sn.vo.UserProfileVO;
 
+/**
+ * Implements {@link UserDAO}}
+ * @see {@link UserDAO} for more details
+ * @author 424969
+ *
+ */
 @Component("usereDAO")
 public class UserDAOImpl implements UserDAO {
 

@@ -1,7 +1,7 @@
 package com.sn.security;
 
 import java.util.HashSet;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,11 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.sn.dao.ClassDAO;
-import com.sn.dao.SchoolDAO;
 import com.sn.dao.UserDAO;
-import com.sn.entity.ClassSubjectTeacher;
-import com.sn.entity.School;
 import com.sn.entity.User;
 import com.sn.vo.UserProfileVO;
 
@@ -31,19 +27,15 @@ import com.sn.vo.UserProfileVO;
  */
 @Component
 public class CustomUserDetailsAuthenticationProvider extends
-AbstractUserDetailsAuthenticationProvider {
-
+		AbstractUserDetailsAuthenticationProvider {
+	
 	@Autowired
 	private UserDAO userDAO;
-	@Autowired
-	private ClassDAO classDAO;
-	@Autowired
-	private SchoolDAO schoolDAO;
-
+	
 	@Override
 	protected void additionalAuthenticationChecks(UserDetails arg0,
 			UsernamePasswordAuthenticationToken arg1)
-					throws AuthenticationException {
+			throws AuthenticationException {
 		// TODO Auto-generated method stub
 
 	}
@@ -56,36 +48,26 @@ AbstractUserDetailsAuthenticationProvider {
 	@Override
 	protected UserDetails retrieveUser(String userName,
 			UsernamePasswordAuthenticationToken authToken)
-					throws AuthenticationException {
+			throws AuthenticationException {
 		String password = (String) authToken.getCredentials();
-		//		String tenantId=TenantKeyHelper.getTenantKey();
-		//		
-		//		if(StringUtils.isBlank(tenantId)){
-		//			throw new BadCredentialsException(messages.getMessage("invalid.url.errmsg", new Object[]{}, LocaleContextHolder.getLocale()));
-		//		}
-		School school = schoolDAO.getSchoolByCode("oxford");
-		if(school!=null){
-			User user = userDAO.authenticateUser(userName, password);
-			if (user == null){
-				throw new BadCredentialsException("Invalid username or password");
-			}
-			else{
-				List<ClassSubjectTeacher> classes = classDAO.getClassesByUserId(user.getUid());
-				return new UserProfileVO(userName, password,
-						true, 
-						true,
-						true,
-						true,
-						getAuthorities(user),
-						school,
-						user,
-						classes,
-						false);
-			}
+//		String tenantId=TenantKeyHelper.getTenantKey();
+//		
+//		if(StringUtils.isBlank(tenantId)){
+//			throw new BadCredentialsException(messages.getMessage("invalid.url.errmsg", new Object[]{}, LocaleContextHolder.getLocale()));
+//		}
+		User user = userDAO.authenticateUser(userName, password);
+		if (user == null){
+			throw new BadCredentialsException(messages.getMessage("invalid.username.errmsg", new Object[]{}, LocaleContextHolder.getLocale()));
 		}
 		else{
-			throw new BadCredentialsException("School is not registered");
-		}
+			return new UserProfileVO(userName, password,
+					true, 
+					true,
+					true,
+					true,
+					getAuthorities(user),
+					false);
+		} 
 	}
 
 	/**
@@ -97,15 +79,15 @@ AbstractUserDetailsAuthenticationProvider {
 	private Set<GrantedAuthority> getAuthorities(User user) {
 		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 
-		//		if (systemFeatures != null) {
-		//			Iterator<String> systemFeaturesIterator = systemFeatures.iterator();
-		//			while (systemFeaturesIterator.hasNext()) {
-		String role = user.getRole();
-		if (StringUtils.isNotEmpty(role)) {
-			authorities.add(new SimpleGrantedAuthority(role));
-		}
-		//			}
-		//		}
+//		if (systemFeatures != null) {
+//			Iterator<String> systemFeaturesIterator = systemFeatures.iterator();
+//			while (systemFeaturesIterator.hasNext()) {
+				String role = user.getRole();
+				if (StringUtils.isNotEmpty(role)) {
+					authorities.add(new SimpleGrantedAuthority(role));
+				}
+//			}
+//		}
 
 		return authorities;
 	}

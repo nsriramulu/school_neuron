@@ -6,13 +6,9 @@
 		<img src="${imageURL}/profile_image1.jpg" alt="profile image" />
 	</div>
 	<div class="col-xs-8 personDetails">
-		<div>
-			<c:choose>
-				<c:when test="${user.gender eq 'M'}">Mr. </c:when>
-				<c:otherwise>Miss. </c:otherwise>
-			</c:choose>${user.firstName}</div>
-		<div>${user.role}</div>
-		<div>${school.name}</div>
+		<div>Mr George</div>
+		<div>Teacher</div>
+		<div>Summer School</div>
 		<div>
 			<a href="#" class="more">Edit Profile</a>
 		</div>

@@ -26,11 +26,9 @@
 			<span class="whiteText"></span> 
 				<select class="dropdown_module"	id="postClass">
 					<option id="0">Class</option>
-					<c:forEach items="${classSubjectTeachers}" var ="classSubjectTeacher">
-						<option id="${classSubjectTeacher.classesByClassId.id}">${classSubjectTeacher.classesByClassId.className}
-							<c:choose> <c:when test="${not empty classSubjectTeacher.classesByClassId.section}">- ${classSubjectTeacher.classesByClassId.section}</c:when></c:choose>
-						</option>
-					</c:forEach>
+					<option id="1">6th 'D'</option>
+					<option id="2">7th 'A'</option>
+					<option id="3">10th 'C'</option>
 				</select> 
 				<i class="icon-large icon-attach pointerCursor" id="upload_post" title="Attach File"></i>
 			<!-- <i class="icon-large icon-alarm pointerCursor" id="schedule_post" title="Schedule to post automatically"></i> -->
