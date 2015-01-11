@@ -50,7 +50,7 @@ public class PostController {
 	@RequestMapping(value = "/submitComment", method = RequestMethod.POST)
 	public @ResponseBody String submitComment(ModelMap model,@RequestParam(value = "postId") Integer postId,
 			@RequestParam(value = "comment") String comment,
-			@RequestParam(value = "commentCount") Integer commentCount) {
+			@RequestParam(value = "commentCount") Integer commentCount) {//test git
 		return postService.submitComment(postId, comment, commentCount, WebContextHolder.get().getLoggedInUser().getUid());
 	}
 	
