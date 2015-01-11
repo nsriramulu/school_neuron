@@ -38,7 +38,7 @@ public class PostController {
 	public @ResponseBody String submitPost(ModelMap model,@RequestParam(value = "post") String post,
 			@RequestParam(value = "postClass") String postClass,
 			@RequestParam(value = "type") String type) {
-		return postService.submitPost(post, Integer.parseInt(postClass), type);
+		return postService.submitUpdate(post, Integer.parseInt(postClass), type);
 	}
 	
 	@RequestMapping(value = "/addLike", method = RequestMethod.POST)
@@ -61,5 +61,24 @@ public class PostController {
 			@RequestParam(value = "date") String date,
 			@RequestParam(value = "time") String time) {
 		return postService.schedulePost(post, Integer.parseInt(postClass), type, date, time);
+	}
+	
+	@RequestMapping(value = "/submitEvent", method = RequestMethod.POST)
+	public @ResponseBody String submitEvent(ModelMap model,@RequestParam(value = "eventTitle") String title,
+			@RequestParam(value = "eventDesc") String desc,
+			@RequestParam(value = "date") String date,
+			@RequestParam(value = "eventClass") String postClass,
+			@RequestParam(value = "type") String type) {
+		return postService.submitEvent(title,desc,date, Integer.parseInt(postClass), type);
+	}
+	
+	@RequestMapping(value = "/scheduleEvent", method = RequestMethod.POST)
+	public @ResponseBody String scheduleEvent(ModelMap model,@RequestParam(value = "eventTitle") String title,
+			@RequestParam(value = "eventClass") String eventClass,
+			@RequestParam(value = "eventDesc") String desc,
+			@RequestParam(value = "type") String type,
+			@RequestParam(value = "date") String date,
+			@RequestParam(value = "time") String time) {
+		return postService.scheduleEvent(title, Integer.parseInt(eventClass), type, date, desc,time);
 	}
 }

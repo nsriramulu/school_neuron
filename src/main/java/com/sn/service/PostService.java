@@ -6,7 +6,7 @@ import com.sn.entity.Post;
 
 
 public interface PostService {
-	String submitPost(String postText,Integer postClass, String type);
+	String submitUpdate(String postText,Integer postClass, String type);
 	List<Post> getPostsForTeacher(Integer teacherId,List<Integer> classId);
 	List<Post> getPostsForStudentOrParent(Integer classId);
 	String submitComment(Integer postId, String comment, Integer commentCount, Integer userId);
@@ -14,4 +14,8 @@ public interface PostService {
 	void submitScheduledPost(Object object);
 	List<Post> getScheduledPosts();
 	String addLike(Integer postId, Integer likeCount, Integer uid);
+	String submitEvent(String title, String desc, String date, int parseInt,
+			String type);
+	String scheduleEvent(String title, int parseInt, String type, String date,String desc,
+			String time);
 }

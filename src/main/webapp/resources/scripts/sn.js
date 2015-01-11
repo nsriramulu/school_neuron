@@ -38,37 +38,25 @@ $(document).ready(function(){
 			var $div = $('<div />').appendTo('body');
 			$div.addClass('modal-backdrop').css('opacity','0.5');
 			var url = "submitPost.do";
-			var json = { "post" : $('#updateText').val(), "postClass" : $('#postClass option:selected').attr('id'),
+			var json = { "post" : $('#updateText').val(), "postClass" : $('#eventClass option:selected').attr('id'),
 					"type" : "update"};
-			$.ajax({
-				type: "POST",
-				cache: false,
-				url: url,
-				data: json,
-				dataType: "json",
-				success: function(data){
-					$div.remove();
-					if(data.STATUS=="SUCCESS"){
-//						$('#postSuccessMessage').html(data.MESSAGE);
-//						$('#success-post-popup').modal('show');
-						window.location = 'home.do';
-					}
-					else{
-						$('#postFailureMessage').html(data.MESSAGE);
-						$('#failure-post-popup').modal('show');
-					}
-				}
-			});
+			ajaxPost(url,json);
 		}
 	});
-
-	$( ".like_link" ).click(function(event) {
-		var $div = $('<div />').appendTo('body');
-		$div.addClass('modal-backdrop').css('opacity','0.5');
-		var url = "addLike.do";
-		postId = $(this).attr('id').split('_like')[0];
-		likeCount = $('#'+postId+'_likeCount').text();
-		var json = { "postId" : postId, "likeCount" : likeCount};
+	
+	
+	$("#submit-event-btn").click(function(e){
+		if(validEvent()){
+			var $div = $('<div />').appendTo('body');
+			$div.addClass('modal-backdrop').css('opacity','0.5');
+			var url = "submitEvent.do";
+			var json = { "eventTitle" : $('#event_title').val(), "eventDesc" : $('#event_desc').val(), "date" : $('#datePickerForEvent').find('input[type=text]').val(), "eventClass" : $('#eventClass option:selected').attr('id'),"type" : "event"};
+			ajaxPost(url,json);
+		}
+	});
+	
+	
+	function ajaxPost(url,json){
 		$.ajax({
 			type: "POST",
 			cache: false,
@@ -76,11 +64,12 @@ $(document).ready(function(){
 			data: json,
 			dataType: "json",
 			success: function(data){
+				var $div = $('<div />').appendTo('body');
 				$div.remove();
 				if(data.STATUS=="SUCCESS"){
 //					$('#postSuccessMessage').html(data.MESSAGE);
-//					$('#success-post-popup').modal('show'); JSON.stringify(json)
-					$('#'+postId+'_likeCount').text(parseInt(likeCount)+1);
+//					$('#success-post-popup').modal('show');
+					window.location = 'home.do';
 				}
 				else{
 					$('#postFailureMessage').html(data.MESSAGE);
@@ -88,6 +77,16 @@ $(document).ready(function(){
 				}
 			}
 		});
+	}
+	
+	$( ".like_link" ).click(function(event) {
+		var $div = $('<div />').appendTo('body');
+		$div.addClass('modal-backdrop').css('opacity','0.5');
+		var url = "addLike.do";
+		postId = $(this).attr('id').split('_like')[0];
+		likeCount = $('#'+postId+'_likeCount').text();
+		var json = { "postId" : postId, "likeCount" : likeCount};
+		ajaxPost(url,json);
 	});
 	
 	$( ".comment_link" ).click(function(event) {
@@ -103,26 +102,7 @@ $(document).ready(function(){
 			postId = $(this).attr('id').split('_commentText')[0];
 			commentCount = $('#'+postId+'_commentCount').text();
 			var json = { "postId" : postId, "comment" : $(this).val(), "commentCount" : commentCount};
-			$.ajax({
-				type: "POST",
-				cache: false,
-				url: url,
-				data: json,
-				dataType: "json",
-				success: function(data){
-					$div.remove();
-					if(data.STATUS=="SUCCESS"){
-//						$('#postSuccessMessage').html(data.MESSAGE);
-//						$('#success-post-popup').modal('show'); JSON.stringify(json)
-						$('#'+postId+'_commentText').val('');
-						$('#'+postId+'_commentCount').text(parseInt(commentCount)+1);
-					}
-					else{
-						$('#postFailureMessage').html(data.MESSAGE);
-						$('#failure-post-popup').modal('show');
-					}
-				}
-			});
+			ajaxPost(url,json);
 		}
 	});
 
@@ -161,7 +141,14 @@ $(document).ready(function(){
 			$('#schedule-options-popup').modal('show');
 		}
 	});
-
+	
+	
+	$("#schedule_event-btn").click(function(){
+		if(validEvent()){
+			$('#schedule-options-popup').modal('show');
+		}
+	});
+	
 	$("#post_schedule_btn").click(function(e){
 		if(validPost()){
 			var $div = $('<div />').appendTo('body');
@@ -170,25 +157,7 @@ $(document).ready(function(){
 			var json = { "post" : $('#updateText').val(), "postClass" : $('#postClass option:selected').attr('id'),
 					"type" : "update", "date" : $('#datePickerForScheduler').find('input[type=text]').val(), 
 					"time" : $('#timePickerForScheduler').find('input[type=text]').val()};
-			$.ajax({
-				type: "POST",
-				cache: false,
-				url: url,
-				data: json,
-				dataType: "json",
-				success: function(data){
-					$div.remove();
-					if(data.STATUS=="SUCCESS"){
-//						$('#postSuccessMessage').html(data.MESSAGE);
-//						$('#success-post-popup').modal('show');
-						window.location = 'home.do';
-					}
-					else{
-						$('#postFailureMessage').html(data.MESSAGE);
-						$('#failure-post-popup').modal('show');
-					}
-				}
-			});
+			ajaxPost(url,json);
 		}
 	});
 
@@ -208,6 +177,21 @@ function validPost(){
 		return false;
 	}
 	else if($('#postClass option:selected').attr('id') == '0'){
+		$('#postFailureMessage').html("Select Class");
+		$('#failure-post-popup').modal('show');
+		return false;
+	}
+	return true;
+}
+
+
+function validEvent(){
+	if($('#event_title').val().length<=0 || $('#event_desc').val().length <= 0 || $('#datePickerForEvent').find('input[type=text]').val().length <=0){
+		$('#postFailureMessage').html("Enter all details");
+		$('#failure-post-popup').modal('show');
+		return false;
+	}
+	else if($('#eventClass option:selected').attr('id') == '0'){
 		$('#postFailureMessage').html("Select Class");
 		$('#failure-post-popup').modal('show');
 		return false;

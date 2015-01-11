@@ -34,11 +34,12 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private LikeDAO likeDAO;
 	@Override
-	public String submitPost(String postText, Integer classId, String type) {
+	public String submitUpdate(String postText, Integer classId, String type) {
 		String response = "";
 		boolean isSuccess = false;
 		try{
-			Post post = getPost(postText, classId, type);
+			Post post = getPost(classId, type);
+			post.setMessage(postText);
 			isSuccess = postDAO.insertPost(post);
 		}
 		catch(Exception e){
@@ -55,9 +56,9 @@ public class PostServiceImpl implements PostService {
 		return response;
 	}
 
-	private Post getPost(String postText, Integer classId, String type) {
+	private Post getPost(Integer classId, String type) {
 		Post post = new Post();
-		post.setMessage(postText);
+//		post.setMessage(postText);
 		post.setCommentCount(0);
 		post.setCreatedDate(Calendar.getInstance());
 		post.setLikeCount(0);
@@ -78,6 +79,12 @@ public class PostServiceImpl implements PostService {
 //			Set<PostClass> postClasses = new HashSet<>();
 //			postClasses.add(postClass);
 //			post.setPostClasses(postClasses);
+//		if("event".equals(type)){
+//			//todo
+//		}
+//		else if("update".equals(type)){
+//			post.setMessage(postText);
+//		}
 		return post;
 	}
 	
@@ -155,7 +162,8 @@ public class PostServiceImpl implements PostService {
 		String response = "";
 		boolean isSuccess = false;
 		try{
-			Post post = getPost(postText, classId, type);
+			Post post = getPost(classId, type);
+			post.setMessage(postText);
 			post.setIsScheduled(true);
 			Calendar scheduledDate = Calendar.getInstance();
 			scheduledDate.set(DateTimeUtils.getYear(date), DateTimeUtils.getMonth(date), DateTimeUtils.getDay(date), 
@@ -203,4 +211,71 @@ public class PostServiceImpl implements PostService {
 	public List<Post> getScheduledPosts() {
 		return postDAO.getScheduledPosts();
 	}
+
+	@Override
+	public String submitEvent(String title, String desc, String date,
+			int classId, String type) {
+
+		String response = "";
+		boolean isSuccess = false;
+		try{
+			Post post = getPost(classId, type);
+			post.setEventTitle(title);
+			post.setEventDesc(desc);
+			Calendar eventDate = Calendar.getInstance();
+			eventDate.set(DateTimeUtils.getYear(date), DateTimeUtils.getMonth(date), DateTimeUtils.getDay(date));
+			post.setEventDate(eventDate);
+			isSuccess = postDAO.insertPost(post);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			isSuccess = false;
+		}
+		if(isSuccess){
+			//EmailUtils.sendEmail()
+			response = JSONUtils.getSuccessJSONResponse(ResponseStatus.SUCCESS.getCode());
+		}
+		else{
+			response = JSONUtils.getErrorJSONRresponse(ResponseStatus.FAILURE.getCode());
+		}
+		return response;
+	
+	}
+
+	@Override
+	public String scheduleEvent(String title, int classId, String type, String desc,
+			String date, String time) {
+
+		String response = "";
+		boolean isSuccess = false;
+		try{
+			Post post = getPost(classId, type);
+			post.setEventTitle(title);
+			post.setEventDesc(desc);
+			post.setIsScheduled(true);
+			Calendar scheduledDate = Calendar.getInstance();
+			scheduledDate.set(DateTimeUtils.getYear(date), DateTimeUtils.getMonth(date), DateTimeUtils.getDay(date), 
+					DateTimeUtils.getHour(time), DateTimeUtils.getMinute(time), 0);
+			post.setScheduledDate(scheduledDate);
+			isSuccess = postDAO.insertPost(post);
+			if(isSuccess){
+				jobScheduler.schedule(post);
+			}
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			isSuccess = false;
+		}
+		if(isSuccess){
+			//EmailUtils.sendEmail()
+			response = JSONUtils.getSuccessJSONResponse(ResponseStatus.SUCCESS.getCode());
+		}
+		else{
+			response = JSONUtils.getErrorJSONRresponse(ResponseStatus.FAILURE.getCode());
+		}
+		return response;
+	}
+
+	
 }

@@ -63,7 +63,7 @@
 					value="" class="">
 			</div>
 		</div>
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-sm-2 paddingLeft50">Type</div>
 			<div class="col-sm-5">
 				<select id="event_type" class="">
@@ -74,7 +74,7 @@
 					<option>Cultural</option>
 				</select>
 			</div>
-		</div>
+		</div>-->
 		<div class="row paddingBottom10">
 			<div class="col-sm-2 paddingLeft50">Date</div>
 			<div class="col-sm-5">
@@ -91,7 +91,7 @@
 			<div class="col-sm-12 paddingTop5 darkGreyBg">
 		<div class="col-sm-6">
 			<span class="whiteText"></span> 
-				<select class="dropdown_module"	id="postClass">
+				<select class="dropdown_module"	id="eventClass">
 					<option id="0">Class</option>
 					<option id="1">6th 'D'</option>
 					<option id="2">7th 'A'</option>

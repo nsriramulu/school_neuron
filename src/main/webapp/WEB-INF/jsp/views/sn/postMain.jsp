@@ -34,7 +34,18 @@
 					</div>
 				</div>
 				<div class="col-xs-12">
-					<p class="">${post.message}</p>
+					<c:choose>
+						<c:when test="${post.type eq 'update'}">
+							<p class="">${post.message}</p>
+						</c:when>
+						<c:when test="${post.type eq 'event'}">
+							<p class="">
+								<div class="row">Title : ${post.eventTitle}</div>
+								<div class="row">Description : ${post.eventDesc}</div>
+								<div class="row">Date : <fmt:formatDate pattern="MMM dd yyyy" type="date" value="${post.eventDate.time}"/></div>
+							</p>
+						</c:when>
+					</c:choose>
 				</div>
 				<div class="col-xs-12">
 					<i class="icon-large icon-certificate pointerCursor"></i>

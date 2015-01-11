@@ -164,6 +164,46 @@ public class Post implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 	@XmlElement
 	Calendar postDate;
+	
+	public String getEventTitle() {
+		return eventTitle;
+	}
+
+	public void setEventTitle(String eventTitle) {
+		this.eventTitle = eventTitle;
+	}
+
+	public String getEventDesc() {
+		return eventDesc;
+	}
+
+	public void setEventDesc(String eventDesc) {
+		this.eventDesc = eventDesc;
+	}
+
+	public Calendar getEventDate() {
+		return eventDate;
+	}
+
+	public void setEventDate(Calendar eventDate) {
+		this.eventDate = eventDate;
+	}
+
+	@Column(name = "event_title")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	String eventTitle;
+	
+	@Column(name = "event_desc")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	String eventDesc;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "event_date")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Calendar eventDate;
 
 	/**
 	 */
