@@ -19,7 +19,7 @@
 			<tbody>
 				<tr class="trEvents pointerCursor" data-toggle="modal" data-target="#exampleModal">
 					<td>Naveen</td>
-					<td>I invite you all to join my 6th Graduation Day at
+					<td>I invite you all to join my 6th Graduation Day at 
 						Cambridge</td>
 					<td>13th January</td>
 					<td>Naveen</td>
