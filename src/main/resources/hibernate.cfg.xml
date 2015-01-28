@@ -24,12 +24,13 @@
         <mapping class="com.sn.entity.Comment"></mapping>
         <mapping class="com.sn.entity.ClassSubjectTeacher"></mapping>
         <mapping class="com.sn.entity.CommentLike"></mapping>
-        <mapping class="com.sn.entity.MessageConversations"></mapping>
-        <mapping class="com.sn.entity.Messages"></mapping>
+        <mapping class="com.sn.entity.MessageConversation"></mapping>
+        <mapping class="com.sn.entity.Message"></mapping>
         <mapping class="com.sn.entity.MessageUsers"></mapping>
         <mapping class="com.sn.entity.ProductAdmin"></mapping>
         <mapping class="com.sn.entity.School"></mapping>
         <mapping class="com.sn.entity.UserUploads"></mapping>
         <mapping class="com.sn.entity.Like"></mapping>
+        <mapping class="com.sn.entity.Subject"></mapping>
     </session-factory>
 </hibernate-configuration>

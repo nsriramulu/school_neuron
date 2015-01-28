@@ -1,6 +1,7 @@
 package com.sn.entity;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -9,16 +10,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -205,18 +204,35 @@ public class User implements Serializable {
 	Integer parentId;
 	/**
 	 */
+	
+	@Column(name = "student_id")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Integer studentId;
 
 	@Column(name = "status")
 	@Basic(fetch = FetchType.EAGER)
 	@XmlElement
 	Integer status;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "last_login_time")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Calendar lastLoginTime;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "last_logout_time")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Calendar lastLogOutTime;
 
 	/**
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({ @JoinColumn(name = "class_id", referencedColumnName = "id") })
-	@XmlTransient
-	Class classes;
+	@Column(name = "class_id")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Integer classId;
 	/**
 	 */
 	@OneToMany(mappedBy = "users", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
@@ -231,7 +247,7 @@ public class User implements Serializable {
 	 */
 	@OneToMany(mappedBy = "users", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	@XmlElement(name = "", namespace = "")
-	java.util.Set<com.sn.entity.MessageConversations> messageConversationses;
+	java.util.Set<com.sn.entity.MessageConversation> messageConversationses;
 	/**
 	 */
 	@OneToMany(mappedBy = "users", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
@@ -281,7 +297,7 @@ public class User implements Serializable {
 	 */
 	@OneToMany(mappedBy = "users", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	@XmlElement(name = "", namespace = "")
-	java.util.Set<com.sn.entity.Messages> messageses;
+	java.util.Set<com.sn.entity.Message> messageses;
 
 	/**
 	 */
@@ -571,6 +587,14 @@ public class User implements Serializable {
 		return this.parentId;
 	}
 
+	public Integer getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(Integer studentId) {
+		this.studentId = studentId;
+	}
+
 	/**
 	 */
 	public void setStatus(Integer status) {
@@ -583,17 +607,28 @@ public class User implements Serializable {
 		return this.status;
 	}
 
-	/**
-	 */
-	public void setClasses(Class classes) {
-		this.classes = classes;
+	public Calendar getLastLoginTime() {
+		return lastLoginTime;
 	}
 
-	/**
-	 */
-	@JsonIgnore
-	public Class getClasses() {
-		return classes;
+	public void setLastLoginTime(Calendar lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
+
+	public Calendar getLastLogOutTime() {
+		return lastLogOutTime;
+	}
+
+	public void setLastLogOutTime(Calendar lastLogOutTime) {
+		this.lastLogOutTime = lastLogOutTime;
+	}
+
+	public Integer getClassId() {
+		return classId;
+	}
+
+	public void setClassId(Integer classId) {
+		this.classId = classId;
 	}
 
 	/**
@@ -630,16 +665,16 @@ public class User implements Serializable {
 
 	/**
 	 */
-	public void setMessageConversationses(Set<MessageConversations> messageConversationses) {
+	public void setMessageConversationses(Set<MessageConversation> messageConversationses) {
 		this.messageConversationses = messageConversationses;
 	}
 
 	/**
 	 */
 	@JsonIgnore
-	public Set<MessageConversations> getMessageConversationses() {
+	public Set<MessageConversation> getMessageConversationses() {
 		if (messageConversationses == null) {
-			messageConversationses = new java.util.LinkedHashSet<com.sn.entity.MessageConversations>();
+			messageConversationses = new java.util.LinkedHashSet<com.sn.entity.MessageConversation>();
 		}
 		return messageConversationses;
 	}
@@ -790,16 +825,16 @@ public class User implements Serializable {
 
 	/**
 	 */
-	public void setMessageses(Set<Messages> messageses) {
+	public void setMessageses(Set<Message> messageses) {
 		this.messageses = messageses;
 	}
 
 	/**
 	 */
 	@JsonIgnore
-	public Set<Messages> getMessageses() {
+	public Set<Message> getMessageses() {
 		if (messageses == null) {
-			messageses = new java.util.LinkedHashSet<com.sn.entity.Messages>();
+			messageses = new java.util.LinkedHashSet<com.sn.entity.Message>();
 		}
 		return messageses;
 	}
@@ -839,10 +874,9 @@ public class User implements Serializable {
 		setIsRepresentative(that.getIsRepresentative());
 		setParentId(that.getParentId());
 		setStatus(that.getStatus());
-		setClasses(that.getClasses());
 		setCommentLikes(new java.util.LinkedHashSet<com.sn.entity.CommentLike>(that.getCommentLikes()));
 		setCommentsesForCreatedBy(new java.util.LinkedHashSet<com.sn.entity.Comment>(that.getCommentsesForCreatedBy()));
-		setMessageConversationses(new java.util.LinkedHashSet<com.sn.entity.MessageConversations>(that.getMessageConversationses()));
+		setMessageConversationses(new java.util.LinkedHashSet<com.sn.entity.MessageConversation>(that.getMessageConversationses()));
 		setPostLikes(new java.util.LinkedHashSet<com.sn.entity.PostLike>(that.getPostLikes()));
 		setClassSubjectTeachers(new java.util.LinkedHashSet<com.sn.entity.ClassSubjectTeacher>(that.getClassSubjectTeachers()));
 		setPostsesForUpdatedBy(new java.util.LinkedHashSet<com.sn.entity.Post>(that.getPostsesForUpdatedBy()));
@@ -852,7 +886,7 @@ public class User implements Serializable {
 		setClasseses(new java.util.LinkedHashSet<com.sn.entity.Class>(that.getClasseses()));
 		setCommentsesForUpdatedBy(new java.util.LinkedHashSet<com.sn.entity.Comment>(that.getCommentsesForUpdatedBy()));
 		setUserUploadses(new java.util.LinkedHashSet<com.sn.entity.UserUploads>(that.getUserUploadses()));
-		setMessageses(new java.util.LinkedHashSet<com.sn.entity.Messages>(that.getMessageses()));
+		setMessageses(new java.util.LinkedHashSet<com.sn.entity.Message>(that.getMessageses()));
 	}
 
 	/**

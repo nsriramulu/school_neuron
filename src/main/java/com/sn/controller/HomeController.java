@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.sn.common.WebContextHolder;
 import com.sn.entity.ClassSubjectTeacher;
 import com.sn.entity.Post;
+import com.sn.entity.User;
 import com.sn.service.PostService;
 import com.sn.vo.UserProfileVO;
 /**
@@ -52,6 +54,7 @@ public class HomeController {
 		try{
 			List<Integer> classIds = new ArrayList<Integer>();
 			UserProfileVO userProfile = WebContextHolder.get().getLoggedInUserProfile();
+			User user = userProfile.getUser();
 			List<ClassSubjectTeacher> classSubjectTeachers = userProfile.getClasses();
 			if(classSubjectTeachers!=null){
 				for(ClassSubjectTeacher classObj : userProfile.getClasses()){
@@ -59,9 +62,19 @@ public class HomeController {
 				}
 			}
 			session.setAttribute("school", userProfile.getSchool());
-			session.setAttribute("user", userProfile.getUser());
-			model.put("classSubjectTeachers", getUniqueClasses(classSubjectTeachers));
-			List<Post> posts = postService.getPostsForTeacher(WebContextHolder.get().getLoggedInUser().getUid(), classIds);
+			session.setAttribute("user", user);
+			List<Post> posts = null;
+			if(StringUtils.equalsIgnoreCase("Teacher",user.getRole())){
+				session.setAttribute("classSubjectTeachers", classSubjectTeachers);//getUniqueClasses(classSubjectTeachers)
+				posts = postService.getPostsForTeacher(WebContextHolder.get().getLoggedInUser().getUid(), classIds);
+			}
+			else if(StringUtils.equalsIgnoreCase("Parent",user.getRole()) || StringUtils.equalsIgnoreCase("Student",user.getRole())){
+				posts = postService.getPostsForStudentOrParent(user.getClassId());
+			}
+			else if(StringUtils.equalsIgnoreCase("Principal",user.getRole())){
+				posts = postService.getPostsForPrincipal();
+			}
+			session.setAttribute("classSubjectTeachers", classSubjectTeachers);//getUniqueClasses(classSubjectTeachers)
 			model.put("posts", posts);
 		}
 		catch(Exception e){

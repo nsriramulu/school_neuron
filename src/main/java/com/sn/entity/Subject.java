@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(catalog = "test", name = "subjects")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(namespace = "core/org/sn/core/domain", name = "Subjects")
-public class Subjects implements Serializable {
+public class Subject implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -65,14 +65,14 @@ public class Subjects implements Serializable {
 
 	/**
 	 */
-	public Subjects() {
+	public Subject() {
 	}
 
 	/**
 	 * Copies the contents of the specified bean into this bean.
 	 *
 	 */
-	public void copy(Subjects that) {
+	public void copy(Subject that) {
 		setId(that.getId());
 		setSubjectName(that.getSubjectName());
 	}
@@ -106,9 +106,9 @@ public class Subjects implements Serializable {
 	public boolean equals(Object obj) {
 		if (obj == this)
 			return true;
-		if (!(obj instanceof Subjects))
+		if (!(obj instanceof Subject))
 			return false;
-		Subjects equalCheck = (Subjects) obj;
+		Subject equalCheck = (Subject) obj;
 		if ((id == null && equalCheck.id != null) || (id != null && equalCheck.id == null))
 			return false;
 		if (id != null && !id.equals(equalCheck.id))

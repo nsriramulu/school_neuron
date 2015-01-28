@@ -1,5 +1,6 @@
 package com.sn.dao.impl;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -57,7 +58,7 @@ public class PostDAOImpl implements PostDAO{
 					Restrictions.in("classId", classIds)));
 			
 			criteria.add(criterion);
-			criteria.addOrder(Order.desc("createdDate"));
+			criteria.addOrder(Order.desc("postDate"));
 			posts = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 			transaction.commit();
 		} catch (RuntimeException e) {
@@ -198,6 +199,62 @@ public class PostDAOImpl implements PostDAO{
 				session.close();
 		}
 		return isUpdated;
+	}
+
+	@Override
+	public List<Post> getPostsForNotification(Integer uid,
+			List<Integer> classIds, Calendar calendar) {
+
+		Session session = HibernateUtil.getOpenSession();
+		Transaction transaction=null;
+		List<Post> posts=null;
+		try {
+			transaction=session.beginTransaction();
+			Criteria criteria = session.createCriteria(Post.class);
+			//			Junction disjunction = Restrictions.disjunction(); 
+			//	        for (Integer classId: classIds) {
+			//	            disjunction = disjunction.add(Restrictions.eq("classId", classId));
+			//	        }
+			//	        criteria.add(disjunction);
+			Criterion criterion= Restrictions.and(Restrictions.eqOrIsNull("isScheduled", false), Restrictions.or(Restrictions.eq("usersByCreatedBy.uid", uid), 
+					Restrictions.in("classId", classIds)),Restrictions.between("postDate", calendar,calendar.getInstance()));
+			
+			criteria.add(criterion);
+			criteria.addOrder(Order.desc("postDate"));
+			posts = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			transaction.commit();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			if (transaction != null)
+				transaction.rollback();
+
+		}finally {
+			if (session != null)
+				session.close();
+		}
+		return posts;
+	
+	}
+
+	@Override
+	public List<Post> getAllPosts() {
+		Session session = HibernateUtil.getOpenSession();
+		Transaction transaction=null;
+		List<Post> posts=null;
+		try {
+			transaction=session.beginTransaction();
+			Criteria criteria = session.createCriteria(Post.class);
+			posts = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			transaction.commit();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			if (transaction != null)
+				transaction.rollback();
+		}finally {
+			if (session != null)
+				session.close();
+		}
+		return posts;
 	}
 }
 

@@ -36,6 +36,66 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return user;
 	}
+
+	@Override
+	public boolean updateUser(User user) {
+		Boolean isUpdated = true;
+		Session session = HibernateUtil.getOpenSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+			session.update(user);
+			transaction.commit();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			isUpdated = false;
+			if (transaction != null) {
+				transaction.rollback();
+			}
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return isUpdated;
+	}
+
+	@Override
+	public List<User> getStudentsByClass(Integer classId) {
+		Session session = HibernateUtil.getOpenSession();
+		Transaction transaction = null;
+		List<User> users = null;
+		try {
+			transaction = session.beginTransaction();
+			Criteria criteria = session.createCriteria(User.class)
+					.add(Restrictions.eq("classId", classId))
+					.add(Restrictions.eq("role", "Student"));
+			users = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			transaction.commit();
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return users;
+	}
+
+	@Override
+	public List<User> getParentByStudent(Integer studentId) {
+		Session session = HibernateUtil.getOpenSession();
+		Transaction transaction = null;
+		List<User> users = null;
+		try {
+			transaction = session.beginTransaction();
+			Criteria criteria = session.createCriteria(User.class)
+					.add(Restrictions.eq("studentId", studentId))
+					.add(Restrictions.eq("role", "Parent"));
+			users = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			transaction.commit();
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return users;
+	}
 	
 		/* (non-Javadoc)
 	 * @see com.cts.umaas.dao.UserProfileDAO#getRoleIdForGiveUserId(java.lang.Long)

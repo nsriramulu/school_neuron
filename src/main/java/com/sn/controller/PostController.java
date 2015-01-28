@@ -81,4 +81,9 @@ public class PostController {
 			@RequestParam(value = "time") String time) {
 		return postService.scheduleEvent(title, Integer.parseInt(eventClass), type, date, desc,time);
 	}
+	
+	@RequestMapping(value = "/checkForNotifications", method = RequestMethod.GET)
+	public @ResponseBody String checkForNotifications() {
+		return postService.checkForNotifications();
+	}
 }

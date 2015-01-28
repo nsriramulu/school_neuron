@@ -63,6 +63,11 @@ public class Class implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 	@XmlElement
 	String section;
+
+	@Column(name = "code")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	String code;
 	
 	/**
 	 */
@@ -81,11 +86,9 @@ public class Class implements Serializable {
 	@XmlElement(name = "", namespace = "")
 	java.util.Set<com.sn.entity.ClassSubjectTeacher> classSubjectTeachersForSubjectId;
 	/**
-	 */
 	@OneToMany(mappedBy = "classes", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	@XmlElement(name = "", namespace = "")
 	java.util.Set<com.sn.entity.User> userses;
-	/**
 	 */
 	@OneToMany(mappedBy = "classes", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	@XmlElement(name = "", namespace = "")
@@ -135,6 +138,14 @@ public class Class implements Serializable {
 		this.section = section;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	/**
 	 */
 	public void setUsers(User users) {
@@ -181,13 +192,10 @@ public class Class implements Serializable {
 	}
 
 	/**
-	 */
 	public void setUserses(Set<User> userses) {
 		this.userses = userses;
 	}
 
-	/**
-	 */
 	@JsonIgnore
 	public Set<User> getUserses() {
 		if (userses == null) {
@@ -195,8 +203,6 @@ public class Class implements Serializable {
 		}
 		return userses;
 	}
-
-	/**
 	 */
 	public void setPostClasses(Set<PostClass> postClasses) {
 		this.postClasses = postClasses;
@@ -228,7 +234,7 @@ public class Class implements Serializable {
 		setUsers(that.getUsers());
 		setClassSubjectTeachersForClassId(new java.util.LinkedHashSet<com.sn.entity.ClassSubjectTeacher>(that.getClassSubjectTeachersForClassId()));
 		setClassSubjectTeachersForSubjectId(new java.util.LinkedHashSet<com.sn.entity.ClassSubjectTeacher>(that.getClassSubjectTeachersForSubjectId()));
-		setUserses(new java.util.LinkedHashSet<com.sn.entity.User>(that.getUserses()));
+//		setUserses(new java.util.LinkedHashSet<com.sn.entity.User>(that.getUserses()));
 		setPostClasses(new java.util.LinkedHashSet<com.sn.entity.PostClass>(that.getPostClasses()));
 	}
 

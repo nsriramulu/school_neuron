@@ -43,7 +43,7 @@ public class MessageUsers implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "message_id", referencedColumnName = "id") })
 	@XmlTransient
-	Messages messages;
+	Message messages;
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -65,14 +65,14 @@ public class MessageUsers implements Serializable {
 
 	/**
 	 */
-	public void setMessages(Messages messages) {
+	public void setMessages(Message messages) {
 		this.messages = messages;
 	}
 
 	/**
 	 */
 	@JsonIgnore
-	public Messages getMessages() {
+	public Message getMessages() {
 		return messages;
 	}
 

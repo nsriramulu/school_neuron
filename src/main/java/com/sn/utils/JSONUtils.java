@@ -3,6 +3,8 @@
  */
 package com.sn.utils;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,6 +32,15 @@ public class JSONUtils {
 			jsonObject.put(ResponseStatus.STATUS.getCode(), ResponseStatus.SUCCESS.getCode());
 			jsonObject.put(ResponseStatus.TITLE.getCode(), ResponseStatus.SUCCESS.getCode());
 			jsonObject.put(ResponseStatus.MESSAGE.getCode(), message);
+		return jsonObject.toString();
+	}
+	
+	public static String getSuccessJSONArrayResponse(List arrayItems) {
+		JSONObject jsonObject = new JSONObject();
+			jsonObject.put(ResponseStatus.STATUS.getCode(), ResponseStatus.SUCCESS.getCode());
+			jsonObject.put(ResponseStatus.TITLE.getCode(), ResponseStatus.SUCCESS.getCode());
+			JSONArray jsonArray = new JSONArray(arrayItems);
+			jsonObject.put(ResponseStatus.MESSAGE.getCode(), jsonArray);
 		return jsonObject.toString();
 	}
 	

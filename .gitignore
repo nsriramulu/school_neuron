@@ -1,0 +1,10 @@
+*.jsdtscope
+.project
+.jupiter
+.classpath
+*.prefs
+*.component
+.tpignore
+.settings
+bin
+target

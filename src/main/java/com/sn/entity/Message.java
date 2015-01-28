@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -34,7 +35,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(namespace = "core/org/sn/core/domain", name = "Messages")
 @XmlRootElement(namespace = "core/org/sn/core/domain")
-public class Messages implements Serializable {
+public class Message implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -44,6 +45,7 @@ public class Messages implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 	@Id
 	@XmlElement
+	@GeneratedValue
 	Integer id;
 	/**
 	 */
@@ -59,23 +61,27 @@ public class Messages implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 	@XmlElement
 	String subject;
-
+	
+	@Column(name = "student_id")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Integer studentId;
+	
+	@Column(name = "parent_id")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Integer parentId;
 	/**
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumns({ @JoinColumn(name = "created_by", referencedColumnName = "uid", nullable = false) })
 	@XmlTransient
 	User users;
 	/**
 	 */
-	@OneToMany(mappedBy = "messages", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "messages", cascade = { CascadeType.REMOVE }, fetch = FetchType.EAGER)
 	@XmlElement(name = "", namespace = "")
-	java.util.Set<com.sn.entity.MessageUsers> messageUserses;
-	/**
-	 */
-	@OneToMany(mappedBy = "messages", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
-	@XmlElement(name = "", namespace = "")
-	java.util.Set<com.sn.entity.MessageConversations> messageConversationses;
+	java.util.Set<com.sn.entity.MessageConversation> messageConversationses;
 
 	/**
 	 */
@@ -113,6 +119,22 @@ public class Messages implements Serializable {
 		return this.subject;
 	}
 
+	public Integer getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(Integer studentId) {
+		this.studentId = studentId;
+	}
+
+	public Integer getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
+
 	/**
 	 */
 	public void setUsers(User users) {
@@ -128,52 +150,35 @@ public class Messages implements Serializable {
 
 	/**
 	 */
-	public void setMessageUserses(Set<MessageUsers> messageUserses) {
-		this.messageUserses = messageUserses;
-	}
-
-	/**
-	 */
-	@JsonIgnore
-	public Set<MessageUsers> getMessageUserses() {
-		if (messageUserses == null) {
-			messageUserses = new java.util.LinkedHashSet<com.sn.entity.MessageUsers>();
-		}
-		return messageUserses;
-	}
-
-	/**
-	 */
-	public void setMessageConversationses(Set<MessageConversations> messageConversationses) {
+	public void setMessageConversationses(Set<MessageConversation> messageConversationses) {
 		this.messageConversationses = messageConversationses;
 	}
 
 	/**
 	 */
 	@JsonIgnore
-	public Set<MessageConversations> getMessageConversationses() {
+	public Set<MessageConversation> getMessageConversationses() {
 		if (messageConversationses == null) {
-			messageConversationses = new java.util.LinkedHashSet<com.sn.entity.MessageConversations>();
+			messageConversationses = new java.util.LinkedHashSet<com.sn.entity.MessageConversation>();
 		}
 		return messageConversationses;
 	}
 
 	/**
 	 */
-	public Messages() {
+	public Message() {
 	}
 
 	/**
 	 * Copies the contents of the specified bean into this bean.
 	 *
 	 */
-	public void copy(Messages that) {
+	public void copy(Message that) {
 		setId(that.getId());
 		setCreatedDate(that.getCreatedDate());
 		setSubject(that.getSubject());
 		setUsers(that.getUsers());
-		setMessageUserses(new java.util.LinkedHashSet<com.sn.entity.MessageUsers>(that.getMessageUserses()));
-		setMessageConversationses(new java.util.LinkedHashSet<com.sn.entity.MessageConversations>(that.getMessageConversationses()));
+		setMessageConversationses(new java.util.LinkedHashSet<com.sn.entity.MessageConversation>(that.getMessageConversationses()));
 	}
 
 	/**
@@ -206,9 +211,9 @@ public class Messages implements Serializable {
 	public boolean equals(Object obj) {
 		if (obj == this)
 			return true;
-		if (!(obj instanceof Messages))
+		if (!(obj instanceof Message))
 			return false;
-		Messages equalCheck = (Messages) obj;
+		Message equalCheck = (Message) obj;
 		if ((id == null && equalCheck.id != null) || (id != null && equalCheck.id == null))
 			return false;
 		if (id != null && !id.equals(equalCheck.id))

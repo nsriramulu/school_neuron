@@ -5,72 +5,86 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
-<c:url value="/resources/scripts" var="jsURL" />
-<c:url value="/resources/styles" var="cssURL" />
-<c:url value="/resources/images" var="imageURL" />
+<c:url value="/resources/js" var="jsURL" />
+<c:url value="/resources/css" var="cssURL" />
+<c:url value="/resources/img" var="imageURL" />
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>school neuron</title>
-<!-- Bootstrap -->
-<link href="${cssURL}/bootstrap.min.css" rel="stylesheet">
-<link href="${cssURL}/custom.css" rel="stylesheet">
-<link href="${cssURL}/bootstrap-datetimepicker.css" rel="stylesheet">
-<link href="${cssURL}/bootstrap.icon-large.min.css" rel="stylesheet">
-<link href="${cssURL}/popups.css" rel="stylesheet">
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <script type="text/javascript">
- 		var ctx = "<%=request.getContextPath()%>";
-	</script>
-	<% String ctx = request.getContextPath(); %>
-</head>
-<body class="admin">
-	<div class="container-fluid">
-		<tiles:insertAttribute name="header" />
-		<div class="col-sm-12 col-md-10 col-md-offset-1">
-			<!-- main content start -->
-			<div class="row main-content">
-				<!-- left content start -->
-				<div class="col-sm-4 col-md-4 logged-user-left-container">
-					<div class="col-sm-12 logged-user-left">
-						<tiles:insertAttribute name="profile" />
-						<tiles:insertAttribute name="menu" />
-						<tiles:insertAttribute name="noticeSection" />
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>School Neuron</title>
+    <link href="${cssURL}/bootstrap.min.css" rel="stylesheet">
+	<link href="${cssURL}/neuron.css" rel="stylesheet">
+  </head>
+  <body>
+	<div class="container">
+		<div class="row">
+			<!-- <div class="col-sm-1 col-md-1">
+			</div> -->
+			<div id="bodyContainer" class="col-sm-12 col-md-12" style="background:#e9eaec;">
+				</br>
+				<tiles:insertAttribute name="header" />
+				</br>
+				<div class="row">
+					<div class="col-sm-2 col-md-2">
+						<div class="profile-div">
+						<img src="${imageURL}/${user.role}.jpg" class="img-circle" alt="Cinque Terre" width="150" height="150">
+						</div>
+						<div class="left-section-2">
+						<div class="neuron-div">
+							${user.firstName} ${user.lastName}</br> ${user.role}, <br/>${school.name}
+						</div>
+						<security:authorize access="hasAnyRole('Principal,Teacher')">
+						<div id="myClassRoosm-div">
+							<h5 class="text-info">MY CLASSROOMS</h5>
+							<c:forEach var ="classSubjectTeacher" items="${classSubjectTeachers}">
+							<div class="neuron-div">
+								<a href="myClassRoom?classId=${classSubjectTeacher.classesByClassId.id}">${classSubjectTeacher.classesBySubjectId.subjectName} - ${classSubjectTeacher.classesByClassId.className}</a>
+							</div>
+							</c:forEach>
+						</div>
+						</security:authorize>
+						<div id="actions-div">
+							<h5 class="text-info">ACTIONS</h5>
+							<div class="neuron-div">
+								 <security:authorize access="hasAnyRole('Principal,Teacher')">
+									<a href="classRoom"><span>Create Classroom</span></a></br>
+								</security:authorize>
+								<a href="messages"><span>Private Messages</span></a><br/>
+							</div>
+						</div>
+						<div id="noticeBoard-div">
+							<h5 class="text-info">NOTICEBOARD</h5>
+							<div class="neuron-div">
+								<div><a href="events"><span>Events<span class="badge notice-board-badge">2</span></span></a></div>
+								<div><a href="assignments"><span>Assignments<span class="badge notice-board-badge">1</span></span></a></div>
+								<div><a href="polls"><span>Polls</span></a></div>
+							</div>
+						</div>
+						</div>
 					</div>
-				</div>
-				<!-- left content end -->
-				<!-- body content start -->
-				<div>
-					<div class="col-md-8 col-sm-8 logged-user-right">
-						<tiles:insertAttribute name="postTab"/>
+					<div id="body-home" class="col-sm-8 col-md-8">
+					<security:authorize access="hasAnyRole('Principal,Teacher,Student')">
+					<tiles:insertAttribute name="postTab"/>
+					</security:authorize>
+					</br>
 						<tiles:insertAttribute name="body" />
 					</div>
+					<div class="col-sm-2 col-md-2">
+						<h5 class="text-info">TRENDING</h5>
+						Annual day function on 25th Dec</br>
+						State first by Arun Setting
+					</div>
 				</div>
-				<!-- body content start -->
 			</div>
-			<!-- main content end -->
+			<!-- <div class="col-sm-1 col-md-1">
+			</div> -->
 		</div>
 	</div>
-	<!-- footer start -->
-	<tiles:insertAttribute name="footer" />
-	<!-- footer end -->
-
-	<script src="${jsURL}/jquery.min.js"></script>
+    <script src="${jsURL}/jquery.js"></script>
 	<script src="${jsURL}/bootstrap.min.js"></script>
-	<script src="${jsURL}/moment.js"></script>
-	<script src="${jsURL}/bootstrap-datetimepicker.js"></script>
-	<script src="${jsURL}/jquery.dataTables.min.js"></script>
-	<script src="${jsURL}/dataTables.bootstrap.js"></script>
-	<!-- <script src="${jsURL}/jquery.placeholder.js"></script>-->
 	<script src="${jsURL}/sn.js"></script>
-	<!--  <script src="js/popups.js"></script> -->
-</body>
+  </body>
 </html>

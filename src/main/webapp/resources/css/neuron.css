@@ -1,0 +1,106 @@
+div.neuron-div{
+	background:white;
+	border-radius: 10px;
+	padding: 5px;
+	margin-bottom:1px;
+	margin-bottom:1px;
+}
+
+body {
+	font-family: Futura Medium;
+	font-weight: bold;
+}
+
+input{
+	width:100%;
+	border-radius: 10px;
+	border:none;
+}
+.left-section-2{
+margin-left: -3px;
+margin-right: -20px;
+}
+div.neuron-div-hover:hover{
+	background:#4ca4c7;
+	color:white!important;
+}
+
+div.neuron-div-active {
+	background:#4ca4c7;
+	color:white;
+	border-radius: 10px;
+	font-family: Futura Medium !important;
+}
+
+button.neuron-btn {
+	background:#4ca4c7;
+	color:white;
+	border-radius: 10px;
+	font-family: Futura Medium !important;
+}
+
+button.neuron-btn:focus {
+	-webkit-box-shadow: none;
+    outline: none;
+}
+
+span.notice-board-badge{
+	background:#4ca4c7;
+	margin-left:5px;
+}
+
+span.header-badge{
+	background:red;
+	//margin-top:15px;
+	margin-left:-5px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+	border:none;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/*
+BG: e9eaec
+Header: 1f4c5e
+Text: adaeb0
+Button: 4ca4c7
+Drop box text: 626262
+Font Family: Futura Medium
+*/
+.pointerCursor{
+cursor:pointer;
+}
+.pointerWithLine{
+cursor:pointer;	
+color:#428bca;
+}
+.pointerWithLine:hover {
+   border-bottom: 1px solid #428bca;
+}
+.modal-header {
+  background: #1F4C5E;
+  color: white;
+  min-height: 12.42857143px !important;
+  padding: 5px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.modal-header .close {
+  color:white;
+}

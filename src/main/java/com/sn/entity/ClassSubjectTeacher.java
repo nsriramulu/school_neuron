@@ -47,10 +47,10 @@ public class ClassSubjectTeacher implements Serializable {
 	User users;
 	/**
 	 */
-	@ManyToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumns({ @JoinColumn(name = "subject_id", referencedColumnName = "id", nullable = false) })
 	@XmlTransient
-	Class classesBySubjectId;
+	Subject classesBySubjectId;
 	/**
 	 */
 	@OneToOne(fetch = FetchType.EAGER)
@@ -85,14 +85,14 @@ public class ClassSubjectTeacher implements Serializable {
 
 	/**
 	 */
-	public void setClassesBySubjectId(Class classesBySubjectId) {
+	public void setClassesBySubjectId(Subject classesBySubjectId) {
 		this.classesBySubjectId = classesBySubjectId;
 	}
 
 	/**
 	 */
 	@JsonIgnore
-	public Class getClassesBySubjectId() {
+	public Subject getClassesBySubjectId() {
 		return classesBySubjectId;
 	}
 

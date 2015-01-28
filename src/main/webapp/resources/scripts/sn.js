@@ -1,5 +1,33 @@
 $(document).ready(function(){
-
+	var brHeight = $(window).height();
+	var bodyContainerHeight = $('#bodyContainer').height();
+	if(bodyContainerHeight<brHeight)
+		$('#bodyContainer').height(brHeight);
+	
+	$('.neuron-tab').click(function(){
+		var divId = $(this).attr('id');
+		$('.neuron-tab').removeClass('neuron-div-active');
+		$(this).addClass('neuron-div-active');
+		$('.neuron-tab-content').hide();
+		$('#'+divId+'-content').show();
+	});
+	
+	var count = 1;
+	function addFileUploadEvent(id){
+		$("#updateAtachment"+count).change(function (){
+			$('#attachmentsList').append('<div class="col-md-12"></div>');
+			$('#attachmentsList').find('div:last').append(this);
+			count++;
+			var input = '<input name="updateAtachment'+count+'" id="updateAtachment'+count+'" type="file">';
+			$('#updateAtachmentDiv').find('span').append(input);
+			addFileUploadEvent('updateAtachment');
+			$('#updateAtachment'+(count-1)).unbind();
+		});
+	}
+	addFileUploadEvent('updateAtachment');
+	
+	setInterval(checkForNotifications, 10000);
+	
 	$(function() {
 		$('#datePickerForScheduler').datetimepicker({
 			pickTime: false,
@@ -38,7 +66,7 @@ $(document).ready(function(){
 			var $div = $('<div />').appendTo('body');
 			$div.addClass('modal-backdrop').css('opacity','0.5');
 			var url = "submitPost.do";
-			var json = { "post" : $('#updateText').val(), "postClass" : $('#eventClass option:selected').attr('id'),
+			var json = { "post" : $('#updateText').val(), "postClass" : $('#postClass option:selected').attr('id'),
 					"type" : "update"};
 			ajaxPost(url,json);
 		}
@@ -197,4 +225,25 @@ function validEvent(){
 		return false;
 	}
 	return true;
+}
+
+function checkForNotifications(){
+    $.ajax({
+        url: "checkForNotifications", 
+        type: "GET",
+        dataType: "json",
+        contentType: 'application/json',
+        success: function(data) {
+        	//{"MESSAGE":"1","STATUS":"SUCCESS","TITLE":"SUCCESS"}
+        	if(data.STATUS == 'SUCCESS'){
+        		$('#notificationCount').text(data.MESSAGE);
+        	   }
+        	else{
+        		alert("data.MESSAGE failure ");
+        	}
+        },
+        error: function(data){
+            //handle any error 
+        }
+    });
 }

@@ -1,5 +1,6 @@
 package com.sn.service.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import com.sn.entity.Post;
 import com.sn.quartz.JobScheduler;
 import com.sn.service.PostService;
 import com.sn.utils.JSONUtils;
+import com.sn.vo.UserProfileVO;
 
 @Component("postService")
 public class PostServiceImpl implements PostService {
@@ -38,8 +40,9 @@ public class PostServiceImpl implements PostService {
 		String response = "";
 		boolean isSuccess = false;
 		try{
-			Post post = getPost(classId, type);
+			Post post = buildPost(classId, type);
 			post.setMessage(postText);
+			post.setPostDate(Calendar.getInstance());
 			isSuccess = postDAO.insertPost(post);
 		}
 		catch(Exception e){
@@ -56,9 +59,9 @@ public class PostServiceImpl implements PostService {
 		return response;
 	}
 
-	private Post getPost(Integer classId, String type) {
+	private Post buildPost(Integer classId, String type) {
 		Post post = new Post();
-//		post.setMessage(postText);
+		//		post.setMessage(postText);
 		post.setCommentCount(0);
 		post.setCreatedDate(Calendar.getInstance());
 		post.setLikeCount(0);
@@ -68,40 +71,40 @@ public class PostServiceImpl implements PostService {
 		post.setType(type);
 		post.setClassId(classId);
 		post.setIsScheduled(false);
-//			User createdByUser = new User();
-//			createdByUser.setUid(1);
+		//			User createdByUser = new User();
+		//			createdByUser.setUid(1);
 		post.setUsersByCreatedBy(WebContextHolder.get().getLoggedInUser());
-//			com.sn.entity.Class classes = new Class();
-//			classes.setId(classId);
-//			PostClass postClass = new PostClass();
-//			postClass.setPosts(post);
-//			postClass.setClasses(getClassById(classId));
-//			Set<PostClass> postClasses = new HashSet<>();
-//			postClasses.add(postClass);
-//			post.setPostClasses(postClasses);
-//		if("event".equals(type)){
-//			//todo
-//		}
-//		else if("update".equals(type)){
-//			post.setMessage(postText);
-//		}
+		//			com.sn.entity.Class classes = new Class();
+		//			classes.setId(classId);
+		//			PostClass postClass = new PostClass();
+		//			postClass.setPosts(post);
+		//			postClass.setClasses(getClassById(classId));
+		//			Set<PostClass> postClasses = new HashSet<>();
+		//			postClasses.add(postClass);
+		//			post.setPostClasses(postClasses);
+		//		if("event".equals(type)){
+		//			//todo
+		//		}
+		//		else if("update".equals(type)){
+		//			post.setMessage(postText);
+		//		}
 		return post;
 	}
-	
+
 	private Class getClassById(Integer classId) {
 		Class class1 = null;
 		List<ClassSubjectTeacher> classSubjectTeachers = WebContextHolder.get().getLoggedInUserProfile().getClasses();
-			if(CollectionUtils.isNotEmpty(classSubjectTeachers)){
-				for(ClassSubjectTeacher classSubjectTeacher : classSubjectTeachers){
-					if(classSubjectTeacher.getClassesByClassId().getId().intValue() == classId.intValue()){
-						class1 = classSubjectTeacher.getClassesByClassId();
-						break;
-					}
+		if(CollectionUtils.isNotEmpty(classSubjectTeachers)){
+			for(ClassSubjectTeacher classSubjectTeacher : classSubjectTeachers){
+				if(classSubjectTeacher.getClassesByClassId().getId().intValue() == classId.intValue()){
+					class1 = classSubjectTeacher.getClassesByClassId();
+					break;
 				}
 			}
+		}
 		return class1;
 	}
-	
+
 	@Override
 	public List<Post> getPostsForStudentOrParent(Integer classId) {
 		return postDAO.getPostsByClass(classId);
@@ -111,7 +114,7 @@ public class PostServiceImpl implements PostService {
 	public List<Post> getPostsForTeacher(Integer teacherId, List<Integer> classIds) {
 		return postDAO.getPostsByUserAndClass(teacherId, classIds);
 	}
-	
+
 
 	@Override
 	public String addLike(Integer postId, Integer likeCount, Integer uid) {
@@ -132,15 +135,15 @@ public class PostServiceImpl implements PostService {
 		}
 		return response;
 	}
-	
+
 	@Override
 	public String submitComment(Integer postId, String commentText, Integer commentCount, Integer userId) {
 		String response = "";
 		Comment comment = new Comment();
 		comment.setComment(commentText);
 		comment.setPostId(postId);
-//		User user = new User();
-//		user.setUid(userId);
+		//		User user = new User();
+		//		user.setUid(userId);
 		comment.setUsersByCreatedBy(WebContextHolder.get().getLoggedInUser());
 		comment.setCreatedDate(Calendar.getInstance());
 		Post post = new Post();
@@ -162,7 +165,7 @@ public class PostServiceImpl implements PostService {
 		String response = "";
 		boolean isSuccess = false;
 		try{
-			Post post = getPost(classId, type);
+			Post post = buildPost(classId, type);
 			post.setMessage(postText);
 			post.setIsScheduled(true);
 			Calendar scheduledDate = Calendar.getInstance();
@@ -173,7 +176,7 @@ public class PostServiceImpl implements PostService {
 			if(isSuccess){
 				jobScheduler.schedule(post);
 			}
-			
+
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -194,17 +197,17 @@ public class PostServiceImpl implements PostService {
 		boolean isSuccess = false;
 		if(object != null){
 			try{
-			Post post = (Post) object;
-			post.setIsScheduled(false);
-			post.setPostDate(Calendar.getInstance());
-			isSuccess = new PostDAOImpl().updateIsScheduled(post);
+				Post post = (Post) object;
+				post.setIsScheduled(false);
+				post.setPostDate(Calendar.getInstance());
+				isSuccess = new PostDAOImpl().updateIsScheduled(post);
 			}
 			catch(Exception e){
 				e.printStackTrace();
 				isSuccess = false;
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -219,7 +222,7 @@ public class PostServiceImpl implements PostService {
 		String response = "";
 		boolean isSuccess = false;
 		try{
-			Post post = getPost(classId, type);
+			Post post = buildPost(classId, type);
 			post.setEventTitle(title);
 			post.setEventDesc(desc);
 			Calendar eventDate = Calendar.getInstance();
@@ -239,7 +242,7 @@ public class PostServiceImpl implements PostService {
 			response = JSONUtils.getErrorJSONRresponse(ResponseStatus.FAILURE.getCode());
 		}
 		return response;
-	
+
 	}
 
 	@Override
@@ -249,7 +252,7 @@ public class PostServiceImpl implements PostService {
 		String response = "";
 		boolean isSuccess = false;
 		try{
-			Post post = getPost(classId, type);
+			Post post = buildPost(classId, type);
 			post.setEventTitle(title);
 			post.setEventDesc(desc);
 			post.setIsScheduled(true);
@@ -261,7 +264,7 @@ public class PostServiceImpl implements PostService {
 			if(isSuccess){
 				jobScheduler.schedule(post);
 			}
-			
+
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -277,5 +280,26 @@ public class PostServiceImpl implements PostService {
 		return response;
 	}
 
-	
+	@Override
+	public String checkForNotifications() {
+		String response = JSONUtils.getErrorJSONRresponse(ResponseStatus.FAILURE.getCode());
+		UserProfileVO userProfile = WebContextHolder.get().getLoggedInUserProfile();
+		List<ClassSubjectTeacher> classSubjectTeachers = userProfile.getClasses();
+		List<Integer> classIds = new ArrayList<Integer>();
+		if(classSubjectTeachers!=null){
+			for(ClassSubjectTeacher classObj : userProfile.getClasses()){
+				classIds.add(classObj.getClassesByClassId().getId());
+			}
+			List<Post> posts = postDAO.getPostsForNotification(userProfile.getUser().getUid(), classIds,userProfile.getUser().getLastLogOutTime());
+			if(posts !=null && CollectionUtils.isNotEmpty(posts)){
+				response = JSONUtils.getSuccessJSONResponse(posts.size()+"");
+			}
+		}
+		return response;
+	}
+
+	@Override
+	public List<Post> getPostsForPrincipal() {
+		return postDAO.getAllPosts();
+	}
 }

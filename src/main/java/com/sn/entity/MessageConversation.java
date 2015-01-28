@@ -7,6 +7,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -30,7 +31,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @Table(catalog = "test", name = "message_conversations")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(namespace = "core/org/sn/core/domain", name = "MessageConversations")
-public class MessageConversations implements Serializable {
+public class MessageConversation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -40,6 +41,7 @@ public class MessageConversations implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 	@Id
 	@XmlElement
+	@GeneratedValue
 	Integer id;
 	/**
 	 */
@@ -56,16 +58,22 @@ public class MessageConversations implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 	@XmlElement
 	Calendar createdDate;
-
+	
+//	@Column(name = "message_id", nullable = false)
+//	@Basic(fetch = FetchType.EAGER)
+//	@XmlElement
+//	Integer messageid;
+	
+	
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({ @JoinColumn(name = "parent_message_id", referencedColumnName = "id", nullable = false) })
+	@JoinColumns({ @JoinColumn(name = "message_id", referencedColumnName = "id", nullable = false) })
 	@XmlTransient
-	Messages messages;
+	Message messages;
 	/**
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumns({ @JoinColumn(name = "created_by", referencedColumnName = "uid", nullable = false) })
 	@XmlTransient
 	User users;
@@ -106,16 +114,24 @@ public class MessageConversations implements Serializable {
 		return this.createdDate;
 	}
 
+//	public Integer getMessageid() {
+//		return messageid;
+//	}
+//
+//	public void setMessageid(Integer messageid) {
+//		this.messageid = messageid;
+//	}
+
 	/**
 	 */
-	public void setMessages(Messages messages) {
+	public void setMessages(Message messages) {
 		this.messages = messages;
 	}
 
 	/**
 	 */
 	@JsonIgnore
-	public Messages getMessages() {
+	public Message getMessages() {
 		return messages;
 	}
 
@@ -134,14 +150,14 @@ public class MessageConversations implements Serializable {
 
 	/**
 	 */
-	public MessageConversations() {
+	public MessageConversation() {
 	}
 
 	/**
 	 * Copies the contents of the specified bean into this bean.
 	 *
 	 */
-	public void copy(MessageConversations that) {
+	public void copy(MessageConversation that) {
 		setId(that.getId());
 		setMessage(that.getMessage());
 		setCreatedDate(that.getCreatedDate());
@@ -179,9 +195,9 @@ public class MessageConversations implements Serializable {
 	public boolean equals(Object obj) {
 		if (obj == this)
 			return true;
-		if (!(obj instanceof MessageConversations))
+		if (!(obj instanceof MessageConversation))
 			return false;
-		MessageConversations equalCheck = (MessageConversations) obj;
+		MessageConversation equalCheck = (MessageConversation) obj;
 		if ((id == null && equalCheck.id != null) || (id != null && equalCheck.id == null))
 			return false;
 		if (id != null && !id.equals(equalCheck.id))

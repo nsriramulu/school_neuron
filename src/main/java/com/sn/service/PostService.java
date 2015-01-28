@@ -18,4 +18,6 @@ public interface PostService {
 			String type);
 	String scheduleEvent(String title, int parseInt, String type, String date,String desc,
 			String time);
+	String checkForNotifications();
+	List<Post> getPostsForPrincipal();
 }
