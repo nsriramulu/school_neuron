@@ -9,15 +9,15 @@
 		</div>
 		<security:authorize access="hasAnyRole('Principal,Teacher')">
 		<div id="div-event"
-			class="col-sm-3 col-md-3 neuron-tab neuron-div text-center neuron-div-hover pointerCursor">
+			class="col-sm-3 col-md-3 neuron-tab neuron-div neuron-tab-border text-center neuron-div-hover pointerCursor">
 			<span>Event</span>
 		</div>
 		<div
-			class="col-sm-3 col-md-3 neuron-tab neuron-div text-center neuron-div-hover pointerCursor">
+			class="col-sm-3 col-md-3 neuron-tab neuron-div neuron-tab-border text-center neuron-div-hover pointerCursor">
 			<span>Assignment</span>
 		</div>
 		<div
-			class="col-sm-3 col-md-3 neuron-tab neuron-div text-center neuron-div-hover pointerCursor">
+			class="col-sm-3 col-md-3 neuron-tab neuron-div neuron-tab-border text-center neuron-div-hover pointerCursor">
 			<span>Poll</span>
 		</div>
 		</security:authorize>
@@ -50,10 +50,13 @@
 				<span class="glyphicon glyphicon-globe"
 					style="color: #4ca4c7; font-size: 24px;"></span>
 			</div>
-			<div class="col-sm-3 col-md-3">
-				<button type="button" id="schedule_post-btn" class="btn neuron-btn btn-block btn-sm">Schedule</button>
+			<div class="col-sm-2 col-md-2">
+				
 			</div>
-			<div class="col-sm-3 col-md-3">
+			<div class="col-sm-2 col-md-2">
+				<a id="schedule_post-btn" href="#">Schedule</a>
+			</div>
+			<div class="col-sm-2 col-md-2 centered">
 				<button type="button" id="submit-post-btn" class="btn neuron-btn btn-block btn-sm">Send</button>
 			</div>
 		</div>
@@ -61,16 +64,16 @@
 	<div id="div-event-content" class="neuron-div neuron-tab-content"
 		style="margin-left: 10px; margin-right: 10px; display: none;">
 		<form class="form-horizontal">
-			<div class="control-group">
-				<label class="control-label" for="inputTitle">Title</label>
-				<div class="controls">
-					<input type="text" id="inputTitle" placeholder="Title">
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputTitle">Title</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" style="border-radius:10px;background:#e9eaec;height:30px;" id="inputTitle" placeholder="Title">
 				</div>
 			</div>
-			<div class="control-group">
-				<label class="control-label" for="inputDesc">Description</label>
-				<div class="controls">
-					<input type="password" id="inputDesc" placeholder="Description">
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputDesc">Description</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" style="border-radius:10px;background:#e9eaec;height:30px;" id="inputDesc" placeholder="Description">
 				</div>
 			</div>
 		</form>
