@@ -50,17 +50,14 @@ public class EventResult implements Serializable {
 //	user_id
 //	date_time
 //
-//	private static final long serialVersionUID = 1L;
-//
-//	/**
-//	 */
-//
-//	@Column(name = "id", nullable = false)
-//	@Basic(fetch = FetchType.EAGER)
-//	@Id 
-//	@GeneratedValue
-//	@XmlElement
-//	Integer id;
+	private static final long serialVersionUID = 1L;
+
+	@Column(name = "id", nullable = false)
+	@Basic(fetch = FetchType.EAGER)
+	@Id 
+	@GeneratedValue
+	@XmlElement
+	Integer id;
 //
 //	/**
 //	 */

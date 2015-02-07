@@ -10,12 +10,21 @@
 				items="${posts}">
 	<div class="neuron-div" style="margin-left: 10px; margin-right: 10px;">
 		<div>
-			<img src="${imageURL}/${post.usersByCreatedBy.role}.jpg" class="img-circle"
-				alt="Cinque Terre" width="30" height="30"> <span><b>${post.usersByCreatedBy.role}
-									${post.usersByCreatedBy.firstName}
-									${post.usersByCreatedBy.lastName}</b></span>&nbsp;&nbsp;
+			<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-circle"
+				alt="Cinque Terre" width="30" height="30"> <span><b>
+									<c:choose>
+										<c:when test="${user.uid eq post.usersByCreatedBy.uid}">
+										You
+										</c:when>
+										<c:otherwise>
+										${post.usersByCreatedBy.role}
+										${post.usersByCreatedBy.firstName}
+										${post.usersByCreatedBy.lastName}
+									</c:otherwise>
+									</c:choose>
+									</b></span>&nbsp;&nbsp;
 									<c:set var="calendar" value="${post.createdDate}" />
-			<span>Posted an update on - <fmt:formatDate pattern="MMM dd" type="date"
+			<span>Posted an ${post.type} on - <fmt:formatDate pattern="MMM dd" type="date"
 									value="${calendar.time}" />, <fmt:formatDate type="time"
 									value="${calendar.time}" /></span>
 		</div>
@@ -42,7 +51,7 @@
 		<!-- comment box -->
 		<div class="row"  id="${post.id}_commentDiv" style="display: none;">
 			<div class="col-sm-1 col-md-1">
-			<img src="${imageURL}/${user.role}.jpg" class="img-circle"
+			<img src="${imageURL}/${user.profilePic}" class="img-circle"
 				alt="Cinque Terre" width="30" height="30"> 
 			</div>
 			<div class="col-sm-11 col-md-11">
@@ -64,13 +73,13 @@
 						</div>
 						<div class="modal-body">
 							<div>
-			<img src="${imageURL}/${post.usersByCreatedBy.role}.jpg" class="img-circle"
+			<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-circle"
 				alt="Cinque Terre" width="30" height="30"> 
 				<span style="color: #4ca4c7" class="pointerWithLine">Naveen Kumar</span>
 		</div>
 		</br>
 		<div>
-			<img src="${imageURL}/${post.usersByCreatedBy.role}.jpg" class="img-circle"
+			<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-circle"
 				alt="Cinque Terre" width="30" height="30"> 
 				<span style="color: #4ca4c7" class="pointerWithLine">Naveen Kumar</span>
 		</div>
@@ -96,7 +105,7 @@
 						</div>
 						<div class="modal-body">
 							<div>
-			<img src="${imageURL}/${post.usersByCreatedBy.role}.jpg" class="img-circle"
+			<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-circle"
 				alt="Cinque Terre" width="30" height="30"> 
 				<span style="color: #4ca4c7" class="pointerWithLine">Naveen Kumar</span>&nbsp;&nbsp;
 				<span>Its really interesting! Thanks for an update!!!</span>

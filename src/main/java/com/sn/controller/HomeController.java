@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sn.common.WebContextHolder;
+import com.sn.constants.ApplicationConstants;
 import com.sn.entity.ClassSubjectTeacher;
 import com.sn.entity.Post;
 import com.sn.entity.User;
@@ -64,14 +65,14 @@ public class HomeController {
 			session.setAttribute("school", userProfile.getSchool());
 			session.setAttribute("user", user);
 			List<Post> posts = null;
-			if(StringUtils.equalsIgnoreCase("Teacher",user.getRole())){
+			if(StringUtils.equalsIgnoreCase(ApplicationConstants.TEACHER_ROLE,user.getRole())){
 				session.setAttribute("classSubjectTeachers", classSubjectTeachers);//getUniqueClasses(classSubjectTeachers)
-				posts = postService.getPostsForTeacher(WebContextHolder.get().getLoggedInUser().getUid(), classIds);
+				posts = postService.getPostsForTeacher(WebContextHolder.get().getLoggedInUser().getUid(), classIds,ApplicationConstants.POSTS_FOR_HOME_PAGE);
 			}
-			else if(StringUtils.equalsIgnoreCase("Parent",user.getRole()) || StringUtils.equalsIgnoreCase("Student",user.getRole())){
+			else if(StringUtils.equalsIgnoreCase(ApplicationConstants.PARENT_ROLE,user.getRole()) || StringUtils.equalsIgnoreCase(ApplicationConstants.STUDENT_ROLE,user.getRole())){
 				posts = postService.getPostsForStudentOrParent(user.getClassId());
 			}
-			else if(StringUtils.equalsIgnoreCase("Principal",user.getRole())){
+			else if(StringUtils.equalsIgnoreCase(ApplicationConstants.PRINCIPAL_ROLE,user.getRole())){
 				posts = postService.getPostsForPrincipal();
 			}
 			session.setAttribute("classSubjectTeachers", classSubjectTeachers);//getUniqueClasses(classSubjectTeachers)

@@ -30,7 +30,7 @@
 				<div class="row">
 					<div class="col-sm-2 col-md-2">
 						<div class="profile-div">
-						<img src="${imageURL}/${user.role}.jpg" class="img-circle" alt="Cinque Terre" width="150" height="150">
+						<img src="${imageURL}/${user.profilePic}" class="img-circle" alt="Cinque Terre" width="150" height="150">
 						</div>
 						<div class="left-section-2">
 							<div class="neuron-div">

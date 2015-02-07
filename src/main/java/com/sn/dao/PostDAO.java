@@ -23,5 +23,7 @@ public interface PostDAO {
 	List<Post> getPostsForNotification(Integer uid, List<Integer> classIds, Calendar calendar);
 
 	List<Post> getAllPosts();
+
+	List<Post> getEventsByUserAndClass(Integer teacherId, List<Integer> classIds);
 }
 

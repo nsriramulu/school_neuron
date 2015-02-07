@@ -14,6 +14,6 @@
 						<a href="home.do"><span class="glyphicon glyphicon-home pointerCursor" style="color:white;font-size:24px;margin-top:7px;" title="Home"></span></a> &nbsp;&nbsp;
 						<span class="glyphicon glyphicon-envelope" style="color:white;font-size:24px;margin-top:7px;"><span id="messageCount" class="badge header-badge"></span></span>&nbsp;&nbsp; 
 						<span class="glyphicon glyphicon-globe" style="color:white;font-size:24px;margin-top:7px;"><span id="notificationCount" class="badge header-badge"></span></span> &nbsp;&nbsp;
-						<a href="../logout.do"><img src="${imageURL}/${user.role}.jpg" class="img-circle" alt="Cinque Terre" width="30" height="30" style="margin-top:-10px;" title="Logout"></a>
+						<a href="../logout.do"><img src="${imageURL}/${user.profilePic}" class="img-circle" alt="Cinque Terre" width="30" height="30" style="margin-top:-10px;" title="Logout"></a>
 					</div>
 				</div>

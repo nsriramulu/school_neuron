@@ -256,5 +256,44 @@ public class PostDAOImpl implements PostDAO{
 		}
 		return posts;
 	}
+
+	@Override
+	public List<Post> getEventsByUserAndClass(Integer userId,
+			List<Integer> classIds) {
+		Session session = HibernateUtil.getOpenSession();
+		Transaction transaction=null;
+		List<Post> posts=null;
+		try {
+			transaction=session.beginTransaction();
+			Criteria criteria = session.createCriteria(Post.class);
+			//			Junction disjunction = Restrictions.disjunction(); 
+			//	        for (Integer classId: classIds) {
+			//	            disjunction = disjunction.add(Restrictions.eq("classId", classId));
+			//	        }
+			//	        criteria.add(disjunction);
+			Criterion criterion= Restrictions.and(
+										Restrictions.eqOrIsNull("isScheduled", false), 
+										Restrictions.or(
+												Restrictions.eq("usersByCreatedBy.uid", userId), 
+												Restrictions.in("classId", classIds)
+										),
+										Restrictions.isNotNull("eventTitle")
+										);
+			
+			criteria.add(criterion);
+			criteria.addOrder(Order.desc("postDate"));
+			posts = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			transaction.commit();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			if (transaction != null)
+				transaction.rollback();
+
+		}finally {
+			if (session != null)
+				session.close();
+		}
+		return posts;
+	}
 }
 

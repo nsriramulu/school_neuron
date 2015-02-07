@@ -7,7 +7,7 @@ import com.sn.entity.Post;
 
 public interface PostService {
 	String submitUpdate(String postText,Integer postClass, String type);
-	List<Post> getPostsForTeacher(Integer teacherId,List<Integer> classId);
+	List<Post> getPostsForTeacher(Integer teacherId,List<Integer> classId, String postFor);
 	List<Post> getPostsForStudentOrParent(Integer classId);
 	String submitComment(Integer postId, String comment, Integer commentCount, Integer userId);
 	String schedulePost(String post, int parseInt, String type, String date, String time);

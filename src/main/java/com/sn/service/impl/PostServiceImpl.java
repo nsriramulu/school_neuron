@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.sn.common.WebContextHolder;
 import com.sn.common.utils.DateTimeUtils;
+import com.sn.constants.ApplicationConstants;
 import com.sn.constants.ResponseStatus;
 import com.sn.dao.CommentDAO;
 import com.sn.dao.LikeDAO;
@@ -111,8 +112,18 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<Post> getPostsForTeacher(Integer teacherId, List<Integer> classIds) {
-		return postDAO.getPostsByUserAndClass(teacherId, classIds);
+	public List<Post> getPostsForTeacher(Integer teacherId, List<Integer> classIds,String postFor) {
+		List<Post> posts = null;
+		switch(postFor){
+		
+		case ApplicationConstants.POSTS_FOR_HOME_PAGE : posts =  postDAO.getPostsByUserAndClass(teacherId, classIds);
+		break;
+
+		case ApplicationConstants.POSTS_FOR_EVENT_PAGE : posts = postDAO.getEventsByUserAndClass(teacherId, classIds);
+		break;
+		
+		}
+		return posts;
 	}
 
 
