@@ -1,5 +1,7 @@
 package com.sn.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
@@ -9,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sn.common.WebContextHolder;
 import com.sn.service.PostService;
+import com.sn.vo.CommentsVO;
 
 
 /**
@@ -85,5 +89,18 @@ public class PostController {
 	@RequestMapping(value = "/checkForNotifications", method = RequestMethod.GET)
 	public @ResponseBody String checkForNotifications() {
 		return postService.checkForNotifications();
+	}
+	
+	@RequestMapping(value = "/showComments", method = RequestMethod.GET)
+	public @ResponseBody List<CommentsVO> showComments(ModelAndView model,@RequestParam(value = "postId") Integer postId) {//test git
+		List<CommentsVO> commentsVO=postService.showComments(postId);
+		String view="postMain";
+		model= new ModelAndView("postMain");
+		/*for(CommentsVO vo:commentsVOs){
+			System.out.println(vo.getComment());
+			System.out.println(vo.getUsername());
+		}*/
+		model.addObject("comments", commentsVO);
+		return commentsVO;
 	}
 }

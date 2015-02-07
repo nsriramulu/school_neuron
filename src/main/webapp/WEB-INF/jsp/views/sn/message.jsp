@@ -69,9 +69,10 @@
 	<div class="row">
 		<div class="form-group">
 			<div class="col-md-12" style="margin-top: 1px; margin-bottom: 1px;">
-				<input type="text" class="form-control" placeholder="To"
+				<div type="text" class="form-control" placeholder="To"
 					style="background: #e9eaec; border-radius: 10px; border: none; height: 25px; font-size: 11px;"
-					id="toEmail">
+					id="toEmail">To
+					</div>
 			</div>
 		</div>
 		<div class="form-group">

@@ -5,7 +5,7 @@
 <c:url value="/resources/img" var="imageURL" /><h5 class="text-info">ASSIGNMENT</h5>
 <div id="body-assignment" class="neuron-div" style="padding: 10px;">
 	<div>
-		<img src="${imageURL}/profile-pic.jpg" class="img-circle"
+		<img src="${imageURL}/${user.profilePic}" class="img-circle"
 			alt="Cinque Terre" width="30" height="30"> <span><b>Kuldeep</b></span>&nbsp;&nbsp;
 		<span>Created an assignment - </span><span>5min before</span>
 	</div>

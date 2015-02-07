@@ -24,6 +24,7 @@ import com.sn.entity.Post;
 import com.sn.quartz.JobScheduler;
 import com.sn.service.PostService;
 import com.sn.utils.JSONUtils;
+import com.sn.vo.CommentsVO;
 import com.sn.vo.UserProfileVO;
 
 @Component("postService")
@@ -137,13 +138,17 @@ public class PostServiceImpl implements PostService {
 		Post post = new Post();
 		post.setId(postId);
 		post.setLikeCount(likeCount+1);
-		if(likeDAO.addLike(like) &&	postDAO.updateLikeCount(post))
-		{
-			response = JSONUtils.getSuccessJSONResponse(ResponseStatus.SUCCESS.getCode());
-		}
-		else{
-			response = JSONUtils.getErrorJSONRresponse(ResponseStatus.FAILURE.getCode());
-		}
+		if(postId!=uid){
+			if(likeDAO.addLike(like) &&	postDAO.updateLikeCount(post))
+			{
+				response = JSONUtils.getSuccessJSONResponse(ResponseStatus.SUCCESS.getCode());
+			}
+			else{
+				response = JSONUtils.getErrorJSONRresponse(ResponseStatus.FAILURE.getCode()+""+"You already appriciated");
+			}
+			}else{
+				response = JSONUtils.getErrorJSONRresponse(ResponseStatus.FAILURE.getCode());
+			}
 		return response;
 	}
 
@@ -312,5 +317,11 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public List<Post> getPostsForPrincipal() {
 		return postDAO.getAllPosts();
+	}
+	
+	@Override
+	public List<CommentsVO> showComments(Integer postId) {
+		// TODO Auto-generated method stub
+		return postDAO.getAllComments(postId);
 	}
 }
