@@ -1,6 +1,8 @@
 package com.sn.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.sn.dao.PostDAO;
 import com.sn.entity.Post;
 import com.sn.utils.HibernateUtil;
+import com.sn.vo.CommentsVO;
 
 @Component("postDAO")
 public class PostDAOImpl implements PostDAO{
@@ -255,6 +258,56 @@ public class PostDAOImpl implements PostDAO{
 				session.close();
 		}
 		return posts;
+	}
+
+	@Override
+	public List<CommentsVO> getAllComments(Integer postId) {
+		Session session = HibernateUtil.getOpenSession();
+		Transaction transaction=null;
+//		CommentsVO commentsVO=new CommentsVO();
+		ArrayList<CommentsVO> comments=new ArrayList<CommentsVO>();
+		try {
+			/*transaction=session.beginTransaction();
+			Criteria criteria = session.createCriteria(postId);
+			comments = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			Query query = session.createQuery("select a.comment,b.username from Comment a,User b where a.usersByCreatedBy=b.uid and a.postId="+postId);
+			comments=(List<CommentsVO>)query.list();
+			Iterator iterator=comments.iterator();
+			while (iterator.hasNext()) {
+				List<Object> voValues= (List<Object>) iterator.next();
+				Object voValues= (Object) iterator.next();
+					CommentsVO vo=new CommentsVO();
+					vo.setComments(voValues.get(0));
+					vo.setUserName(voValues.get(1));
+			}
+			commentsVO.setComments(comments.get(0).getComments());
+			commentsVO.setUserName(comments.get(1).getUserName());
+			Iterator<CommentsVO> iterator=comments.iterator();
+			while (iterator.hasNext()) {
+				
+			}
+			transaction.commit();*/
+		List<Object[]> vos = session.createQuery(
+			       "select a.comment,b.username from Comment a,User b where a.usersByCreatedBy=b.uid and a.postId=?")
+			       .setInteger(0, postId)
+			       .list();
+			  for(Object[] values : vos){
+			   CommentsVO commentsVO = new CommentsVO();
+			   commentsVO.setComment((String)values[0]);
+			   commentsVO.setUsername((String)values[1]);
+			   comments.add(commentsVO);
+			   System.out.println("Comment : "+commentsVO.getComment()+" user : "+commentsVO.getUsername());
+			  }
+			  
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			if (transaction != null)
+				transaction.rollback();
+		}finally {
+			if (session != null)
+				session.close();
+		}
+		return comments;
 	}
 }
 

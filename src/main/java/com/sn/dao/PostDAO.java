@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.sn.entity.Post;
+import com.sn.vo.CommentsVO;
 
 public interface PostDAO {
 	boolean insertPost(Post post);
@@ -23,5 +24,7 @@ public interface PostDAO {
 	List<Post> getPostsForNotification(Integer uid, List<Integer> classIds, Calendar calendar);
 
 	List<Post> getAllPosts();
+
+	List<CommentsVO> getAllComments(Integer postId);
 }
 

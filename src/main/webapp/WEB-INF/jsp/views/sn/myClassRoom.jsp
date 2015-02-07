@@ -8,45 +8,23 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>From</th>
-					<th>Message</th>
-					<th>Time</th>
-					<th>From</th>
-					<th>Message</th>
-					<th>Time</th>
+					<th>Name</th>
+					<th>Gender</th>
+					<th>Birthday</th>
+					<th>Email</th>
 				</tr>
 			</thead>
+			
 			<tbody>
-				<tr class="trEvents pointerCursor" data-toggle="modal" data-target="#exampleModal">
-					<td>Naveen</td>
-					<td>I invite you all to join my 6th Graduation Day at 
-						Cambridge</td>
-					<td>13th January</td>
-					<td>Naveen</td>
-					<td>I invite you all to join my 6th Graduation Day at
-						Cambridge</td>
-					<td>13th January</td>
+			  	<c:forEach var="student" items="${students}">
+			  	<tr class="trEvents pointerCursor" data-toggle="modal" data-target="#exampleModal">
+					<td>${student.firstName} ${student.lastName}</td>
+					<td>${student.gender}</td>
+					<td>${student.birthday}</td>
+					<td>${student.email}</td>
 				</tr>
-				<tr class="trEvents pointerCursor" data-toggle="modal" data-target="#exampleModal">
-					<td>Kuldeep</td>
-					<td>I invite you all to join my 7th Graduation Day at
-						Cambridge</td>
-					<td>13th January</td>
-					<td>Naveen</td>
-					<td>I invite you all to join my 6th Graduation Day at
-						Cambridge</td>
-					<td>13th January</td>
-				</tr>
-				<tr class="trEvents pointerCursor" data-toggle="modal" data-target="#exampleModal">
-					<td>Kuldeep</td>
-					<td>I invite you all to join my 8th Graduation Day at
-						Cambridge</td>
-					<td>13th Feb</td>
-					<td>Naveen</td>
-					<td>I invite you all to join my 6th Graduation Day at
-						Cambridge</td>
-					<td>13th January</td>
-				</tr>
+				</c:forEach>
+				
 			</tbody>
 		</table>
 	</div>

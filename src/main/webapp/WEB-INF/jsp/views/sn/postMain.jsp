@@ -98,8 +98,8 @@
 							<div>
 			<img src="${imageURL}/${post.usersByCreatedBy.role}.jpg" class="img-circle"
 				alt="Cinque Terre" width="30" height="30"> 
-				<span style="color: #4ca4c7" class="pointerWithLine">Naveen Kumar</span>&nbsp;&nbsp;
-				<span>Its really interesting! Thanks for an update!!!</span>
+				<span style="color: #4ca4c7" class="pointerWithLine">${comments.username}</span>&nbsp;&nbsp;
+				<span>${comments.comment</span>
 		</div>
 						</div>
 						<div class="modal-footer">

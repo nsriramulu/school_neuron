@@ -1,7 +1,5 @@
 package com.sn.controller;
 
-import static com.sn.constants.ApplicationConstants.SELECTED_MENU;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

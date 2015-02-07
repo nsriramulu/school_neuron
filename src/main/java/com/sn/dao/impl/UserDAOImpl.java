@@ -5,7 +5,9 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Component;
 
 import com.sn.dao.UserDAO;
@@ -66,10 +68,17 @@ public class UserDAOImpl implements UserDAO {
 		List<User> users = null;
 		try {
 			transaction = session.beginTransaction();
-			Criteria criteria = session.createCriteria(User.class)
-					.add(Restrictions.eq("classId", classId))
-					.add(Restrictions.eq("role", "Student"));
-			users = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			 users = session.createCriteria(User.class).
+					add(Restrictions.eq("classId", classId))
+					.add(Restrictions.eq("role", "Student")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			/*ProjectionList projList = Projections.projectionList().
+					add(Projections.property("firstName"))
+					.add(Projections.property("lastName"))
+					.add(Projections.property("gender"))
+					.add(Projections.property("birthday"))
+					.add(Projections.property("email"));*/
+//			criteria.setProjection(projList);
+//			users = 	criteria.setResultTransformer(Criteria.PROJECTION).list();
 			transaction.commit();
 		} finally {
 			if (session != null)

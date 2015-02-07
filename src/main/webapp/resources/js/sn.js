@@ -251,6 +251,7 @@ var dataTable = $('#example').dataTable();
 	        	        console.log("ID: " + data.MESSAGE[i].uid + " Message " +data.MESSAGE[i].firstName);
 	        	        $("#parentId").val(data.MESSAGE[i].uid);
 		        	    $("#parentName").val(data.MESSAGE[i].firstName+" "+data.MESSAGE[i].lastName);
+		        	    $("#toEmail").html('<span class="label label-default">'+data.MESSAGE[i].firstNmame+' '+data.MESSAGE[i].lastName+' X</span>');
 	        	    }
 	        	}
 	        	else{
@@ -395,3 +396,32 @@ function checkForNotifications(){
         }
     });
 }
+
+
+	
+$(".badge.notice-board-badge.pointerCursor").click(function(e){
+	alert("your there");
+	postId = $(post).get(id);//$(this).attr('id').split('_commentText')[0];
+	alert(postId);
+	var json = { "postId" : postId};
+//	var json = { "subject" : $('#messageSubject').val(), "message" : $('#messageText').val(), "studentId" : $('#messageStudent').children(":selected").attr("id"), "parentId" : $('#parentId').val()};
+	$.ajax({
+		url: "showComments.do", 
+		type: "GET",
+		data: json,
+		dataType: "json",
+		contentType: 'application/json',
+		success: function(data) {
+			data.text()
+			if(data.STATUS == 'SUCCESS'){
+				alert("hello");
+				alert(data.MESSAGE);
+			}
+			else{
+			}
+		},
+		error: function(data){
+			//handle any error 
+		}
+	});
+});

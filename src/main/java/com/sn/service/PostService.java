@@ -3,6 +3,7 @@ package com.sn.service;
 import java.util.List;
 
 import com.sn.entity.Post;
+import com.sn.vo.CommentsVO;
 
 
 public interface PostService {
@@ -20,4 +21,5 @@ public interface PostService {
 			String time);
 	String checkForNotifications();
 	List<Post> getPostsForPrincipal();
+	List<CommentsVO> showComments(Integer postId);
 }
