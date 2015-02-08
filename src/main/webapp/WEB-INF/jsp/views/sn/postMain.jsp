@@ -8,56 +8,55 @@
 		<c:when test="${fn:length(posts) gt 0}">
 			<c:forEach var="post" begin="0" end="${fn:length(posts)-1}"
 				items="${posts}">
-	<div class="neuron-div" style="margin-left: 10px; margin-right: 10px;">
-		<div>
-			<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-circle"
-				alt="Cinque Terre" width="30" height="30"> <span><b>
-									<c:choose>
-										<c:when test="${user.uid eq post.usersByCreatedBy.uid}">
-										You
-										</c:when>
-										<c:otherwise>
-										${post.usersByCreatedBy.role}
-										${post.usersByCreatedBy.firstName}
-										${post.usersByCreatedBy.lastName}
-									</c:otherwise>
-									</c:choose>
-									</b></span>&nbsp;&nbsp;
-									<c:set var="calendar" value="${post.createdDate}" />
-			<span>Posted an ${post.type} on - <fmt:formatDate pattern="MMM dd" type="date"
-									value="${calendar.time}" />, <fmt:formatDate type="time"
-									value="${calendar.time}" /></span>
-		</div>
-		<div style="padding-bottom: 5px;">
-			<input readonly
-				style="background: #e9eaec; height: 50px; padding: 5px;"
-				value="${post.message}">
-		</div>
-		<div class="row">
-			<div class="col-sm-3 col-md-3">
-				<span class="like_link" id="${post.id}_like"><img src="${imageURL}/appreciate.png"
-					class="img-rounded pointerCursor" width="20" height="20" /> <span
-					style="color: #4ca4c7" class="pointerWithLine">Appreciate</span></span>
-					<span class="badge notice-board-badge  pointerCursor" id="${post.id}_likeCount" data-toggle="modal" data-target="#likesModal">${post.likeCount}</span>
-			</div>
-			<div class="col-sm-3 col-md-3">
-				<span class="comment_link" id="${post.id}_comment"> <img src="${imageURL}/discuss.png"
-					class="img-rounded pointerCursor" width="20" height="20" /> <span
-					style="color: #4ca4c7" class="pointerWithLine">Discuss</span></span>
-					<span class="badge notice-board-badge  pointerCursor" id="${post.id}_commentCount" data-toggle="modal" data-target="#commentsModal">${post.commentCount}</span>
-			</div>
-			<div class="col-sm-6 col-md-6">&nbsp;</div>
-		</div>
-		<!-- comment box -->
-		<div class="row"  id="${post.id}_commentDiv" style="display: none;">
-			<div class="col-sm-1 col-md-1">
-			<img src="${imageURL}/${user.profilePic}" class="img-circle"
-				alt="Cinque Terre" width="30" height="30"> 
-			</div>
-			<div class="col-sm-11 col-md-11">
-				<input style="background: #e9eaec; height: 25px; padding: 5px;"	placeholder="Discuss your thoughts..." id="${post.id}_commentText" class="commentBox">
-			</div>
-		</div>
+				<div class="neuron-div" style="margin-left: 10px; margin-right: 10px; padding:15px;">
+					<div class="row">
+						<div class="col-sm-1 col-md-1">
+							<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-rounded" alt="Cinque Terre" width="100%" height="100%">
+							<span>${post.usersByCreatedBy.firstName}</span>
+							<span>${post.usersByCreatedBy.lastName}</span>
+						</div>
+						<div class="col-sm-11 col-md-11">
+							<div class="commentSectionBorder">
+								<div>
+									<p style="padding:5px;">${post.message}</p>
+								</div>
+								<hr class="neuron-Hline">
+								<div class="row">
+									<div class="col-sm-3 col-md-3">
+										<span class="like_link" id="${post.id}_like">
+											<img src="${imageURL}/appreciate.png" class="img-rounded pointerCursor" width="20" height="20" /> 
+											<span style="color: #4ca4c7" class="pointerWithLine">Appreciate</span>
+										</span>
+										<span class="badge notice-board-badge  pointerCursor" id="${post.id}_likeCount" data-toggle="modal" data-target="#likesModal">${post.likeCount}</span>
+									</div>
+									<div class="col-sm-3 col-md-3">
+										<span class="comment_link" id="${post.id}_comment">
+											<img src="${imageURL}/discuss.png" class="img-rounded pointerCursor" width="20" height="20" />
+											<span style="color: #4ca4c7" class="pointerWithLine">Discuss</span>
+										</span>
+										<span class="badge notice-board-badge  pointerCursor" id="${post.id}_commentCount" data-toggle="modal" data-target="#commentsModal">${post.commentCount}</span>
+									</div>
+									<div class="col-sm-1 col-md-1">
+									</div>
+									<div class="col-sm-5 col-md-5">
+										<c:set var="calendar" value="${post.createdDate}" />
+										<span> Updated on - <fmt:formatDate pattern="MMM dd" type="date" value="${calendar.time}" />, <fmt:formatDate type="time" value="${calendar.time}" />
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row"  id="${post.id}_commentDiv" style="display: none;">
+						<div class="col-sm-1 col-md-1">
+						<img src="${imageURL}/${user.profilePic}" class="img-circle"
+							alt="Cinque Terre" width="30" height="30"> 
+						</div>
+						<div class="col-sm-11 col-md-11">
+							<input style="background: #e9eaec; height: 25px; padding: 5px;"	placeholder="Discuss your thoughts..." id="${post.id}_commentText" class="commentBox">
+						</div>
+					</div>
 	</div>
 	</br>
 	<div class="modal fade" id="likesModal" tabindex="-1"
@@ -107,8 +106,8 @@
 							<div>
 			<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-circle"
 				alt="Cinque Terre" width="30" height="30"> 
-				<span style="color: #4ca4c7" class="pointerWithLine">${comments.username}</span>&nbsp;&nbsp;
-				<span>${comments.comment}</span>
+				<span style="color: #4ca4c7" class="pointerWithLine">Naveen Kumar</span>&nbsp;&nbsp;
+				<span>Its really interesting! Thanks for an update!!!</span>
 		</div>
 						</div>
 						<div class="modal-footer">
