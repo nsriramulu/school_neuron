@@ -2,30 +2,70 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<c:url value="/resources/img" var="imageURL" />
-<div id="myClassRoomDiv" class="neuron-div" style="margin-left: 10px; margin-right: 10px;padding: 10px;">
-	<div class="table-responsive">
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Gender</th>
-					<th>Birthday</th>
-					<th>Email</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-			  	<c:forEach var="student" items="${students}">
-			  	<tr class="trEvents pointerCursor" data-toggle="modal" data-target="#exampleModal">
-					<td>${student.firstName} ${student.lastName}</td>
-					<td>${student.gender}</td>
-					<td>${student.birthday}</td>
-					<td>${student.email}</td>
-				</tr>
-				</c:forEach>
-				
-			</tbody>
-		</table>
+
+<h5 class="text-info">CREATE CLASSROOM</h5>
+<div id="body-create-classroom" class="neuron-div">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="className" class="col-md-5 control-label">Class
+					Name</label>
+				<div class="col-md-7">
+					<input type="text" class="form-control"
+						style="background: #e9eaec; border-radius: 10px; border: none; height: 25px; font-size: 11px;"
+						id="className">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="grade" class="col-md-4 control-label">Grade</label>
+				<div class="col-md-8">
+					<select class="form-control" id="grade"
+						style="border-radius: 10px; background: #e9eaec; height: 25px; font-size: 11px;">
+						<option>- Select Grade -</option>
+						<option>Physics - 6A</option>
+						<option>Mathematics - 8C</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<div class="col-md-12">Invite By Email</div>
+				<div class="col-md-12" style="margin-top: 1px; margin-bottom: 1px;">
+					<textarea rows="3" class="form-control"
+						style="background: #e9eaec; border: none; font-size: 11px;"
+						placeholder="Enter Email Addresses to invite"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<div class="col-md-12">Share Classroom Code</div>
+				<div class="col-md-12" style="margin-top: 1px; margin-bottom: 1px;">
+					<textarea readonly rows="3" class="form-control"
+						style="background: #e9eaec; border: none; font-size: 11px;">Click on Generate Code to dynamically allocate a specific code to this classroom and share it with the students/parents</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+	</br>
+	<div class="row">
+		<div class="col-sm-1 col-md-1">&nbsp;</div>
+		<div class="col-sm-4 col-md-4">
+			<button type="button" class="btn neuron-btn btn-sm">Send
+				Invite</button>
+		</div>
+		<div class="col-sm-1 col-md-1">&nbsp;</div>
+		<div class="col-sm-1 col-md-1">&nbsp;</div>
+		<div class="col-sm-4 col-md-4">
+			<button type="button" class="btn neuron-btn btn-sm">Generate
+				Code</button>
+		</div>
+		<div class="col-sm-1 col-md-1">&nbsp;</div>
 	</div>
 </div>
