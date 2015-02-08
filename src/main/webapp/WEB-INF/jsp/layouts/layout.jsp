@@ -35,7 +35,7 @@
 								<div class="left-panel-neuron-div" style="height:95px;">
 									<div class="row" style="padding:12px;">
 										<div class="col-sm-4 col-md-4">
-											<img src="${imageURL}/${user.role}.jpg" class="img-rounded" alt="Cinque Terre" width="60px;" height="60px;">
+											<img src="${imageURL}/${user.profilePic}" class="img-rounded" alt="Cinque Terre" width="60px;" height="60px;">
 										</div>
 										<div class="col-sm-8 col-md-8" style="line-height: 20px;">
 											<p>${user.firstName} ${user.lastName}</br> ${user.role} <br/>${school.name}</p>
