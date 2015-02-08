@@ -11,9 +11,11 @@
       <input type="text" id="search" placeholder="&nbsp;&nbsp;Search..." style="margin-top:7px;">
      </div>
      <div class="col-xs-5 col-sm-5 col-md-3" >
-      <a href="home.do"><span class="glyphicon glyphicon-home pointerCursor neuron-glyphicon" title="Home"></span></a> &nbsp;&nbsp;
-      <span class="glyphicon glyphicon-envelope neuron-glyphicon"><span id="messageCount" class="badge header-badge"></span></span>&nbsp;&nbsp; 
-      <span class="glyphicon glyphicon-globe neuron-glyphicon"><span id="notificationCount" class="badge header-badge"></span></span> &nbsp;&nbsp;
+      <a href="home.do">
+		<img src="${imageURL}/home.png" width="34" height="30" style="margin-top:5px;">
+	  </a> &nbsp;&nbsp;
+	  <img src="${imageURL}/mail.png" width="34" height="30" style="margin-top:5px;"><span id="messageCount" class="badge header-badge">5</span>&nbsp;&nbsp; 
+	  <img src="${imageURL}/notification.png" width="30" height="30" style="margin-top:5px;"><span id="notificationCount" class="badge header-badge"></span>&nbsp;&nbsp;
       <a href="../logout.do"><img src="${imageURL}/${user.profilePic}" class="img-circle" alt="Cinque Terre" width="30" height="30" style="margin-top:-10px;" title="Logout"></a>
      </div>
     </div>

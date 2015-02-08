@@ -1,75 +1,91 @@
 div.neuron-div{
- background:white;
- /*border-radius: 10px;*/
- padding: 5px;
- margin-bottom:1px;
+	background:white;
+	/*border-radius: 10px;*/
+	padding: 5px;
+	margin-bottom:1px;
 }
 
+input.neuron-text{
+	border-radius:2px;
+	background:#e9eaec;
+	height:25px;
+	font-size: 11px;
+}
 
+select.neuron-select{
+	border-radius: 2px;
+	background: #e9eaec;
+	height: 25px;
+	font-size: 11px;
+}
 div.left-panel-neuron-div{
- background:white;
- /*border-radius: 10px;*/
- padding: 5px;
+	background:white;
+	/*border-radius: 10px;*/
+	padding: 5px;
 }
 
 body {
- font-family: Myriad Set Pro,Lucida Grande,Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;
- font-weight: 400;
- Color : #333;
- font-style : normal;
- font-size : 1.2em;
+	font-family: Myriad Set Pro,Lucida Grande,Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;
+	font-weight: 400;
+	Color : #333;
+	font-style : normal;
+	font-size : 1.2em;
 }
 
+form{
+	padding: 10px;
+}
 input{
- width:100%;
- border-radius: 10px;
- border:none;
+	width:100%;
+	border-radius: 2px;
+	border:none;
+	height:25px;
 }
 .left-section-2{
 
 
 }
 div.neuron-div-hover:hover{
- background:#ffffee;
- /*color:white!important;*/
+	background:#ffffee;
+	/*color:white!important;*/
 }
 
 div.neuron-div-active {
- background:grey !important;
- color:white;
+	background:grey !important;
+	color:white;
 }
 
 button.neuron-btn {
- background:#1f4c5e;
- color:white;
- border-radius: 10px;
- font-weight: bold;
+	background:grey;
+	color:white;
+	border-radius: 2px;
+	font-weight: bold;
 }
 
 button.neuron-btn:focus {
- -webkit-box-shadow: none;
+	-webkit-box-shadow: none;
     outline: none;
 }
 
 span.notice-board-badge{
- background:#4ca4c7;
- margin-left:5px;
+	background:#4ca4c7;
+	margin-left:5px;
 }
 
 span.header-badge{
- background:red;
- //margin-top:15px;
- margin-left:-5px;
+	background:red;
+	//margin-top:15px;
+	margin-left:-5px;
 }
 
 div.neuron-tab-border{
- border-left:1px solid grey;
- 
+	border-left:1px solid grey;
+	
 }
 .btn-file {
     position: relative;
     overflow: hidden;
- border:none;
+	border:none;
 }
 .btn-file input[type=file] {
     position: absolute;
@@ -88,20 +104,20 @@ div.neuron-tab-border{
 }
 
 .text-info{
- color:white;
+	color:white;
 }
 
 div.leftPanelSubHeader{
- color:white;
- background:#1f4c5e !important;
- margin-top: 20px;
+	color:white;
+	background:grey !important;
+	margin-top: 20px;
 }
 .padding5{
- padding:5px;
+	padding:5px;
 }
 div.leftPanelSubHeader div > a{
- color:#333 !important;
- 
+	color:#333 !important;
+	
 }
 /*
 BG: e9eaec
@@ -115,7 +131,7 @@ Font Family: Futura Medium
 cursor:pointer;
 }
 .pointerWithLine{
-cursor:pointer; 
+cursor:pointer;	
 color:#428bca;
 }
 .pointerWithLine:hover {
@@ -133,19 +149,20 @@ color:#428bca;
 }
 
 hr.neuron-Hline{
- margin-top: 5px;
- margin-bottom: 5px;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	
 }
 
 div.commentSectionBorder{
- border:solid 1px;
- border-color:#e9eaec;
- padding:2px;
- border-radius:4px;
+	border:solid 1px;
+	border-color:#e9eaec;
+	padding:2px;
+	border-radius:4px;
 }
 
 .neuron-glyphicon{
- color:white;
- font-size:24px;
- margin-top:7px;
+	color:white;
+	font-size:24px;
+	margin-top:7px;
 }

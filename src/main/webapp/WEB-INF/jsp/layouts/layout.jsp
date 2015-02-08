@@ -30,13 +30,20 @@
 				</br>
 				<div class="row">
 					<div class="col-sm-3 col-md-3">
-						<div class="profile-div">
-						<img src="${imageURL}/${user.profilePic}" class="img-rounded" alt="Cinque Terre" width="100%" height="100%">
-						</div>
 						<div class="left-section-2">
-							<div class="neuron-div">
-								${user.firstName} ${user.lastName}</br> ${user.role}, <br/>${school.name}
+							<div id="myProfile-div">
+								<div class="left-panel-neuron-div" style="height:95px;">
+									<div class="row" style="padding:12px;">
+										<div class="col-sm-4 col-md-4">
+											<img src="${imageURL}/${user.role}.jpg" class="img-rounded" alt="Cinque Terre" width="60px;" height="60px;">
+										</div>
+										<div class="col-sm-8 col-md-8" style="line-height: 20px;">
+											<p>${user.firstName} ${user.lastName}</br> ${user.role} <br/>${school.name}</p>
+										</div>
+									</div>
+								</div>
 							</div>
+						
 							<security:authorize access="hasAnyRole('Principal,Teacher')">
 							
 							<div id="myClassRoosm-div" class="leftPanelSubHeader">
@@ -58,9 +65,13 @@
 								</div>
 								<div class="neuron-div">
 									 <security:authorize access="hasAnyRole('Principal,Teacher')">
-										<a href="classRoom"><span>Create Classroom</span></a></br>
+									<div class="left-panel-neuron-div">
+										<a href="classRoom">Create Classroom</a>
+									</div>
 									</security:authorize>
-									<a href="messages"><span>Private Messages</span></a><br/>
+									<div class="left-panel-neuron-div">
+									<a href="messages">Private Messages</a>
+									</div>
 								</div>
 							</div>
 							<div id="noticeBoard-div"  class="leftPanelSubHeader">
@@ -68,9 +79,9 @@
 								<span class="text-info" style="padding: 5px">NOTICEBOARD</span>
 								</div>
 								<div class="neuron-div">
-									<div><a href="events"><span>Events<span class="badge notice-board-badge">2</span></span></a></div>
-									<div><a href="assignments"><span>Assignments<span class="badge notice-board-badge">1</span></span></a></div>
-									<div><a href="polls"><span>Polls</span></a></div>
+									<div class="left-panel-neuron-div"><a href="events">Events</a></div>
+									<div class="left-panel-neuron-div"><a href="assignments">Assignments</a></div>
+									<div class="left-panel-neuron-div"><a href="polls">Polls</a></div>
 								</div>
 							</div>
 						</div>
@@ -79,8 +90,7 @@
 						<security:authorize access="hasAnyRole('Principal,Teacher,Student')">
 						<tiles:insertAttribute name="postTab"/>
 						</security:authorize>
-						</br>
-							<tiles:insertAttribute name="body" />
+						<tiles:insertAttribute name="body" />
 					</div>
 					
 				</div>

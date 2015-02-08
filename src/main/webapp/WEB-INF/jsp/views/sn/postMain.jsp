@@ -27,14 +27,14 @@
 											<img src="${imageURL}/appreciate.png" class="img-rounded pointerCursor" width="20" height="20" /> 
 											<span style="color: #4ca4c7" class="pointerWithLine">Appreciate</span>
 										</span>
-										<span class="badge notice-board-badge  pointerCursor" id="${post.id}_likeCount" data-toggle="modal" data-target="#likesModal">${post.likeCount}</span>
+										
 									</div>
 									<div class="col-sm-3 col-md-3">
 										<span class="comment_link" id="${post.id}_comment">
 											<img src="${imageURL}/discuss.png" class="img-rounded pointerCursor" width="20" height="20" />
 											<span style="color: #4ca4c7" class="pointerWithLine">Discuss</span>
 										</span>
-										<span class="badge notice-board-badge  pointerCursor" id="${post.id}_commentCount" data-toggle="modal" data-target="#commentsModal">${post.commentCount}</span>
+										
 									</div>
 									<div class="col-sm-1 col-md-1">
 									</div>
@@ -50,7 +50,7 @@
 					
 					<div class="row"  id="${post.id}_commentDiv" style="display: none;">
 						<div class="col-sm-1 col-md-1">
-						<img src="${imageURL}/${user.profilePic}" class="img-circle"
+						<img src="${imageURL}/${user.profilePic}" class="img-rounded"
 							alt="Cinque Terre" width="30" height="30"> 
 						</div>
 						<div class="col-sm-11 col-md-11">
@@ -72,13 +72,13 @@
 						</div>
 						<div class="modal-body">
 							<div>
-			<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-circle"
+			<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-rounded"
 				alt="Cinque Terre" width="30" height="30"> 
 				<span style="color: #4ca4c7" class="pointerWithLine">Naveen Kumar</span>
 		</div>
 		</br>
 		<div>
-			<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-circle"
+			<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-rounded"
 				alt="Cinque Terre" width="30" height="30"> 
 				<span style="color: #4ca4c7" class="pointerWithLine">Naveen Kumar</span>
 		</div>
@@ -104,7 +104,7 @@
 						</div>
 						<div class="modal-body">
 							<div>
-			<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-circle"
+			<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-rounded"
 				alt="Cinque Terre" width="30" height="30"> 
 				<span style="color: #4ca4c7" class="pointerWithLine">Naveen Kumar</span>&nbsp;&nbsp;
 				<span>Its really interesting! Thanks for an update!!!</span>

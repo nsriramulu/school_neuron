@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <c:url value="/resources/img" var="imageURL" />
-<h5 class="text-info" style="margin-left: 10px; margin-right: 10px;">PRIVATE MESSAGE</h5>
+<h5 style="margin-left: 10px; margin-right: 10px;">PRIVATE MESSAGE</h5>
 <div class="row" style="margin-left: 10px; margin-right: 10px;">
 		<div id="div-new-message"
 			class="col-sm-3 col-md-3 neuron-tab neuron-div text-center neuron-div-hover neuron-div-active pointerCursor">
@@ -23,11 +23,10 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
-				<label for="className" class="col-md-5 control-label">Class
+				<label for="className" class="col-md-4 control-label">Class
 					Name</label>
-				<div class="col-md-7">
-					<select class="form-control" id="messageClassName"
-						style="border-radius: 10px; background: #e9eaec; height: 25px; font-size: 11px;">
+				<div class="col-md-8">
+					<select class="form-control neuron-select id="messageClassName">
 						<option id="0">- Select Class -</option>
 					<c:forEach items="${classSubjectTeachers}" var ="classSubjectTeacher">
 								<option id="${classSubjectTeacher.classesByClassId.id}">${classSubjectTeacher.classesBySubjectId.subjectName} - ${classSubjectTeacher.classesByClassId.className}</option>
@@ -36,70 +35,68 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-md-6"></div>
+	</div>
+	</br>
+	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
 				<label for="student" class="col-md-4 control-label">Student</label>
 				<div class="col-md-8">
-					<select class="form-control" id="messageStudent"
-						style="border-radius: 10px; background: #e9eaec; height: 25px; font-size: 11px;">
+					<select class="form-control neuron-select" id="messageStudent" >
 						<option>- Select Student -</option>
 					</select>
 				</div>
 			</div>
 		</div>
+		<div class="col-md-6"></div>
 	</div>
 	</br>
 	<div class="row">
-		<div class="col-md-3"></div>
 		<div class="col-md-6">
 			<div class="form-group">
-				<label for="parentName" class="col-md-5 control-label">Parent
+				<label for="parentName" class="col-md-4 control-label">Parent
 					Name</label>
-				<div class="col-md-7">
-					<input type="text" class="form-control"
-						style="background: #e9eaec; border-radius: 10px; border: none; height: 25px; font-size: 11px;"
+				<div class="col-md-8">
+					<input type="text" class="form-control neuron-text"
 						id="parentName" disabled="disabled"/>
 						<input type="hidden" id="parentId" name="parentId"/>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3"></div>
+		<div class="col-md-6"></div>
 	</div>
 	<hr>
-	<div class="row">
+	<div class="row" style="padding:10px;">
 		<div class="form-group">
-			<div class="col-md-12" style="margin-top: 1px; margin-bottom: 1px;">
-				<div type="text" class="form-control" placeholder="To"
-					style="background: #e9eaec; border-radius: 10px; border: none; height: 25px; font-size: 11px;"
-					id="toEmail">To
-					</div>
+			<div class="col-md-12" style="margin-top: 2px; margin-bottom: 2px;">
+				<input type="text" class="form-control neuron-text" placeholder="To"
+					id="toEmail">
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-md-12" style="margin-top: 1px; margin-bottom: 1px;">
-				<input type="text" class="form-control" placeholder="Subject"
-					style="background: #e9eaec; border-radius: 10px; border: none; height: 25px; font-size: 11px;"
-					id="messageSubject">
+			<div class="col-md-12" style="margin-top: 2px; margin-bottom: 2px;">
+				<input type="text" class="form-control neuron-text" placeholder="Subject" id="messageSubject">
 			</div>
 		</div>
 		<div class="form-group">
 
-			<div class="col-md-12" style="margin-top: 1px; margin-bottom: 1px;">
+			<div class="col-md-12" style="margin-top: 2px; margin-bottom: 2px;">
 				<textarea rows="3" class="form-control" id="messageText"
 					style="background: #e9eaec;" placeholder="Message"></textarea>
 			</div>
 		</div>
-
+		</br>
 		<div class="form-group">
-			<div class="col-sm-1 col-md-1">
+			<div class="col-sm-1 col-md-1" style="margin-top: 2px; margin-bottom: 2px;">
 				<span class="btn btn-default btn-file"> <img
 					src="${imageURL}/attachment.png" class="img-rounded" width="20"
 					height="20" /><input name="updateAtachment" id="updateAtachment"
 					type="file">
 				</span>
 			</div>
-			<div class="col-sm-8 col-md-8"></div>
-			<div class="col-sm-3 col-md-3">
+			<div class="col-sm-9 col-md-9"></div>
+			<div class="col-sm-2 col-md-2" style="margin-top: 2px; margin-bottom: 2px;">
 				<button type="button" class="btn neuron-btn btn-block btn-sm" id="sendMessage">Send</button>
 			</div>
 		</div>

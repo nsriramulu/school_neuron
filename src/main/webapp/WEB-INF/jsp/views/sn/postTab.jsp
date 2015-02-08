@@ -12,11 +12,11 @@
 			class="col-sm-3 col-md-3 neuron-tab neuron-div neuron-tab-border text-center neuron-div-hover pointerCursor">
 			<span>Event</span>
 		</div>
-		<div
+		<div id="div-assignment"
 			class="col-sm-3 col-md-3 neuron-tab neuron-div neuron-tab-border text-center neuron-div-hover pointerCursor">
 			<span>Assignment</span>
 		</div>
-		<div
+		<div id="div-poll"
 			class="col-sm-3 col-md-3 neuron-tab neuron-div neuron-tab-border text-center neuron-div-hover pointerCursor">
 			<span>Poll</span>
 		</div>
@@ -24,12 +24,18 @@
 	</div>
 	<div id="div-update-content" class="neuron-div neuron-tab-content"
 		style="margin-left: 10px; margin-right: 10px;">
-		<div style="padding-bottom: 5px;">
-			<textarea rows="2" class="form-control" id="updateComments"
-				style="background: #e9eaec;" placeholder="What you want to update?"></textarea>
-		</div>
+		
+			<div style="padding: 10px;">
+				<textarea rows="2" class="form-control" id="updateComments"
+					style="background: #e9eaec;" placeholder="What you want to update?"></textarea>
+			</div>
+		
 		<div class="row" id="attachmentsList"></div>
+		
 		<div class="row">
+			<div class="col-sm-1 col-md-1">
+				
+			</div>
 			<div class="col-sm-1 col-md-1" id="updateAtachmentDiv">
 				<span class="btn btn-default btn-file"> <img
 					src="${imageURL}/attachment.png" class="img-rounded" width="20"
@@ -37,9 +43,8 @@
 					type="file">
 				</span>
 			</div>
-			<div class="col-sm-4 col-md-4">
-				<select class="form-control" id="postClass"
-					style="border-radius: 10px; background: #e9eaec; height: 25px; font-size: 11px;">
+			<div class="col-sm-3 col-md-3">
+				<select class="form-control neuron-select" id="postClass">
 					<option id="0">- Select Class -</option>
 					<c:forEach items="${classSubjectTeachers}" var ="classSubjectTeacher">
 								<option id="${classSubjectTeacher.classesByClassId.id}">${classSubjectTeacher.classesBySubjectId.subjectName} - ${classSubjectTeacher.classesByClassId.className}</option>
@@ -53,7 +58,7 @@
 			<div class="col-sm-2 col-md-2">
 				
 			</div>
-			<div class="col-sm-2 col-md-2">
+			<div class="col-sm-2 col-md-2" style="padding:10px;">
 				<a id="schedule_post-btn" href="#">Schedule</a>
 			</div>
 			<div class="col-sm-2 col-md-2 centered">
@@ -67,24 +72,38 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="inputTitle">Title</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" style="border-radius:10px;background:#e9eaec;height:30px;" id="inputTitle" placeholder="Title">
+					<input type="text" class="form-control neuron-text" id="inputTitle" placeholder="Title">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="inputDesc">Description</label>
 				<div class="col-sm-10">
-					<input type="password" class="form-control" style="border-radius:10px;background:#e9eaec;height:30px;" id="inputDesc" placeholder="Description">
+					<input type="text" class="form-control neuron-text" id="inputDesc" placeholder="Description">
 				</div>
 			</div>
+			<div class="form-group">
+				<label for="dateEventTime" class="col-sm-2 control-label">Event Date</label>
+				<div class="col-sm-3">
+					<input type="date" class="form-control neuron-text" id="dateEventTime">
+				</div>
+				<label for="timeEventTime" class="col-sm-1 control-label">Time</label>
+				<div class="col-sm-2">
+					<input type="time" class="form-control neuron-text" id="timeEventTime">
+				</div>
+				<div class="col-sm-4"></div>
+			</div>
 		</form>
+		<hr class="neuron-Hline">
 		<div class="row">
+			<div class="col-sm-1 col-md-1">
+				
+			</div>
 			<div class="col-sm-1 col-md-1">
 				<img src="${imageURL}/attachment.png" class="img-rounded" width="20"
 					height="20" />
 			</div>
-			<div class="col-sm-4 col-md-4">
-				<select class="form-control"
-					style="border-radius: 10px; background: #e9eaec; height: 30px;">
+			<div class="col-sm-3 col-md-3">
+				<select class="form-control neuron-select">
 					<option id="0">- Select Class -</option>
 					<c:forEach items="${classSubjectTeachers}" var ="classSubjectTeacher">
 								<option id="${classSubjectTeacher.classesByClassId.id}">${classSubjectTeacher.classesBySubjectId.subjectName} - ${classSubjectTeacher.classesByClassId.className}</option>
@@ -95,10 +114,128 @@
 				<span class="glyphicon glyphicon-globe"
 					style="color: #4ca4c7; font-size: 24px;"></span>
 			</div>
-			<div class="col-sm-3 col-md-3">
-				<button type="button" class="btn neuron-btn btn-block btn-sm">Schedule</button>
+			<div class="col-sm-2 col-md-2">
+				
+			</div>
+			<div class="col-sm-2 col-md-2" style="padding:10px;">
+				<a id="schedule_post-btn" href="#">Schedule</a>
+			</div>
+			<div class="col-sm-2 col-md-2">
+				<button type="button" class="btn neuron-btn btn-block btn-sm">Send</button>
+			</div>
+		</div>
+	</div>
+	
+	<div id="div-assignment-content" class="neuron-div neuron-tab-content"
+		style="margin-left: 10px; margin-right: 10px; display: none;">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputTitle">Title</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control neuron-text" id="inputTitle" placeholder="Title">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputDesc">Description</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control neuron-text" id="inputDesc" placeholder="Description">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="dateEventTime" class="col-sm-2 control-label">Due Date</label>
+				<div class="col-sm-3">
+					<input type="date" class="form-control neuron-text" id="dateEventTime">
+				</div>
+				
+				<div class="col-sm-7"></div>
+			</div>
+		</form>
+		<hr class="neuron-Hline">
+		<div class="row">
+			<div class="col-sm-1 col-md-1">
+				
+			</div>
+			<div class="col-sm-1 col-md-1">
+				<img src="${imageURL}/attachment.png" class="img-rounded" width="20"
+					height="20" />
 			</div>
 			<div class="col-sm-3 col-md-3">
+				<select class="form-control neuron-select">
+					<option id="0">- Select Class -</option>
+					<c:forEach items="${classSubjectTeachers}" var ="classSubjectTeacher">
+								<option id="${classSubjectTeacher.classesByClassId.id}">${classSubjectTeacher.classesBySubjectId.subjectName} - ${classSubjectTeacher.classesByClassId.className}</option>
+							</c:forEach>
+				</select>
+			</div>
+			<div class="col-sm-1 col-md-1">
+				<span class="glyphicon glyphicon-globe"
+					style="color: #4ca4c7; font-size: 24px;"></span>
+			</div>
+			<div class="col-sm-2 col-md-2">
+				
+			</div>
+			<div class="col-sm-2 col-md-2" style="padding:10px;">
+				<a id="schedule_post-btn" href="#">Schedule</a>
+			</div>
+			<div class="col-sm-2 col-md-2">
+				<button type="button" class="btn neuron-btn btn-block btn-sm">Send</button>
+			</div>
+		</div>
+	</div>
+	
+	<div id="div-poll-content" class="neuron-div neuron-tab-content"
+		style="margin-left: 10px; margin-right: 10px; display: none;">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputTitle">Question</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control neuron-text" id="inputTitle" placeholder="Enter your question here...">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputDesc">Answer1: </label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control neuron-text" id="inputDesc" placeholder="Enter your answer...">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="inputDesc">Answer2: </label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control neuron-text" id="inputDesc" placeholder="Enter your answer...">
+				</div>
+			</div>
+		</form>
+		<div class="row">
+			<div class="col-sm-9 col-md-9">
+			</div>
+			<div class="col-sm-3 col-md-3">
+				<a id="add_poll_ans" class="text-right" href="#">Add more ans.</a>
+			</div>
+		</div>
+		<hr class="neuron-Hline">
+		<div class="row">
+			<div class="col-sm-1 col-md-1">
+				
+			</div>
+			<div class="col-sm-1 col-md-1">
+				<img src="${imageURL}/attachment.png" class="img-rounded" width="20" height="20" />
+			</div>
+			<div class="col-sm-3 col-md-3">
+				<select class="form-control neuron-select">
+					<option id="0">- Select Class -</option>
+					<c:forEach items="${classSubjectTeachers}" var ="classSubjectTeacher">
+								<option id="${classSubjectTeacher.classesByClassId.id}">${classSubjectTeacher.classesBySubjectId.subjectName} - ${classSubjectTeacher.classesByClassId.className}</option>
+							</c:forEach>
+				</select>
+			</div>
+			<div class="col-sm-1 col-md-1">
+				<span class="glyphicon glyphicon-globe"
+					style="color: #4ca4c7; font-size: 24px;"></span>
+			</div>
+			<div class="col-sm-4 col-md-4">
+				
+			</div>
+			<div class="col-sm-2 col-md-2">
 				<button type="button" class="btn neuron-btn btn-block btn-sm">Send</button>
 			</div>
 		</div>

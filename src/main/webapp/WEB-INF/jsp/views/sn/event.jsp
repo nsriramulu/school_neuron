@@ -3,48 +3,44 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <c:url value="/resources/img" var="imageURL" />
-<h5 class="text-info">EVENTS</h5>
+<h5>UPCOMING EVENTS</h5>
 
 <c:choose>
 		<c:when test="${fn:length(posts) gt 0}">
 			<c:forEach var="post" begin="0" end="${fn:length(posts)-1}"
 				items="${posts}">
 				<div id="body-assignment" class="neuron-div" style="padding: 10px;">
-	<div>
-		<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-circle"
-			alt="Cinque Terre" width="30" height="30"> <span><b>
+	<div class="row">
+		<div class="col-sm-1 col-md-1">
+			<img src="${imageURL}/${post.usersByCreatedBy.profilePic}" class="img-rounded" alt="Cinque Terre" width="100%" height="100%">
 									<c:choose>
 										<c:when test="${user.uid eq post.usersByCreatedBy.uid}">
 										You
 										</c:when>
 										<c:otherwise>
-										${post.usersByCreatedBy.role}
-										${post.usersByCreatedBy.firstName}
-										${post.usersByCreatedBy.lastName}
+										<span>${post.usersByCreatedBy.role}</span>
+										<span>${post.usersByCreatedBy.firstName}</span>
+										<span>${post.usersByCreatedBy.lastName}</span>
 									</c:otherwise>
 									</c:choose>
-									</b></span>&nbsp;&nbsp;
-									<c:set var="calendar" value="${post.createdDate}" />
-		<span>Created an event on - </span><span><fmt:formatDate pattern="MMM dd" type="date"
-									value="${calendar.time}" />, <fmt:formatDate type="time"
-									value="${calendar.time}" /></span>
-	</div>
-	<div>
-		<div id="event_name">
-			<h4>${post.eventTitle}</h4>
 		</div>
-		<div id="eventDesc">
-			<span>${post.eventDesc}</span>
-		</div>
-		<div id="eventDate">
-		<c:set var="eventDate" value="${post.eventDate}" />
+		<div class="col-sm-11 col-md-11">
+			<div class="commentSectionBorder">
+				<div id="event_name">
+					<span class="label label-info" style="float:right;margin-top:-12px;font-size:12px;">Events</span>
+					<h4>${post.eventTitle}</h4>
+				</div>
+				<div id="eventDesc">
+					<p style="padding:5px;">${post.eventDesc}</p>
+				</div>
+				<div id="eventDate" style="padding:5px;">
+					<c:set var="eventDate" value="${post.eventDate}" />
 			<span>on </span><span><fmt:formatDate pattern="MMM dd" type="date"
 									value="${eventDate.time}" />, <fmt:formatDate type="time"
 									value="${eventDate.time}" /></span>
-		</div>
-	</div>
-	</br>
-					<c:choose>
+				</div>
+				
+				<c:choose>
 						<c:when test="${user.uid eq post.usersByCreatedBy.uid}">
 							<div class="row">
 								<div class="col-md-1">YES</div>
@@ -77,21 +73,32 @@
 							</div>
 						</c:when>
 						<c:otherwise>
+						<hr class="neuron-Hline">
 						<div class="row">
-							<div class="col-sm-4 col-md-4">
+							<div class="col-sm-2 col-md-2">
 								<button type="button" class="btn neuron-btn center-block btn-sm">YES</button>
 							</div>
-							<div class="col-sm-4 col-md-4">
+							<div class="col-sm-2 col-md-2">
 								<button type="button" class="btn neuron-btn center-block btn-sm">NO</button>
 							</div>
-							<div class="col-sm-4 col-md-4">
+							<div class="col-sm-2 col-md-2">
 								<button type="button" class="btn neuron-btn center-block btn-sm">MAYBE</button>
+							</div>
+							<div class="col-sm-1 col-md-1">
+							</div>
+							<div class="col-sm-5 col-md-5">
+								<c:set var="calendar" value="${post.createdDate}" />
+									<span> Updated on - <fmt:formatDate pattern="MMM dd" type="date" value="${calendar.time}" />, <fmt:formatDate type="time" value="${calendar.time}" />
+									</span>
 							</div>
 						</div>
 						</c:otherwise>
 					</c:choose>
 			</div>
-	<br/>
+		</div>
+	</div>
+</div>
+<br/>
 	</c:forEach>
 	</c:when>
 	</c:choose>

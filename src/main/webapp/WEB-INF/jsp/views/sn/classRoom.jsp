@@ -3,16 +3,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<h5 class="text-info">CREATE CLASSROOM</h5>
+<h5>CREATE CLASSROOM</h5>
 <div id="body-create-classroom" class="neuron-div">
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
-				<label for="className" class="col-md-5 control-label">Class
-					Name</label>
+				<label for="className" class="col-md-5 control-label">Class Name</label>
 				<div class="col-md-7">
-					<input type="text" class="form-control"
-						style="background: #e9eaec; border-radius: 10px; border: none; height: 25px; font-size: 11px;"
+					<input type="text" class="form-control neuron-text"
 						id="className">
 				</div>
 			</div>
@@ -21,8 +19,7 @@
 			<div class="form-group">
 				<label for="grade" class="col-md-4 control-label">Grade</label>
 				<div class="col-md-8">
-					<select class="form-control" id="grade"
-						style="border-radius: 10px; background: #e9eaec; height: 25px; font-size: 11px;">
+					<select class="form-control neuron-select" id="grade">
 						<option>- Select Grade -</option>
 						<option>Physics - 6A</option>
 						<option>Mathematics - 8C</option>
