@@ -27,14 +27,14 @@
 											<img src="${imageURL}/appreciate.png" class="img-rounded pointerCursor" width="20" height="20" /> 
 											<span style="color: #4ca4c7" class="pointerWithLine">Appreciate</span>
 										</span>
-										
+										<span class="badge like-badge pointerCursor" id="${post.id}_likeCount" title="Click to see appreciators"> ${post.likeCount}</span>										
 									</div>
 									<div class="col-sm-3 col-md-3">
 										<span class="comment_link" id="${post.id}_comment">
 											<img src="${imageURL}/discuss.png" class="img-rounded pointerCursor" width="20" height="20" />
 											<span style="color: #4ca4c7" class="pointerWithLine">Discuss</span>
 										</span>
-										
+										<span class="badge like-badge pointerCursor" id="${post.id}_commentCount" title="Click to see discussions"> ${post.commentCount}</span>
 									</div>
 									<div class="col-sm-1 col-md-1">
 									</div>

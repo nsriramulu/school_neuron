@@ -62,8 +62,8 @@ public class PostController {
 	public @ResponseBody String schedulePost(ModelMap model,@RequestParam(value = "post") String post,
 			@RequestParam(value = "postClass") String postClass,
 			@RequestParam(value = "type") String type,
-			@RequestParam(value = "date") String date,
-			@RequestParam(value = "time") String time) {
+			@RequestParam(value = "scheduleDate") String date,
+			@RequestParam(value = "scheduleTime") String time) {
 		return postService.schedulePost(post, Integer.parseInt(postClass), type, date, time);
 	}
 	
@@ -71,19 +71,23 @@ public class PostController {
 	public @ResponseBody String submitEvent(ModelMap model,@RequestParam(value = "eventTitle") String title,
 			@RequestParam(value = "eventDesc") String desc,
 			@RequestParam(value = "date") String date,
+			@RequestParam(value = "time") String time,
 			@RequestParam(value = "eventClass") String postClass,
 			@RequestParam(value = "type") String type) {
-		return postService.submitEvent(title,desc,date, Integer.parseInt(postClass), type);
+		return postService.submitEvent(title,desc,date,time, Integer.parseInt(postClass), type);
 	}
-	
+//	"" : $('#inputTitle').val(), "" : $('#inputDesc').val(), "" : $('#dateEventTime').val(), "": $('#timeEventTime').val(), 
+//	"" : $('#eventClass option:selected').attr('id'),"" : "event"
 	@RequestMapping(value = "/scheduleEvent", method = RequestMethod.POST)
 	public @ResponseBody String scheduleEvent(ModelMap model,@RequestParam(value = "eventTitle") String title,
 			@RequestParam(value = "eventClass") String eventClass,
 			@RequestParam(value = "eventDesc") String desc,
 			@RequestParam(value = "type") String type,
 			@RequestParam(value = "date") String date,
-			@RequestParam(value = "time") String time) {
-		return postService.scheduleEvent(title, Integer.parseInt(eventClass), type, date, desc,time);
+			@RequestParam(value = "time") String time,
+			@RequestParam(value = "scheduleDate") String scheduleDate,
+			@RequestParam(value = "scheduleTime") String scheduleTime) {
+		return postService.scheduleEvent(title, Integer.parseInt(eventClass), type, date, desc,time,scheduleDate,scheduleTime);
 	}
 	
 	@RequestMapping(value = "/checkForNotifications", method = RequestMethod.GET)

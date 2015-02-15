@@ -74,8 +74,21 @@ span.notice-board-badge{
 
 span.header-badge{
 	background:red;
-	//margin-top:15px;
+	/*margin-top:15px;*/
 	margin-left:-5px;
+}
+
+span.like-badge{
+	background:#e9eaec;
+	Color : grey;
+	font-style : normal;
+}
+
+
+span.like-badge:hover{
+	background:grey;
+	Color : white;
+	font-style : normal;
 }
 
 div.neuron-tab-border{

@@ -41,7 +41,7 @@ $(document).ready(function(){
 	}
 	addFileUploadEvent('updateAtachment');
 	
-	setInterval(checkForNotifications, 10000);
+	//setInterval(checkForNotifications, 10000);
 	
 	/*		$(function() {
 		$('#datePickerForScheduler').datetimepicker({
@@ -93,7 +93,7 @@ var dataTable = $('#example').dataTable();
 			var $div = $('<div />').appendTo('body');
 			$div.addClass('modal-backdrop').css('opacity','0.5');
 			var url = "submitEvent.do";
-			var json = { "eventTitle" : $('#event_title').val(), "eventDesc" : $('#event_desc').val(), "date" : $('#datePickerForEvent').find('input[type=text]').val(), "eventClass" : $('#eventClass option:selected').attr('id'),"type" : "event"};
+			var json = { "eventTitle" : $('#inputTitle').val(), "eventDesc" : $('#inputDesc').val(), "date" : $('#dateEventTime').val(), "time": $('#timeEventTime').val(), "eventClass" : $('#eventClass option:selected').attr('id'),"type" : "event"};
 			ajaxPost(url,json);
 		}
 	});
@@ -107,8 +107,7 @@ var dataTable = $('#example').dataTable();
 			data: json,
 			dataType: "json",
 			success: function(data){
-				var $div = $('<div />').appendTo('body');
-				$div.remove();
+				$('.modal-backdrop').remove();
 				if(data.STATUS=="SUCCESS"){
 //					$('#postSuccessMessage').html(data.MESSAGE);
 //					$('#success-post-popup').modal('show');
@@ -251,8 +250,8 @@ var dataTable = $('#example').dataTable();
 	        	        console.log("ID: " + data.MESSAGE[i].uid + " Message " +data.MESSAGE[i].firstName);
 	        	        $("#parentId").val(data.MESSAGE[i].uid);
 		        	    $("#parentName").val(data.MESSAGE[i].firstName+" "+data.MESSAGE[i].lastName);
-		        	    $("#toEmail").html('<span class="label label-default">'+data.MESSAGE[i].firstName+' '+data.MESSAGE[i].lastName+' <span class="closeTo"></span></span>'+
-		        	    		'&nbsp;&nbsp;&nbsp;<span class="label label-default">'+ $("select#messageStudent").val()+' <span class="closeTo"></span></span>');
+		        	   // $("#toEmail").html('<span class="label label-default">'+data.MESSAGE[i].firstName+' '+data.MESSAGE[i].lastName+' <span class="closeTo"></span></span>'+
+		        	    //		'&nbsp;&nbsp;&nbsp;<span class="label label-default">'+ $("select#messageStudent").val()+' <span class="closeTo"></span></span>');
 	        	    }
 	        	}
 	        	else{
@@ -316,14 +315,14 @@ var dataTable = $('#example').dataTable();
 
 	$("#schedule_post-btn").click(function(){
 		if(validPost()){
-			$('#schedule-options-popup').modal('show');
+			$('#schedule-post-popup').modal('show');
 		}
 	});
 	
 	
 	$("#schedule_event-btn").click(function(){
 		if(validEvent()){
-			$('#schedule-options-popup').modal('show');
+			$('#schedule-event-popup').modal('show');
 		}
 	});
 	
@@ -333,8 +332,18 @@ var dataTable = $('#example').dataTable();
 			$div.addClass('modal-backdrop').css('opacity','0.5');
 			var url = "schedulePost.do";
 			var json = { "post" : $('#updateComments').val(), "postClass" : $('#postClass option:selected').attr('id'),
-					"type" : "update", "date" : $('#datePickerForScheduler').find('input[type=text]').val(), 
-					"time" : $('#timePickerForScheduler').find('input[type=text]').val()};
+					"type" : "update", "scheduleDate" : $('#scheduleDate').val(), 
+					"scheduleTime" : $('#scheduleTime').val()};
+			ajaxPost(url,json);
+		}
+	});
+	
+	$("#event_schedule_btn").click(function(e){
+		if(validEvent()){
+			var $div = $('<div />').appendTo('body');
+			$div.addClass('modal-backdrop').css('opacity','0.5');
+			var url = "scheduleEvent.do";
+			var json = { "eventTitle" : $('#inputTitle').val(), "eventDesc" : $('#inputDesc').val(), "date" : $('#dateEventTime').val(), "time": $('#timeEventTime').val(), "eventClass" : $('#eventClass option:selected').attr('id'),"type" : "event", "scheduleDate" : $('#eventScheduleDate').val(), "scheduleTime" : $('#eventScheduleTime').val()};
 			ajaxPost(url,json);
 		}
 	});
@@ -365,7 +374,7 @@ function validPost(){
 
 
 function validEvent(){
-	if($('#event_title').val().length<=0 || $('#event_desc').val().length <= 0 || $('#datePickerForEvent').find('input[type=text]').val().length <=0){
+	if($('#inputTitle').val().length<=0 || $('#inputDesc').val().length <= 0 || $('#dateEventTime').val().length <=0 || $('#timeEventTime').val().length <=0 ){
 		$('#postFailureMessage').html("Enter all details");
 		$('#failure-post-popup').modal('show');
 		return false;

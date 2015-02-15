@@ -103,7 +103,7 @@
 					height="20" />
 			</div>
 			<div class="col-sm-3 col-md-3">
-				<select class="form-control neuron-select">
+				<select id="eventClass" class="form-control neuron-select">
 					<option id="0">- Select Class -</option>
 					<c:forEach items="${classSubjectTeachers}" var ="classSubjectTeacher">
 								<option id="${classSubjectTeacher.classesByClassId.id}">${classSubjectTeacher.classesBySubjectId.subjectName} - ${classSubjectTeacher.classesByClassId.className}</option>
@@ -118,10 +118,10 @@
 				
 			</div>
 			<div class="col-sm-2 col-md-2" style="padding:10px;">
-				<a id="schedule_post-btn" href="#">Schedule</a>
+				<a id="schedule_event-btn" href="#">Schedule</a>
 			</div>
 			<div class="col-sm-2 col-md-2">
-				<button type="button" class="btn neuron-btn btn-block btn-sm">Send</button>
+				<button id="submit-event-btn" type="button" class="btn neuron-btn btn-block btn-sm">Send</button>
 			</div>
 		</div>
 	</div>
@@ -472,3 +472,71 @@
 			</div>
 		</div>
 	</div>
+<!-- Schedule post Popup -->
+	<div class="modal fade" id="schedule-post-popup" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span class="modal-title" id="failure-popup-title">Schedule</span>
+				</div>
+				<div class="modal-body">
+				<div class="form-group">
+					<label for="dateEventTime" class="col-sm-2 control-label">Event Date</label>
+					<div class="col-sm-3">
+						<input type="date" class="form-control neuron-text" id="scheduleDate">
+					</div>
+					<label for="timeEventTime" class="col-sm-1 control-label">Time</label>
+					<div class="col-sm-2">
+						<input type="time" class="form-control neuron-text" id="scheduleTime">
+					</div>
+					<div class="col-sm-4"></div>
+				</div>
+					<!-- <input id="postFailureMessage" readonly style="background: #e9eaec; height: 50px; padding: 5px;"/> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="post_schedule_btn" class="btn btn-primary neuron-btn"
+						data-dismiss="modal">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- Schedule post popup end -->
+<!-- Schedule event Popup -->
+	<div class="modal fade" id="schedule-event-popup" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span class="modal-title" id="failure-popup-title">Schedule</span>
+				</div>
+				<div class="modal-body">
+				<div class="form-group">
+					<label for="dateEventTime" class="col-sm-2 control-label">Event Date</label>
+					<div class="col-sm-3">
+						<input type="date" class="form-control neuron-text" id="eventScheduleDate">
+					</div>
+					<label for="timeEventTime" class="col-sm-1 control-label">Time</label>
+					<div class="col-sm-2">
+						<input type="time" class="form-control neuron-text" id="eventScheduleTime">
+					</div>
+					<div class="col-sm-4"></div>
+				</div>
+					<!-- <input id="postFailureMessage" readonly style="background: #e9eaec; height: 50px; padding: 5px;"/> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="event_schedule_btn" class="btn btn-primary neuron-btn"
+						data-dismiss="modal">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- Schedule event popup end -->

@@ -144,7 +144,7 @@ public class PostServiceImpl implements PostService {
 				response = JSONUtils.getSuccessJSONResponse(ResponseStatus.SUCCESS.getCode());
 			}
 			else{
-				response = JSONUtils.getErrorJSONRresponse(ResponseStatus.FAILURE.getCode()+""+"You already appriciated");
+				response = JSONUtils.getErrorJSONRresponse("You already appreciated");
 			}
 			}else{
 				response = JSONUtils.getErrorJSONRresponse(ResponseStatus.FAILURE.getCode());
@@ -232,7 +232,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public String submitEvent(String title, String desc, String date,
+	public String submitEvent(String title, String desc, String date,String time,
 			int classId, String type) {
 
 		String response = "";
@@ -242,7 +242,8 @@ public class PostServiceImpl implements PostService {
 			post.setEventTitle(title);
 			post.setEventDesc(desc);
 			Calendar eventDate = Calendar.getInstance();
-			eventDate.set(DateTimeUtils.getYear(date), DateTimeUtils.getMonth(date), DateTimeUtils.getDay(date));
+			eventDate.set(DateTimeUtils.getYear(date), DateTimeUtils.getMonth(date), DateTimeUtils.getDay(date), 
+					DateTimeUtils.getHour(time), DateTimeUtils.getMinute(time), 0);
 			post.setEventDate(eventDate);
 			isSuccess = postDAO.insertPost(post);
 		}
@@ -263,7 +264,7 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public String scheduleEvent(String title, int classId, String type, String desc,
-			String date, String time) {
+			String date, String time,String scheduledDate,String scheduledTime) {
 
 		String response = "";
 		boolean isSuccess = false;
@@ -272,10 +273,10 @@ public class PostServiceImpl implements PostService {
 			post.setEventTitle(title);
 			post.setEventDesc(desc);
 			post.setIsScheduled(true);
-			Calendar scheduledDate = Calendar.getInstance();
-			scheduledDate.set(DateTimeUtils.getYear(date), DateTimeUtils.getMonth(date), DateTimeUtils.getDay(date), 
-					DateTimeUtils.getHour(time), DateTimeUtils.getMinute(time), 0);
-			post.setScheduledDate(scheduledDate);
+			Calendar scheduledDateCal = Calendar.getInstance();
+			scheduledDateCal.set(DateTimeUtils.getYear(scheduledDate), DateTimeUtils.getMonth(scheduledDate), DateTimeUtils.getDay(scheduledDate), 
+					DateTimeUtils.getHour(scheduledTime), DateTimeUtils.getMinute(scheduledTime), 0);
+			post.setScheduledDate(scheduledDateCal);
 			isSuccess = postDAO.insertPost(post);
 			if(isSuccess){
 				jobScheduler.schedule(post);

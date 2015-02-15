@@ -26,7 +26,7 @@
 				<label for="className" class="col-md-4 control-label">Class
 					Name</label>
 				<div class="col-md-8">
-					<select class="form-control neuron-select id="messageClassName">
+					<select class="form-control neuron-select" id="messageClassName">
 						<option id="0">- Select Class -</option>
 					<c:forEach items="${classSubjectTeachers}" var ="classSubjectTeacher">
 								<option id="${classSubjectTeacher.classesByClassId.id}">${classSubjectTeacher.classesBySubjectId.subjectName} - ${classSubjectTeacher.classesByClassId.className}</option>
@@ -68,12 +68,12 @@
 	</div>
 	<hr>
 	<div class="row" style="padding:10px;">
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<div class="col-md-12" style="margin-top: 2px; margin-bottom: 2px;">
 				<input type="text" class="form-control neuron-text" placeholder="To"
 					id="toEmail">
 			</div>
-		</div>
+		</div> -->
 		<div class="form-group">
 			<div class="col-md-12" style="margin-top: 2px; margin-bottom: 2px;">
 				<input type="text" class="form-control neuron-text" placeholder="Subject" id="messageSubject">

@@ -15,10 +15,10 @@ public interface PostService {
 	void submitScheduledPost(Object object);
 	List<Post> getScheduledPosts();
 	String addLike(Integer postId, Integer likeCount, Integer uid);
-	String submitEvent(String title, String desc, String date, int parseInt,
+	String submitEvent(String title, String desc, String date, String time, int parseInt,
 			String type);
 	String scheduleEvent(String title, int parseInt, String type, String date,String desc,
-			String time);
+			String time, String scheduleDate, String scheduleTime);
 	String checkForNotifications();
 	List<Post> getPostsForPrincipal();
 	List<CommentsVO> showComments(Integer postId);
