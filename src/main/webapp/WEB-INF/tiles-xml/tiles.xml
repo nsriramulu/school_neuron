@@ -6,8 +6,7 @@
         <put-attribute name="header" value="/WEB-INF/jsp/layouts/header.jsp" />
         <put-attribute name="postTab" value="" />
         <put-attribute name="body" value="" />
-        <put-attribute name="footer" value="/WEB-INF/jsp/layouts/footer.jsp" />
-        <!-- 
+        <!--<put-attribute name="footer" value="/WEB-INF/jsp/layouts/footer.jsp" />
         <put-attribute name="profile" value="/WEB-INF/jsp/layouts/profile.jsp" />
         <put-attribute name="menu" value="/WEB-INF/jsp/layouts/menu.jsp" />
         <put-attribute name="noticeSection" value="/WEB-INF/jsp/layouts/noticeBoard.jsp" />
@@ -16,12 +15,8 @@
     <definition name="sn.preLogin.definition"  template="/WEB-INF/jsp/layouts/preLoginlayout.jsp">
         <put-attribute name="title" value="" />
         <put-attribute name="header" value="/WEB-INF/jsp/layouts/preLoginheader.jsp" />
-        <put-attribute name="profile" value="" />
-        <put-attribute name="menu" value="" />
-        <put-attribute name="noticeSection" value="" />
-        <put-attribute name="postTab" value="" />
         <put-attribute name="body" value="" />
-        <put-attribute name="footer" value="/WEB-INF/jsp/layouts/footer.jsp" />
+        <!-- <put-attribute name="footer" value="/WEB-INF/jsp/layouts/footer.jsp" /> -->
     </definition>
 	<definition name="home" extends="sn.postLogin.definition">
 		<put-attribute name="postTab" value="/WEB-INF/jsp/views/sn/postTab.jsp" />
