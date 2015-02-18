@@ -1,6 +1,7 @@
 package com.sn.controller;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -39,6 +40,8 @@ public class MessageController {
 	public String getMessagesPage(ModelMap model) {
 		String view = "message";
 		try{
+			List<Message> messages = messageService.getMessages(WebContextHolder.get().getLoggedInUser().getUid());
+			model.put("messages", messages);
 		}
 		catch(Exception e){
 			view = "error";
@@ -63,4 +66,20 @@ public class MessageController {
 		messageConversation.setUsers(WebContextHolder.get().getLoggedInUserProfile().getUser());
 		return messageService.sendMessage(message,messageConversation);
 	}
+	
+//	@RequestMapping(value = "/getConversations", method = RequestMethod.GET)
+//	public @ResponseBody String getConversations(ModelMap model,@RequestParam(value = "subject") String subject,
+//			@RequestParam(value = "messageId") String messageText){
+//		Message message = new Message();
+//		message.setSubject(subject);
+//		message.setParentId(parentId);
+//		message.setStudentId(studentId);
+//		message.setUsers(WebContextHolder.get().getLoggedInUserProfile().getUser());
+//		message.setCreatedDate(Calendar.getInstance());
+//		MessageConversation messageConversation = new MessageConversation();
+//		messageConversation.setMessage(messageText);
+//		messageConversation.setCreatedDate(Calendar.getInstance());
+//		messageConversation.setUsers(WebContextHolder.get().getLoggedInUserProfile().getUser());
+//		return messageService.sendMessage(message,messageConversation);
+//	}
 }

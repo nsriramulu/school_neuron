@@ -318,7 +318,7 @@ var dataTable = $('#example').dataTable();
 			contentType: 'application/json',
 			success: function(data) {
 				if(data.STATUS == 'SUCCESS'){
-					alert(data.MESSAGE);
+					window.location = "messages";
 				}
 				else{
 				}

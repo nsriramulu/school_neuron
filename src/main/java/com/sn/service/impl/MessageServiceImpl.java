@@ -1,5 +1,7 @@
 package com.sn.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +32,10 @@ public class MessageServiceImpl implements MessageService {
 			e.printStackTrace();
 		}
 		return response;	
+	}
+
+	public List<Message> getMessages(Integer uid) {
+		return messageDAO.getMessages(uid);
 	}
 
 }
