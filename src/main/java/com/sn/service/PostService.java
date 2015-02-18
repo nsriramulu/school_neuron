@@ -22,4 +22,5 @@ public interface PostService {
 	String checkForNotifications();
 	List<Post> getPostsForPrincipal();
 	List<CommentsVO> showComments(Integer postId);
+	String respondToEvent(Integer response, Integer eventId, Integer uid);
 }

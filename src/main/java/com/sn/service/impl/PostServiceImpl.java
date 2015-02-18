@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,12 +14,14 @@ import com.sn.common.utils.DateTimeUtils;
 import com.sn.constants.ApplicationConstants;
 import com.sn.constants.ResponseStatus;
 import com.sn.dao.CommentDAO;
+import com.sn.dao.EventDAO;
 import com.sn.dao.LikeDAO;
 import com.sn.dao.PostDAO;
 import com.sn.dao.impl.PostDAOImpl;
 import com.sn.entity.Class;
 import com.sn.entity.ClassSubjectTeacher;
 import com.sn.entity.Comment;
+import com.sn.entity.EventResult;
 import com.sn.entity.Like;
 import com.sn.entity.Post;
 import com.sn.quartz.JobScheduler;
@@ -37,6 +40,8 @@ public class PostServiceImpl implements PostService {
 	JobScheduler jobScheduler;
 	@Autowired
 	private LikeDAO likeDAO;
+	@Autowired
+	EventDAO eventDAO;
 	@Override
 	public String submitUpdate(String postText, Integer classId, String type) {
 		String response = "";
@@ -67,6 +72,7 @@ public class PostServiceImpl implements PostService {
 		post.setCommentCount(0);
 		post.setCreatedDate(Calendar.getInstance());
 		post.setLikeCount(0);
+		post.setDisLikeCount(0);
 		post.setStudent(true);
 		post.setTeacher(true);
 		post.setParent(true);
@@ -324,5 +330,23 @@ public class PostServiceImpl implements PostService {
 	public List<CommentsVO> showComments(Integer postId) {
 		// TODO Auto-generated method stub
 		return postDAO.getAllComments(postId);
+	}
+
+	@Override
+	public String respondToEvent(Integer response, Integer eventId, Integer uid) {
+		EventResult eventResult = new EventResult();
+		eventResult.setEvent_id(eventId);
+		eventResult.setResponse(response);
+		eventResult.setUserId(uid);
+		eventResult.setCreatedDate(Calendar.getInstance());
+		String responseStr = eventDAO.insertEventResult(eventResult);
+		if(StringUtils.isBlank(responseStr))
+		{
+			responseStr  = JSONUtils.getSuccessJSONResponse(ResponseStatus.SUCCESS.getCode());
+		}
+		else{
+			responseStr = JSONUtils.getErrorJSONRresponse("You already responded as "+responseStr);
+		}
+		return responseStr;
 	}
 }

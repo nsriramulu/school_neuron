@@ -37,19 +37,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @XmlType(namespace = "core/org/sn/core/domain", name = "EventResult")
 @XmlRootElement(namespace = "core/org/sn/core/domain")
 public class EventResult implements Serializable {
-//	private static final long serialVersionUID = 1L;
-//
-//	/**
-//	 */
-//	
-//	id
-//	event_id
-//	yes
-//	no
-//	may_be
-//	user_id
-//	date_time
-//
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "id", nullable = false)
@@ -58,56 +46,61 @@ public class EventResult implements Serializable {
 	@GeneratedValue
 	@XmlElement
 	Integer id;
-//
-//	/**
-//	 */
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumns({ @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false) })
-//	@XmlTransient
-//	Post posts;
-//	/**
-//	 */
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumns({ @JoinColumn(name = "class_id", referencedColumnName = "id", nullable = false) })
-//	@XmlTransient
-//	Class classes;
-//
-//	/**
-//	 */
-//	public void setId(Integer id) {
-//		this.id = id;
-//	}
-//
-//	/**
-//	 */
-//	public Integer getId() {
-//		return this.id;
-//	}
-//
-//	/**
-//	 */
-//	public void setPosts(Post posts) {
-//		this.posts = posts;
-//	}
-//
-//	/**
-//	 */
-//	@JsonIgnore
-//	public Post getPosts() {
-//		return posts;
-//	}
-//
-//	/**
-//	 */
-//	public void setClasses(Class classes) {
-//		this.classes = classes;
-//	}
-//
-//	/**
-//	 */
-//	@JsonIgnore
-//	public Class getClasses() {
-//		return classes;
-//	}
-//
+
+	/**
+	 */
+	@Column(name = "event_id", nullable = false)
+	@Basic(fetch = FetchType.EAGER)
+	@XmlTransient
+	Integer event_id;
+	
+	@Column(name = "response", nullable = false)
+	@Basic(fetch = FetchType.EAGER)
+	@XmlTransient
+	Integer response;
+	
+	@Column(name = "user_id", nullable = false)
+	@Basic(fetch = FetchType.EAGER)
+	@XmlTransient
+	Integer userId;
+	/**
+	 */
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "date_time", nullable = false)
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Calendar createdDate;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getEvent_id() {
+		return event_id;
+	}
+	public void setEvent_id(Integer event_id) {
+		this.event_id = event_id;
+	}
+	public Integer getResponse() {
+		return response;
+	}
+	public void setResponse(Integer response) {
+		this.response = response;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public Calendar getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(Calendar createdDate) {
+		this.createdDate = createdDate;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

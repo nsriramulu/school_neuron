@@ -107,4 +107,45 @@ public class PostController {
 		model.addObject("comments", commentsVO);
 		return commentsVO;
 	}
+	
+//	@RequestMapping(value = "uploadPhoto", method = RequestMethod.POST, headers={"content-type=multipart/form-data"})
+//	public String uploadPhoto(byte[] uploadData, 
+//			Writer writer,@RequestParam("profile-photo") CommonsMultipartFile file,
+//			ModelMap modelMap){
+//		String pathContext = porfilePhotoPath+File.separator+"profile"+File.separator+ TenantKeyHelper.getTenantKey();
+//		//ldapUser.getUserProfileMap().get(UserAttributeNames.ORGANIZATION.getAttributeName());
+//		File tenantDir = new File(pathContext);
+//		if (!tenantDir.exists()) {
+//			tenantDir.mkdir();
+//		}
+//		String  file_path = pathContext +File.separator+ldapUser.getUserProfileMap().get(UserAttributeNames.UID.getAttributeName())+".jpg" ;
+//		 
+//		 if (!file.isEmpty()){
+//			 String name = file.getOriginalFilename();
+//			 int index = name.lastIndexOf(".");
+//			 String ext  = name.substring(index);
+//			 if(StringUtils.equalsIgnoreCase(ext, ".jpg")||StringUtils.equalsIgnoreCase(ext, ".jpeg")){
+//				 try{
+//					 File out = new File ( file_path );
+//					 byte[] bytes = file.getBytes();
+//					 BufferedOutputStream stream =	new BufferedOutputStream( new FileOutputStream( out ));
+//					 stream.write(bytes);
+//					 stream.close();
+////					 ldapUser.getUserProfileMap().put(UserAttributeNames.JPEGPHOTO.getAttributeName(), file_path);
+////					 Object object = ServiceProvider.serviceCall("uploadPhoto","java.lang.String", "POST", ldapUser);
+////					 if (object != null) {
+////						 responseMessage = (String) object;
+////					 }
+//				 }
+//				 catch (Exception e){
+//					 responseMessage = JSONUtils.getErrorJSONRresponse(e.getMessage());
+//				 }
+//			 }
+//			 responseMessage = JSONUtils.getStringJSONResponse(ResponseStatus.SUCCESS.getCode(),messages.getMessage("photoUpload.Success", new Object[]{}, locale));	
+//		 }
+//		modelMap.addAttribute("message",responseMessage);
+//		modelMap.addAttribute("selectedMenu", "profile");
+//		WebContextHolder.get().getSession().setAttribute("isProfilePicUploaded",UserHelper.isProfilePhotoExists(file_path));
+//		return "user-profile";
+//	}
 }

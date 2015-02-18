@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sn.common.WebContextHolder;
 import com.sn.constants.ApplicationConstants;
@@ -74,5 +76,11 @@ public class EventController {
 			view = "error";
 		}
 		return view;
+	}
+	
+	@RequestMapping(value = "/eventResponse", method = RequestMethod.POST)
+	public @ResponseBody String respondToEvent(ModelMap model,@RequestParam(value = "response") Integer response,
+			@RequestParam(value = "eventId") Integer eventId) {
+		return postService.respondToEvent(response, eventId, WebContextHolder.get().getLoggedInUser().getUid());
 	}
 }

@@ -32,5 +32,6 @@
         <mapping class="com.sn.entity.UserUploads"></mapping>
         <mapping class="com.sn.entity.Like"></mapping>
         <mapping class="com.sn.entity.Subject"></mapping>
+        <mapping class="com.sn.entity.EventResult"></mapping>
     </session-factory>
 </hibernate-configuration>

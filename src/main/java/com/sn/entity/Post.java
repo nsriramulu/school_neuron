@@ -76,21 +76,21 @@ public class Post implements Serializable {
 	@Column(name = "like_count")
 	@Basic(fetch = FetchType.EAGER)
 	@XmlElement
-	Integer likeCount;
+	Integer likeCount ;
 	/**
 	 */
 
 	@Column(name = "comment_count")
 	@Basic(fetch = FetchType.EAGER)
 	@XmlElement
-	Integer commentCount;
+	Integer commentCount ;
 	/**
 	 */
 
-	@Column(name = "share_count")
+	@Column(name = "dis_like_count")
 	@Basic(fetch = FetchType.EAGER)
 	@XmlElement
-	Integer shareCount;
+	Integer disLikeCount;
 	/**
 	 */
 
@@ -307,14 +307,14 @@ public class Post implements Serializable {
 
 	/**
 	 */
-	public void setShareCount(Integer shareCount) {
-		this.shareCount = shareCount;
+	public void setDisLikeCount(Integer disLikeCount) {
+		this.disLikeCount = disLikeCount;
 	}
 
 	/**
 	 */
-	public Integer getShareCount() {
-		return this.shareCount;
+	public Integer getDisLikeCount() {
+		return this.disLikeCount;
 	}
 
 	/**
@@ -490,6 +490,9 @@ public class Post implements Serializable {
 	/**
 	 */
 	public Post() {
+		this.likeCount=0;
+		this.disLikeCount=0;
+		this.commentCount=0;
 	}
 
 	/**
@@ -503,7 +506,7 @@ public class Post implements Serializable {
 		setUploads(that.getUploads());
 		setLikeCount(that.getLikeCount());
 		setCommentCount(that.getCommentCount());
-		setShareCount(that.getShareCount());
+		setDisLikeCount(that.getDisLikeCount());
 		setTag(that.getTag());
 		setTeacher(that.getTeacher());
 		setStudent(that.getStudent());
@@ -530,7 +533,7 @@ public class Post implements Serializable {
 		buffer.append("uploads=[").append(uploads).append("] ");
 		buffer.append("likeCount=[").append(likeCount).append("] ");
 		buffer.append("commentCount=[").append(commentCount).append("] ");
-		buffer.append("shareCount=[").append(shareCount).append("] ");
+		buffer.append("disLikeCount=[").append(disLikeCount).append("] ");
 		buffer.append("tag=[").append(tag).append("] ");
 		buffer.append("teacher=[").append(teacher).append("] ");
 		buffer.append("student=[").append(student).append("] ");

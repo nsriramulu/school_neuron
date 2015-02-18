@@ -43,6 +43,7 @@
 					type="file">
 				</span>
 			</div>
+			<security:authorize access="hasAnyRole('Principal,Teacher')">
 			<div class="col-sm-3 col-md-3">
 				<select class="form-control neuron-select" id="postClass">
 					<option id="0">- Select Class -</option>
@@ -51,6 +52,7 @@
 							</c:forEach>
 				</select>
 			</div>
+			</security:authorize>
 			<div class="col-sm-1 col-md-1">
 				<span class="glyphicon glyphicon-globe"
 					style="color: #4ca4c7; font-size: 24px;"></span>
@@ -102,6 +104,7 @@
 				<img src="${imageURL}/attachment.png" class="img-rounded" width="20"
 					height="20" />
 			</div>
+			<security:authorize access="hasAnyRole('Principal,Teacher')">
 			<div class="col-sm-3 col-md-3">
 				<select id="eventClass" class="form-control neuron-select">
 					<option id="0">- Select Class -</option>
@@ -110,6 +113,7 @@
 							</c:forEach>
 				</select>
 			</div>
+			</security:authorize>
 			<div class="col-sm-1 col-md-1">
 				<span class="glyphicon glyphicon-globe"
 					style="color: #4ca4c7; font-size: 24px;"></span>
@@ -159,6 +163,7 @@
 				<img src="${imageURL}/attachment.png" class="img-rounded" width="20"
 					height="20" />
 			</div>
+			<security:authorize access="hasAnyRole('Principal,Teacher')">
 			<div class="col-sm-3 col-md-3">
 				<select class="form-control neuron-select">
 					<option id="0">- Select Class -</option>
@@ -167,6 +172,7 @@
 							</c:forEach>
 				</select>
 			</div>
+			</security:authorize>
 			<div class="col-sm-1 col-md-1">
 				<span class="glyphicon glyphicon-globe"
 					style="color: #4ca4c7; font-size: 24px;"></span>
@@ -220,6 +226,7 @@
 			<div class="col-sm-1 col-md-1">
 				<img src="${imageURL}/attachment.png" class="img-rounded" width="20" height="20" />
 			</div>
+			<security:authorize access="hasAnyRole('Principal,Teacher')">
 			<div class="col-sm-3 col-md-3">
 				<select class="form-control neuron-select">
 					<option id="0">- Select Class -</option>
@@ -228,6 +235,7 @@
 							</c:forEach>
 				</select>
 			</div>
+			</security:authorize>
 			<div class="col-sm-1 col-md-1">
 				<span class="glyphicon glyphicon-globe"
 					style="color: #4ca4c7; font-size: 24px;"></span>

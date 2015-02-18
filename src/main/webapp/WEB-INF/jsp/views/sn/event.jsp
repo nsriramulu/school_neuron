@@ -46,43 +46,43 @@
 								<div class="col-md-1">YES</div>
 								<div class="col-md-10">
 									<div class="progress" style="border-radius: 10px;">
-									  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style="width: 87%; border-radius: 10px;">
-										<span class="sr-only">87</span>
+									  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${post.likeCount}" aria-valuemin="0" aria-valuemax="100" style="width: ${post.likeCount}%; border-radius: 10px;">
+										<span class="sr-only">${post.likeCount}</span>
 									  </div>
 									</div>
 								</div>
-								<div class="col-md-1">87</div>
+								<div class="col-md-1">${post.likeCount}</div>
 							</div>
 							<div class="row">
 								<div class="col-md-1">NO</div>
 								<div class="col-md-10">
 									<div class="progress" style="border-radius: 10px;">
-									  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="9" aria-valuemin="0" aria-valuemax="100" style="width: 9%; border-radius: 10px;"><span class="sr-only">9</span></div>
+									  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="${post.disLikeCount}" aria-valuemin="0" aria-valuemax="100" style="width: ${post.disLikeCount}%; border-radius: 10px;"><span class="sr-only">${post.disLikeCount}</span></div>
 									</div>
 								</div>
-								<div class="col-md-1">9</div>
+								<div class="col-md-1">${post.disLikeCount}</div>
 							</div>
 							<div class="row">
 								<div class="col-md-1">MAYBE</div>
 								<div class="col-md-10">
 									<div class="progress" style="border-radius: 10px;">
-									  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="9" aria-valuemin="0" aria-valuemax="100" style="width: 9%; border-radius: 10px;"><span class="sr-only">9</span></div>
+									  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="${post.commentCount}" aria-valuemin="0" aria-valuemax="100" style="width: ${post.commentCount}%; border-radius: 10px;"><span class="sr-only">${post.commentCount}</span></div>
 									</div>
 								</div>
-								<div class="col-md-1">9</div>
+								<div class="col-md-1">${post.commentCount}</div>
 							</div>
 						</c:when>
 						<c:otherwise>
 						<hr class="neuron-Hline">
 						<div class="row">
 							<div class="col-sm-2 col-md-2">
-								<button type="button" class="btn neuron-btn center-block btn-sm">YES</button>
+								<button type="button" class="btn neuron-btn center-block btn-sm event-response yes" id="${post.id}_yes">YES</button>
 							</div>
 							<div class="col-sm-2 col-md-2">
-								<button type="button" class="btn neuron-btn center-block btn-sm">NO</button>
+								<button type="button" class="btn neuron-btn center-block btn-sm event-response no" id="${post.id}_no">NO</button>
 							</div>
 							<div class="col-sm-2 col-md-2">
-								<button type="button" class="btn neuron-btn center-block btn-sm">MAYBE</button>
+								<button type="button" class="btn neuron-btn center-block btn-sm event-response maybe" id="${post.id}_maybe">MAYBE</button>
 							</div>
 							<div class="col-sm-1 col-md-1">
 							</div>
@@ -102,3 +102,25 @@
 	</c:forEach>
 	</c:when>
 	</c:choose>
+<div class="modal fade" id="failure-post-popup" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span class="modal-title" id="failure-popup-title">Failure</span>
+				</div>
+				<div class="modal-body">
+					<span id="postFailureMessage"></span>
+					<!-- <input id="postFailureMessage" readonly style="background: #e9eaec; height: 50px; padding: 5px;"/> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary neuron-btn"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>

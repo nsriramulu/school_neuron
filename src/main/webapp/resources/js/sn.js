@@ -81,7 +81,11 @@ var dataTable = $('#example').dataTable();
 			var $div = $('<div />').appendTo('body');
 			$div.addClass('modal-backdrop').css('opacity','0.5');
 			var url = "submitPost.do";
-			var json = { "post" : $('#updateComments').val(), "postClass" : $('#postClass option:selected').attr('id'),
+			var classId = $('#parentOrStuendClassId').val();
+			if($('#postClass option:selected').attr('id')){
+				classId = $('#postClass option:selected').attr('id');
+			}
+			var json = { "post" : $('#updateComments').val(), "postClass" : classId,
 					"type" : "update"};
 			ajaxPost(url,json);
 		}
@@ -93,11 +97,51 @@ var dataTable = $('#example').dataTable();
 			var $div = $('<div />').appendTo('body');
 			$div.addClass('modal-backdrop').css('opacity','0.5');
 			var url = "submitEvent.do";
-			var json = { "eventTitle" : $('#inputTitle').val(), "eventDesc" : $('#inputDesc').val(), "date" : $('#dateEventTime').val(), "time": $('#timeEventTime').val(), "eventClass" : $('#eventClass option:selected').attr('id'),"type" : "event"};
-			ajaxPost(url,json);
+			var classId = $('#parentOrStuendClassId').val();
+			if($('#eventClass option:selected').attr('id')){
+				classId = $('#eventClass option:selected').attr('id');
+			}
+			var json = { "eventTitle" : $('#inputTitle').val(), "eventDesc" : $('#inputDesc').val(), "date" : $('#dateEventTime').val(), "time": $('#timeEventTime').val(), "eventClass" : classId,"type" : "event"};
+			ajaxPostWithoutReload(url,json,"Event posted successfullys");
 		}
 	});
 	
+	
+	function ajaxPostWithoutReload(url,json,successMsg){
+		$.ajax({
+			type: "POST",
+			cache: false,
+			url: url,
+			data: json,
+			dataType: "json",
+			success: function(data){
+				$('.modal-backdrop').remove();
+				if(data.STATUS=="SUCCESS"){
+//					$('#postSuccessMessage').html(data.MESSAGE);
+//					$('#success-post-popup').modal('show');
+//					window.location = 'home.do'; 
+					$('#failure-popup-title').text("Success");
+					$('#postFailureMessage').html(successMsg);
+					$('#failure-post-popup').modal('show');
+					$('#inputTitle').val("");
+					$('#inputDesc').val("");
+					$('#dateEventTime').val("");
+					$('#timeEventTime').val("");
+					$('#eventScheduleDate').val("");
+					$('#eventScheduleTime').val("");
+					$('#scheduleDate').val("");
+					$('#scheduleTime').val("");
+					$('#updateComments').val("");
+//					$('#eventClass option:selected').removeAttr('selected');
+				}
+				else{
+					$('#failure-popup-title').text("Error");
+					$('#postFailureMessage').html(data.MESSAGE);
+					$('#failure-post-popup').modal('show');
+				}
+			}
+		});
+	}
 	
 	function ajaxPost(url,json){
 		$.ajax({
@@ -111,7 +155,8 @@ var dataTable = $('#example').dataTable();
 				if(data.STATUS=="SUCCESS"){
 //					$('#postSuccessMessage').html(data.MESSAGE);
 //					$('#success-post-popup').modal('show');
-					window.location = 'home.do';
+//					window.location = 'home.do';
+					document.location = document.location.href + "?afterReload=true";
 				}
 				else{
 					$('#postFailureMessage').html(data.MESSAGE);
@@ -331,10 +376,14 @@ var dataTable = $('#example').dataTable();
 			var $div = $('<div />').appendTo('body');
 			$div.addClass('modal-backdrop').css('opacity','0.5');
 			var url = "schedulePost.do";
-			var json = { "post" : $('#updateComments').val(), "postClass" : $('#postClass option:selected').attr('id'),
+			var classId = $('#parentOrStuendClassId').val();
+			if($('#postClass option:selected').attr('id')){
+				classId = $('#postClass option:selected').attr('id');
+			}
+			var json = { "post" : $('#updateComments').val(), "postClass" : classId,
 					"type" : "update", "scheduleDate" : $('#scheduleDate').val(), 
 					"scheduleTime" : $('#scheduleTime').val()};
-			ajaxPost(url,json);
+			ajaxPostWithoutReload(url,json,"Post scheduled successfullys");
 		}
 	});
 	
@@ -343,13 +392,39 @@ var dataTable = $('#example').dataTable();
 			var $div = $('<div />').appendTo('body');
 			$div.addClass('modal-backdrop').css('opacity','0.5');
 			var url = "scheduleEvent.do";
-			var json = { "eventTitle" : $('#inputTitle').val(), "eventDesc" : $('#inputDesc').val(), "date" : $('#dateEventTime').val(), "time": $('#timeEventTime').val(), "eventClass" : $('#eventClass option:selected').attr('id'),"type" : "event", "scheduleDate" : $('#eventScheduleDate').val(), "scheduleTime" : $('#eventScheduleTime').val()};
-			ajaxPost(url,json);
+			var classId = $('#parentOrStuendClassId').val();
+			if($('#eventClass option:selected').attr('id')){
+				classId = $('#eventClass option:selected').attr('id');
+			}
+			var json = { "eventTitle" : $('#inputTitle').val(), "eventDesc" : $('#inputDesc').val(), "date" : $('#dateEventTime').val(), "time": $('#timeEventTime').val(), "eventClass" : classId,"type" : "event", "scheduleDate" : $('#eventScheduleDate').val(), "scheduleTime" : $('#eventScheduleTime').val()};
+			ajaxPostWithoutReload(url,json,"Event scheduled successfullys");
 		}
 	});
 
 	$("#manage_class_submit").click(function(){
 		window.location='manageClass.do';
+	});
+	
+	$( ".event-response" ).click(function(event) {
+		var response = '';
+		var eventId = '';
+		if($(this).hasClass("yes")){
+			response = '1';
+			eventId = $(this).attr('id').split('_yes')[0];
+		}
+		else if($(this).hasClass("no")){
+			response = '0';
+			eventId = $(this).attr('id').split('_no')[0];
+		}
+		else{
+			response = '2';
+			eventId = $(this).attr('id').split('_maybe')[0];
+		}
+		var $div = $('<div />').appendTo('body');
+		$div.addClass('modal-backdrop').css('opacity','0.5');
+		var url = "eventResponse.do";
+		var json = { "response" : response, "eventId" : eventId};
+		ajaxPost(url,json);
 	});
 });
 
@@ -364,7 +439,7 @@ function validPost(){
 		$('#failure-post-popup').modal('show');
 		return false;
 	}
-	else if($('#postClass option:selected').attr('id') == '0'){
+	else if($('#postClass') && $('#postClass option:selected').attr('id') == '0'){
 		$('#postFailureMessage').html("Select Class");
 		$('#failure-post-popup').modal('show');
 		return false;
@@ -379,7 +454,7 @@ function validEvent(){
 		$('#failure-post-popup').modal('show');
 		return false;
 	}
-	else if($('#eventClass option:selected').attr('id') == '0'){
+	else if($('#eventClass') && $('#eventClass option:selected').attr('id') == '0'){
 		$('#postFailureMessage').html("Select Class");
 		$('#failure-post-popup').modal('show');
 		return false;

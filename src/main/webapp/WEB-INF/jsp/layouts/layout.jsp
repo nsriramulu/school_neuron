@@ -43,7 +43,7 @@
 									</div>
 								</div>
 							</div>
-						
+							<input type="hidden" id="parentOrStuendClassId" value="${user.classId}"/>
 							<security:authorize access="hasAnyRole('Principal,Teacher')">
 							
 							<div id="myClassRoosm-div" class="leftPanelSubHeader">

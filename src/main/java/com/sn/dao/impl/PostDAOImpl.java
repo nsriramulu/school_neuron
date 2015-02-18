@@ -56,7 +56,7 @@ public class PostDAOImpl implements PostDAO{
 			//	            disjunction = disjunction.add(Restrictions.eq("classId", classId));
 			//	        }
 			//	        criteria.add(disjunction);
-			Criterion criterion= Restrictions.and(Restrictions.eqOrIsNull("isScheduled", false), Restrictions.or(Restrictions.eq("usersByCreatedBy.uid", userId), 
+			Criterion criterion= Restrictions.and(Restrictions.eqOrIsNull("type", "update"), Restrictions.eqOrIsNull("isScheduled", false), Restrictions.or(Restrictions.eq("usersByCreatedBy.uid", userId), 
 					Restrictions.in("classId", classIds)));
 			
 			criteria.add(criterion);
@@ -83,7 +83,7 @@ public class PostDAOImpl implements PostDAO{
 		try {
 			transaction=session.beginTransaction();
 			Criteria criteria = session.createCriteria(Post.class)
-					.add(Restrictions.not(Restrictions.eq("classId", classId)));
+					.add(Restrictions.and(Restrictions.eq("classId", classId),Restrictions.eqOrIsNull("type", "update")));
 			posts = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 			transaction.commit();
 		} catch (RuntimeException e) {
@@ -247,6 +247,8 @@ public class PostDAOImpl implements PostDAO{
 			transaction=session.beginTransaction();
 			Criteria criteria = session.createCriteria(Post.class);
 			posts = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			criteria.add(Restrictions.and(Restrictions.eqOrIsNull("isScheduled", false), Restrictions.eqOrIsNull("type", "update")));
+			criteria.addOrder(Order.desc("postDate"));
 			transaction.commit();
 		} catch (RuntimeException e) {
 			e.printStackTrace();

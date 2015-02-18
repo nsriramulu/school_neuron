@@ -39,6 +39,9 @@ public class TenantConnectionProvider {
 			.setProperty(AvailableSettings.URL, prop.getProperty("URL"))//10.249.5.233
 			.setProperty(AvailableSettings.USER, prop.getProperty("USER"))
 			.setProperty(AvailableSettings.PASS, prop.getProperty("PASS")) 
+			.setProperty("hibernate.connection.autoReconnect", "true")
+			.setProperty("hibernate.connection.autoReconnectForPools", "true")
+			.setProperty("hibernate.connection.is-connection-validation-required", "true")
 //			.setProperty("org.hibernate.envers.default_schema", prop.getProperty("ENVERS_DEFAULT_SCHEMA"))
 //			.setProperty("org.hibernate.envers.connection.url", prop.getProperty("ENVERS_CONNECTION_URL"))
 //			.setProperty("org.hibernate.envers.connection.username", prop.getProperty("ENVERS_CONNECTION_USERNAME")) 
