@@ -55,4 +55,16 @@ public class UserController {
 		}
 		return view;
 	}
+	
+	@RequestMapping(value = "/editClassRoom", method = RequestMethod.GET)
+	public String editClassRoom(ModelMap model,@RequestParam("classId") Integer classId) {
+		String view = "editClassRoom";
+		try{
+			model.put("classId",classId);
+		}
+		catch(Exception e){
+			view = "error";
+		}
+		return view;
+	}
 }

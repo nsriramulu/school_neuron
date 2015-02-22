@@ -43,6 +43,9 @@
     <definition name="myClassRoom" extends="sn.postLogin.definition">
 		<put-attribute name="body" value="/WEB-INF/jsp/views/sn/myClassRoom.jsp" />
     </definition>
+    <definition name="editClassRoom" extends="sn.postLogin.definition">
+		<put-attribute name="body" value="/WEB-INF/jsp/views/sn/editClassRoom.jsp" />
+    </definition>
     <definition name="login" extends="sn.preLogin.definition">
          <put-attribute name="body" value="/WEB-INF/jsp/views/sn/login.jsp" />
      </definition>

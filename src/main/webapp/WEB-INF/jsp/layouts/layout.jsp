@@ -53,7 +53,7 @@
 								</div>
 								<c:forEach var ="classSubjectTeacher" items="${classSubjectTeachers}">
 								<div class="left-panel-neuron-div">
-									<a href="myClassRoom?classId=${classSubjectTeacher.classesByClassId.id}">${classSubjectTeacher.classesBySubjectId.subjectName} - ${classSubjectTeacher.classesByClassId.className}</a>
+									<a href="editClassRoom?classId=${classSubjectTeacher.classesByClassId.id}">${classSubjectTeacher.classesBySubjectId.subjectName} - ${classSubjectTeacher.classesByClassId.className}</a>
 								</div>
 								</c:forEach>
 							</div>
