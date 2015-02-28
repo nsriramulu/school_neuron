@@ -12,6 +12,71 @@ $(document).ready(function(){
 		$('.neuron-tab-content').hide();
 		$('#'+divId+'-content').show();
 	});
+	
+	$('body').on('click', 'a.add_que_ans', function() {
+		$(this).closest('div.row').before('<div class="form-group"><label class="col-sm-2 control-label" for="inputDesc">Answer: </label><div class="col-sm-8"><input type="text" class="form-control neuron-text" id="inputDesc" placeholder="Enter your answer..."></div></div>');
+	});
+	
+	$('body').on('click', '#add_more_que', function() {
+		addQuestion();
+	});
+	
+	function addQuestion(){
+		var queCount = $('#add_more_que').closest('form.form-horizontal').find('fieldset').size();
+		var queType = $('#queType').val();
+		
+		var fldset = '';
+		if(queType === 'multiple'){
+		 fldset = '<fieldset>'+
+			'<legend>Que'+(queCount+1)+': </legend>'+
+			'<div class="form-group">'+
+				'<label class="col-sm-2 control-label" for="inputTitle">Question</label>'+
+				'<div class="col-sm-10">'+
+					'<input type="text" class="form-control neuron-text" id="inputTitle" placeholder="Enter your question here...">'+
+				'</div>'+
+			'</div>'+
+			'<div class="form-group">'+
+				'<label class="col-sm-2 control-label" for="inputDesc">Answer: </label>'+
+				'<div class="col-sm-8">'+
+					'<input type="text" class="form-control neuron-text" id="inputDesc" placeholder="Enter your answer...">'+
+				'</div>'+
+			'</div>'+
+			'<div class="row">'+
+				'<div class="col-sm-8 col-md-8">'+
+				'</div>'+
+				'<div class="col-sm-2 col-md-2 text-right">'+
+					'<a class="add_que_ans" href="#">Add more ans.</a>'+
+				'</div>'+
+				'<div class="col-sm-2 col-md-2">'+
+				'</div>'+
+			'</div>'+
+			'</fieldset>'+
+			'</br>';
+		}else{
+			fldset = '<fieldset>'+
+			'<legend>Que'+(queCount+1)+': </legend>'+
+			'<div class="form-group">'+
+				'<label class="col-sm-2 control-label" for="inputTitle">Question</label>'+
+				'<div class="col-sm-10">'+
+					'<input type="text" class="form-control neuron-text" id="inputTitle" placeholder="Enter your question here...">'+
+				'</div>'+
+			'</div>'+
+			'<div class="radio">'+
+			  '<div class="col-sm-2"></div>'+
+			  '<label class="col-sm-3" ><input type="radio" name="ans'+(queCount+1)+'" value="true" checked>True</label>'+
+			'</div>'+
+			'<div class="radio">'+
+			  '<div class="col-sm-2"></div>'+
+			  '<label class="col-sm-3"><input type="radio" name="ans'+(queCount+1)+'" value="false">False</label>'+
+			'</div>';
+		}
+			$('#add_more_que').closest('div.row').before(fldset);
+	};
+	
+	$('#queType').change(function(){
+		$(this).closest('form.form-horizontal').find('fieldset').remove();
+		addQuestion();
+	});
 
 	$('#exampleModal').on('show.bs.modal', function (event) {
 		
