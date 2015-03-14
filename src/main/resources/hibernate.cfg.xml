@@ -33,5 +33,8 @@
         <mapping class="com.sn.entity.Like"></mapping>
         <mapping class="com.sn.entity.Subject"></mapping>
         <mapping class="com.sn.entity.EventResult"></mapping>
+		<mapping class="com.sn.entity.QuizQuestion"></mapping>
+		<mapping class="com.sn.entity.QuizAnswer"></mapping>
+		<mapping class="com.sn.entity.StudentQuiz"></mapping>
     </session-factory>
 </hibernate-configuration>

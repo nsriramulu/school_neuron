@@ -274,7 +274,7 @@
 				<div class="col-sm-2"></div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="pointPerQue">Points for per Que: </label>
+				<label class="col-sm-3 control-label" for="pointPerQue">Points per Que: </label>
 				<div class="col-sm-2">
 					<input type="text" class="form-control neuron-text" id="pointPerQue">
 				</div>

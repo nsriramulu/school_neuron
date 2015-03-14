@@ -164,30 +164,6 @@ public class Post implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 	@XmlElement
 	Calendar postDate;
-	
-	public String getEventTitle() {
-		return eventTitle;
-	}
-
-	public void setEventTitle(String eventTitle) {
-		this.eventTitle = eventTitle;
-	}
-
-	public String getEventDesc() {
-		return eventDesc;
-	}
-
-	public void setEventDesc(String eventDesc) {
-		this.eventDesc = eventDesc;
-	}
-
-	public Calendar getEventDate() {
-		return eventDate;
-	}
-
-	public void setEventDate(Calendar eventDate) {
-		this.eventDate = eventDate;
-	}
 
 	@Column(name = "event_title")
 	@Basic(fetch = FetchType.EAGER)
@@ -204,7 +180,22 @@ public class Post implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 	@XmlElement
 	Calendar eventDate;
-
+	
+	@Column(name = "points")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Integer points;
+	
+	@Column(name = "submitted")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Integer submitted;
+	
+	@Column(name = "pending")
+	@Basic(fetch = FetchType.EAGER)
+	@XmlElement
+	Integer pending;
+	
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -232,6 +223,10 @@ public class Post implements Serializable {
 	@OneToMany(mappedBy = "posts", cascade = { CascadeType.REMOVE }, fetch = FetchType.EAGER)
 	@XmlElement(name = "", namespace = "")
 	java.util.Set<com.sn.entity.PostClass> postClasses;
+	
+	@OneToMany(mappedBy = "quiz", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
+	@XmlElement(name = "", namespace = "")
+	java.util.Set<com.sn.entity.QuizQuestion> quizQuestions;
 
 	/**
 	 */
@@ -352,7 +347,31 @@ public class Post implements Serializable {
 	public Boolean getStudent() {
 		return this.student;
 	}
+	
+	public String getEventTitle() {
+		return eventTitle;
+	}
 
+	public void setEventTitle(String eventTitle) {
+		this.eventTitle = eventTitle;
+	}
+
+	public String getEventDesc() {
+		return eventDesc;
+	}
+
+	public void setEventDesc(String eventDesc) {
+		this.eventDesc = eventDesc;
+	}
+
+	public Calendar getEventDate() {
+		return eventDate;
+	}
+
+	public void setEventDate(Calendar eventDate) {
+		this.eventDate = eventDate;
+	}
+	
 	/**
 	 */
 	public void setParent(Boolean parent) {
@@ -485,6 +504,39 @@ public class Post implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Integer getPoints() {
+		return points;
+	}
+
+	public void setPoints(Integer points) {
+		this.points = points;
+	}
+
+	public Integer getSubmitted() {
+		return submitted;
+	}
+
+	public void setSubmitted(Integer submitted) {
+		this.submitted = submitted;
+	}
+
+	public Integer getPending() {
+		return pending;
+	}
+
+	public void setPending(Integer pending) {
+		this.pending = pending;
+	}
+
+	public java.util.Set<com.sn.entity.QuizQuestion> getQuizQuestions() {
+		return quizQuestions;
+	}
+
+	public void setQuizQuestions(
+			java.util.Set<com.sn.entity.QuizQuestion> quizQuestions) {
+		this.quizQuestions = quizQuestions;
 	}
 
 	/**

@@ -72,7 +72,7 @@ public class LoginController {
 	@RequestMapping(value = "/sessionExpired", method = RequestMethod.GET)
 	public String sessionexpirted(ModelMap model) {
 		WebContextHolder.get().getSession().invalidate();
-		return "session-expired";
+		return "login";
 	}
 	
 	/**
