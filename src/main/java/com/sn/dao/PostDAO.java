@@ -11,8 +11,6 @@ public interface PostDAO {
 	
 	boolean updateCommentCount(Post post);
 	
-	List<Post> getPostsByClass(Integer classId);
-
 	List<Post> getPostsByUserAndClass(Integer createdById, List<Integer> classId);
 
 	List<Post> getScheduledPosts();
@@ -28,5 +26,10 @@ public interface PostDAO {
 	List<CommentsVO> getAllComments(Integer postId);
 	
 	List<Post> getEventsByUserAndClass(Integer teacherId, List<Integer> classIds);
+
+	List<Post> getAssignmentsByUserAndClass(Integer teacherId,
+			List<Integer> classIds);
+
+	List<Post> getPostsByClassAndType(Integer classId, String type);
 }
 

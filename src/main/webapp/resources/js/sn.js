@@ -92,19 +92,19 @@ $(document).ready(function(){
 	  modal.find('#message-text').val(msg);
 	});
 	
-	var count = 1;
-	function addFileUploadEvent(id){
-		$("#updateAtachment"+count).change(function (){
-			$('#attachmentsList').append('<div class="col-md-12"></div>');
-			$('#attachmentsList').find('div:last').append(this);
-			count++;
-			var input = '<input name="updateAtachment'+count+'" id="updateAtachment'+count+'" type="file">';
-			$('#updateAtachmentDiv').find('span').append(input);
-			addFileUploadEvent('updateAtachment');
-			$('#updateAtachment'+(count-1)).unbind();
-		});
-	}
-	addFileUploadEvent('updateAtachment');
+//	var count = 1;
+//	function addFileUploadEvent(id){
+//		$("#updateAtachment"+count).change(function (){
+//			$('#attachmentsList').append('<div class="col-md-12"></div>');
+//			$('#attachmentsList').find('div:last').append(this);
+//			count++;
+//			var input = '<input name="updateAtachment'+count+'" id="updateAtachment'+count+'" type="file" style="display:none;">';
+//			$('#updateAtachmentDiv').find('span').append(input);
+//			addFileUploadEvent('updateAtachment');
+//			$('#updateAtachment'+(count-1)).unbind();
+//		});
+//	}
+//	addFileUploadEvent('updateAtachment');
 	
 	//setInterval(checkForNotifications, 10000);
 	
@@ -171,7 +171,87 @@ var dataTable = $('#example').dataTable();
 		}
 	});
 	
+	  var files;
+	  $("#upload-submit-btn").click(function(){
+	         processFileUpload();
+	 });
+		  $('#document').change(function(){
+			  console.log(' event fired'+event.target.files[0].name);
+		      files=event.target.files;
+		  });
+	 function processFileUpload()
+	  {
+	      var oMyForm = new FormData();
+	      oMyForm.append("file", files[0]);
+	     $
+	        .ajax({
+	        	dataType : 'json',
+	            url : "uploadDoc",
+	            data : oMyForm,
+	            type : "POST",
+	            enctype: 'multipart/form-data',
+	            processData: false, 
+	            contentType:false,
+	            success : function(data) {
+	            $("#document-upload-modal").modal("hide");
+	            },
+	            error : function(result){
+	            	$('#failure-popup-title').text("Error");
+					$('#postFailureMessage').html(data.MESSAGE);
+					$('#failure-post-popup').modal('show');
+	            }
+	        });
+	  }
+	 
+	$("#submit-assignment-btn").click(function(e){
+		if(validAssignment()){
+			var $div = $('<div />').appendTo('body');
+			$div.addClass('modal-backdrop').css('opacity','0.5');
+			var url = "submitAssignment";
+			var classId = $('#parentOrStuendClassId').val();
+			if($('#assignmentClass option:selected').attr('id')){
+				classId = $('#assignmentClass option:selected').attr('id');
+			}
+			var json = { "assignmentTitle" : $('#assignmentTitle').val(), "assignmentDesc" : $('#assignmentDesc').val(), "assignmentDate" : $('#assignmentDate').val(), "assignmentClass" : classId,"type" : "assignment"};
+			ajaxPostWithoutReload(url,json,"Assignment posted successfully");
+		}
+	});
 	
+	$(".student-submit-assignment").click(function(e) {
+		id = $(this).attr('id').split('_assignment')[0];
+		$("#assignemntIdToSubmit").val(id);
+		$("#submit-assignment").modal('show');
+	});
+	
+	$("#assignment-submit-modal").click(function(e) {
+		postId = $("#assignemntIdToSubmit").val();
+		count = $("#"+postId+"_submittedCount").val();
+		var json =  {"postId" : postId,"comment":$("#assignmentComments").val(),"submittedCount":count};
+		 $.ajax({
+	         url : 'submitOnlineAssignment',
+	         data : json,//JSON.stringify($('#userSignUpForm').serializeArray()),
+	         dataType: "json",
+	         type: "POST",
+			cache: false,
+	         success : function(data) { 
+	      	   if(data.status == 'Failure'){
+	      		 $('#failure-popup-title').text("Error");
+					$('#postFailureMessage').html(data.MESSAGE);
+					$('#failure-post-popup').modal('show');
+	      	   }
+	      	   else{
+//	      		 location.href = data.message;
+	      		 $("#submit_online_div").html("<b>Submitted</b>")
+	      	   }
+	         }
+	  });
+	});
+	
+	$('#profilePic').click(function() {
+		$('#photp-upload-modal').modal('show');
+	});
+	
+
 	function ajaxPostWithoutReload(url,json,successMsg){
 		$.ajax({
 			type: "POST",
@@ -198,6 +278,9 @@ var dataTable = $('#example').dataTable();
 					$('#scheduleTime').val("");
 					$('#updateComments').val("");
 //					$('#eventClass option:selected').removeAttr('selected');
+					$('#assignmentTitle').val("");
+					$('#assignmentDesc').val("");
+					$('#assignmentDate').val("");
 				}
 				else{
 					$('#failure-popup-title').text("Error");
@@ -520,6 +603,20 @@ function validEvent(){
 		return false;
 	}
 	else if($('#eventClass') && $('#eventClass option:selected').attr('id') == '0'){
+		$('#postFailureMessage').html("Select Class");
+		$('#failure-post-popup').modal('show');
+		return false;
+	}
+	return true;
+}
+
+function validAssignment(){
+	if($('#assignmentTitle').val().length<=0 || $('#assignmentDesc').val().length <= 0 || $('#assignmentDate').val().length <=0 ){
+		$('#postFailureMessage').html("Enter all details");
+		$('#failure-post-popup').modal('show');
+		return false;
+	}
+	else if($('#assignmentClass') && $('#assignmentClass option:selected').attr('id') == '0'){
 		$('#postFailureMessage').html("Select Class");
 		$('#failure-post-popup').modal('show');
 		return false;

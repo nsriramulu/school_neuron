@@ -3,8 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="security"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <c:url value="/resources/js" var="jsURL" />
 <c:url value="/resources/css" var="cssURL" />
 <c:url value="/resources/img" var="imageURL" />
@@ -35,7 +34,7 @@
 								<div class="left-panel-neuron-div" style="height:95px;">
 									<div class="row" style="padding:12px;">
 										<div class="col-sm-4 col-md-4">
-											<img src="${imageURL}/${user.profilePic}" class="img-rounded" alt="Cinque Terre" width="60px;" height="60px;">
+											<img src="${imageURL}/${user.profilePic}" class="img-rounded" id="profilePic" src="${profilePhotoPath}" alt="profile" rel="tooltip" title="Click to change your photo" width="60px;" height="60px;">
 										</div>
 										<div class="col-sm-8 col-md-8" style="line-height: 20px;">
 											<p>${user.firstName} ${user.lastName}</br> ${user.role} <br/>${school.name}</p>
@@ -96,6 +95,106 @@
 				</div>
 			</div>
 			<div class="col-sm-1 col-md-1">
+			</div>
+		</div>
+	</div>
+	<!-- Modal Dialog -->
+<div class="modal fade" id="photp-upload-modal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span class="modal-title" id="failure-popup-title">Upload</span>
+				</div>
+				<div class="modal-body" style="  padding-bottom: 50px;">
+					<form name="role-custom-attribute-save-form" enctype="multipart/form-data"  action="uploadPhoto.do" method="post" >
+					<div class="col-sm-9 col-xs-12 custom-upload">
+						<input type="file" name="profile-photo" accept="image/jpeg"/>	
+						<div class="fake-file row">
+							<div class=" col-xs-6 col-sm-8 paddingNone">
+								<input id="file-name" disabled="disabled" value="">
+							</div>
+							<div class="  col-xs-6 col-sm-4 paddingleft5 paddingRightNone marginTopBottomReq">
+								<button type="button" class="height30">Browse</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3 col-xs-12 paddingleft5 paddingRightNone marginTopBottomReq">
+						<button type="submit" class="height30 UploadButton">Submit</button>
+					</div>
+				</form>
+					<!-- <input id="postFailureMessage" readonly style="background: #e9eaec; height: 50px; padding: 5px;"/> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary neuron-btn"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Assignment doc upload-->
+	<!-- Modal Dialog -->
+<div class="modal fade" id="document-upload-modal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span class="modal-title" id="failure-popup-title">Upload</span>
+				</div>
+				<div class="modal-body" style="  padding-bottom: 50px;">
+					<form name="uplaod-doc" enctype="multipart/form-data"  action="" method="post" >
+					<div class="col-sm-9 col-xs-12 custom-upload">
+						<input type="file" name="document" id="document" accept=""/>	
+						<div class="fake-file row">
+							<div class=" col-xs-6 col-sm-8 paddingNone">
+								<input id="file-name" disabled="disabled" value="">
+							</div>
+							<div class="  col-xs-6 col-sm-4 paddingleft5 paddingRightNone marginTopBottomReq">
+								<button type="button" class="height30">Browse</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3 col-xs-12 paddingleft5 paddingRightNone marginTopBottomReq">
+						<button id="upload-submit-btn" type="button" class="height30 UploadButton">Submit</button>
+					</div>
+				</form>
+					<!-- <input id="postFailureMessage" readonly style="background: #e9eaec; height: 50px; padding: 5px;"/> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary neuron-btn"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End assignment doc uplaod -->
+	<div class="modal fade" id="failure-post-popup" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span class="modal-title" id="failure-popup-title">Failure</span>
+				</div>
+				<div class="modal-body">
+					<span id="postFailureMessage"></span>
+					<!-- <input id="postFailureMessage" readonly style="background: #e9eaec; height: 50px; padding: 5px;"/> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary neuron-btn"
+						data-dismiss="modal">Close</button>
+				</div>
 			</div>
 		</div>
 	</div>

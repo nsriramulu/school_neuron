@@ -13,6 +13,7 @@ import com.sn.common.WebContextHolder;
 import com.sn.common.utils.DateTimeUtils;
 import com.sn.constants.ApplicationConstants;
 import com.sn.constants.ResponseStatus;
+import com.sn.dao.AssignmentDAO;
 import com.sn.dao.CommentDAO;
 import com.sn.dao.EventDAO;
 import com.sn.dao.LikeDAO;
@@ -24,6 +25,7 @@ import com.sn.entity.Comment;
 import com.sn.entity.EventResult;
 import com.sn.entity.Like;
 import com.sn.entity.Post;
+import com.sn.entity.StudentAssignment;
 import com.sn.quartz.JobScheduler;
 import com.sn.service.PostService;
 import com.sn.utils.JSONUtils;
@@ -42,12 +44,14 @@ public class PostServiceImpl implements PostService {
 	private LikeDAO likeDAO;
 	@Autowired
 	EventDAO eventDAO;
+	@Autowired
+	private AssignmentDAO assignmentDAO;
 	@Override
-	public String submitUpdate(String postText, Integer classId, String type) {
+	public String submitUpdate(String postText, Integer classId, String type,String docName) {
 		String response = "";
 		boolean isSuccess = false;
 		try{
-			Post post = buildPost(classId, type);
+			Post post = buildPost(classId, type,docName);
 			post.setMessage(postText);
 			post.setPostDate(Calendar.getInstance());
 			isSuccess = postDAO.insertPost(post);
@@ -66,7 +70,7 @@ public class PostServiceImpl implements PostService {
 		return response;
 	}
 
-	private Post buildPost(Integer classId, String type) {
+	private Post buildPost(Integer classId, String type,String docName) {
 		Post post = new Post();
 		//		post.setMessage(postText);
 		post.setCommentCount(0);
@@ -79,6 +83,9 @@ public class PostServiceImpl implements PostService {
 		post.setType(type);
 		post.setClassId(classId);
 		post.setIsScheduled(false);
+		if(StringUtils.isNotBlank(docName)){
+			post.setUploads(docName);
+		}
 		//			User createdByUser = new User();
 		//			createdByUser.setUid(1);
 		post.setUsersByCreatedBy(WebContextHolder.get().getLoggedInUser());
@@ -114,8 +121,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<Post> getPostsForStudentOrParent(Integer classId) {
-		return postDAO.getPostsByClass(classId);
+	public List<Post> getPostsForStudentOrParent(Integer classId,String type) {
+		return postDAO.getPostsByClassAndType(classId,type);
 	}
 
 	@Override
@@ -129,6 +136,8 @@ public class PostServiceImpl implements PostService {
 		case ApplicationConstants.POSTS_FOR_EVENT_PAGE : posts = postDAO.getEventsByUserAndClass(teacherId, classIds);
 		break;
 		
+		case ApplicationConstants.POSTS_FOR_ASSIGNMENT_PAGE : posts = postDAO.getAssignmentsByUserAndClass(teacherId, classIds);
+		break;
 		}
 		return posts;
 	}
@@ -182,12 +191,12 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public String schedulePost(String postText, int classId, String type,String date, String time) {
+	public String schedulePost(String postText, int classId, String type,String date, String time,String docName) {
 
 		String response = "";
 		boolean isSuccess = false;
 		try{
-			Post post = buildPost(classId, type);
+			Post post = buildPost(classId, type, docName);
 			post.setMessage(postText);
 			post.setIsScheduled(true);
 			Calendar scheduledDate = Calendar.getInstance();
@@ -239,17 +248,22 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public String submitEvent(String title, String desc, String date,String time,
-			int classId, String type) {
+			int classId, String type, String docName) {
 
 		String response = "";
 		boolean isSuccess = false;
 		try{
-			Post post = buildPost(classId, type);
+			Post post = buildPost(classId, type, docName);
 			post.setEventTitle(title);
 			post.setEventDesc(desc);
 			Calendar eventDate = Calendar.getInstance();
+			if(StringUtils.isNotBlank(time)){
 			eventDate.set(DateTimeUtils.getYear(date), DateTimeUtils.getMonth(date), DateTimeUtils.getDay(date), 
 					DateTimeUtils.getHour(time), DateTimeUtils.getMinute(time), 0);
+			}
+			else{
+				eventDate.set(DateTimeUtils.getYear(date), DateTimeUtils.getMonth(date), DateTimeUtils.getDay(date),0,0,0);	
+			}
 			post.setEventDate(eventDate);
 			isSuccess = postDAO.insertPost(post);
 		}
@@ -270,12 +284,12 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public String scheduleEvent(String title, int classId, String type, String desc,
-			String date, String time,String scheduledDate,String scheduledTime) {
+			String date, String time,String scheduledDate,String scheduledTime,String docName) {
 
 		String response = "";
 		boolean isSuccess = false;
 		try{
-			Post post = buildPost(classId, type);
+			Post post = buildPost(classId, type, docName);
 			post.setEventTitle(title);
 			post.setEventDesc(desc);
 			post.setIsScheduled(true);
@@ -341,6 +355,30 @@ public class PostServiceImpl implements PostService {
 		eventResult.setCreatedDate(Calendar.getInstance());
 		String responseStr = eventDAO.insertEventResult(eventResult);
 		if(StringUtils.isBlank(responseStr))
+		{
+			responseStr  = JSONUtils.getSuccessJSONResponse(ResponseStatus.SUCCESS.getCode());
+		}
+		else{
+			responseStr = JSONUtils.getErrorJSONRresponse("You already responded as "+responseStr);
+		}
+		return responseStr;
+	}
+
+	@Override
+	public String submitOnlineAssignment(Integer postId, String comment,String fileName,Integer submittedCount) {
+		StudentAssignment studentAssignment = new StudentAssignment();
+		studentAssignment.setDocName(fileName);
+		studentAssignment.setIsCompleted(false);
+		studentAssignment.setCreatedDate(Calendar.getInstance());
+		studentAssignment.setIsSubmitted(true);
+		studentAssignment.setStudentId(WebContextHolder.get().getLoggedInUser().getUid());
+		studentAssignment.setSubmittedDate(Calendar.getInstance());
+		Post assignment = new Post();
+		assignment.setId(postId);
+		assignment.setLikeCount(++submittedCount);
+		studentAssignment.setAssignment(assignment);
+		String responseStr = assignmentDAO.insertStudentAssignment(studentAssignment);
+		if(StringUtils.isBlank(responseStr) && postDAO.updateLikeCount(assignment))
 		{
 			responseStr  = JSONUtils.getSuccessJSONResponse(ResponseStatus.SUCCESS.getCode());
 		}

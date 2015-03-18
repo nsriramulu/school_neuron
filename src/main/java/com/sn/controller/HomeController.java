@@ -70,7 +70,7 @@ public class HomeController {
 				posts = postService.getPostsForTeacher(WebContextHolder.get().getLoggedInUser().getUid(), classIds,ApplicationConstants.POSTS_FOR_HOME_PAGE);
 			}
 			else if(StringUtils.equalsIgnoreCase(ApplicationConstants.PARENT_ROLE,user.getRole()) || StringUtils.equalsIgnoreCase(ApplicationConstants.STUDENT_ROLE,user.getRole())){
-				posts = postService.getPostsForStudentOrParent(user.getClassId());
+				posts = postService.getPostsForStudentOrParent(user.getClassId(),ApplicationConstants.POST_TYPE_UPDATE);
 			}
 			else if(StringUtils.equalsIgnoreCase(ApplicationConstants.PRINCIPAL_ROLE,user.getRole())){
 				posts = postService.getPostsForPrincipal();

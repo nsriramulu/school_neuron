@@ -36,5 +36,6 @@
 		<mapping class="com.sn.entity.QuizQuestion"></mapping>
 		<mapping class="com.sn.entity.QuizAnswer"></mapping>
 		<mapping class="com.sn.entity.StudentQuiz"></mapping>
+		<mapping class="com.sn.entity.StudentAssignment"></mapping>
     </session-factory>
 </hibernate-configuration>

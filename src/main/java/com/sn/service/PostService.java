@@ -7,20 +7,24 @@ import com.sn.vo.CommentsVO;
 
 
 public interface PostService {
-	String submitUpdate(String postText,Integer postClass, String type);
 	List<Post> getPostsForTeacher(Integer teacherId,List<Integer> classId, String postFor);
-	List<Post> getPostsForStudentOrParent(Integer classId);
 	String submitComment(Integer postId, String comment, Integer commentCount, Integer userId);
-	String schedulePost(String post, int parseInt, String type, String date, String time);
 	void submitScheduledPost(Object object);
 	List<Post> getScheduledPosts();
 	String addLike(Integer postId, Integer likeCount, Integer uid);
-	String submitEvent(String title, String desc, String date, String time, int parseInt,
-			String type);
-	String scheduleEvent(String title, int parseInt, String type, String date,String desc,
-			String time, String scheduleDate, String scheduleTime);
 	String checkForNotifications();
 	List<Post> getPostsForPrincipal();
 	List<CommentsVO> showComments(Integer postId);
+	String submitEvent(String title, String desc, String date, String time,
+			int classId, String type, String docName);
+	String scheduleEvent(String title, int classId, String type, String desc,
+			String date, String time, String scheduledDate,
+			String scheduledTime, String docName);
 	String respondToEvent(Integer response, Integer eventId, Integer uid);
+	String schedulePost(String postText, int classId, String type, String date,
+			String time, String docName);
+	String submitUpdate(String postText, Integer classId, String type,
+			String docName);
+	List<Post> getPostsForStudentOrParent(Integer classId, String type);
+	String submitOnlineAssignment(Integer postId, String comment, String fileName, Integer submittedCount);
 }

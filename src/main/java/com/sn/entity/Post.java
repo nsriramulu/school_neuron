@@ -179,7 +179,7 @@ public class Post implements Serializable {
 	@Column(name = "event_date")
 	@Basic(fetch = FetchType.EAGER)
 	@XmlElement
-	Calendar eventDate;
+	Calendar eventDate;//due date also
 	
 	@Column(name = "points")
 	@Basic(fetch = FetchType.EAGER)
@@ -227,7 +227,11 @@ public class Post implements Serializable {
 	@OneToMany(mappedBy = "quiz", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	@XmlElement(name = "", namespace = "")
 	java.util.Set<com.sn.entity.QuizQuestion> quizQuestions;
-
+	
+	@OneToMany(mappedBy = "assignment", cascade = { CascadeType.REMOVE }, fetch = FetchType.EAGER)
+	@XmlElement(name = "", namespace = "")
+	java.util.Set<com.sn.entity.StudentAssignment> assignments;
+	
 	/**
 	 */
 	public void setId(Integer id) {
@@ -537,6 +541,15 @@ public class Post implements Serializable {
 	public void setQuizQuestions(
 			java.util.Set<com.sn.entity.QuizQuestion> quizQuestions) {
 		this.quizQuestions = quizQuestions;
+	}
+
+	public java.util.Set<com.sn.entity.StudentAssignment> getAssignments() {
+		return assignments;
+	}
+
+	public void setAssignments(
+			java.util.Set<com.sn.entity.StudentAssignment> assignments) {
+		this.assignments = assignments;
 	}
 
 	/**

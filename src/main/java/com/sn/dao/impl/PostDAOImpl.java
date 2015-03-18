@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -76,15 +77,20 @@ public class PostDAOImpl implements PostDAO{
 	}
 
 	@Override
-	public List<Post> getPostsByClass(Integer classId) {
+	public List<Post> getPostsByClassAndType(Integer classId,String type) {
 		Session session = HibernateUtil.getOpenSession();
 		Transaction transaction=null;
 		List<Post> posts=null;
 		try {
 			transaction=session.beginTransaction();
-			Criteria criteria = session.createCriteria(Post.class)
-					.add(Restrictions.and(Restrictions.eq("classId", classId),Restrictions.eqOrIsNull("type", "update")));
-			posts = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			Criteria criteria = session.createCriteria(Post.class);
+			if(StringUtils.isBlank(type)){
+				criteria.add(Restrictions.eq("classId", classId));	
+			}
+			else{
+				criteria.add(Restrictions.and(Restrictions.eq("classId", classId),Restrictions.eqOrIsNull("type", type)));
+			}
+			posts = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 			transaction.commit();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -281,11 +287,50 @@ public class PostDAOImpl implements PostDAO{
 												Restrictions.eq("usersByCreatedBy.uid", userId), 
 												Restrictions.in("classId", classIds)
 										),
-										Restrictions.isNotNull("eventTitle")
+										Restrictions.eq("type","event")
 										);
 			
 			criteria.add(criterion);
-			criteria.addOrder(Order.desc("postDate"));
+			criteria.addOrder(Order.desc("eventDate"));
+			posts = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			transaction.commit();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			if (transaction != null)
+				transaction.rollback();
+
+		}finally {
+			if (session != null)
+				session.close();
+		}
+		return posts;
+	}
+	
+	@Override
+	public List<Post> getAssignmentsByUserAndClass(Integer userId,
+			List<Integer> classIds) {
+		Session session = HibernateUtil.getOpenSession();
+		Transaction transaction=null;
+		List<Post> posts=null;
+		try {
+			transaction=session.beginTransaction();
+			Criteria criteria = session.createCriteria(Post.class);
+			//			Junction disjunction = Restrictions.disjunction(); 
+			//	        for (Integer classId: classIds) {
+			//	            disjunction = disjunction.add(Restrictions.eq("classId", classId));
+			//	        }
+			//	        criteria.add(disjunction);
+			Criterion criterion= Restrictions.and(
+										Restrictions.eqOrIsNull("isScheduled", false), 
+										Restrictions.or(
+												Restrictions.eq("usersByCreatedBy.uid", userId), 
+												Restrictions.in("classId", classIds)
+										),
+										Restrictions.eq("type","assignment")
+										);
+			
+			criteria.add(criterion);
+			criteria.addOrder(Order.desc("eventDate"));
 			posts = 	criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 			transaction.commit();
 		} catch (RuntimeException e) {

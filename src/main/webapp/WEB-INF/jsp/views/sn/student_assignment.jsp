@@ -44,42 +44,22 @@
 					<div class="col-sm-2 col-md-2">
 						<button id="submitOnlineAssignment" type="button" class="btn neuron-btn btn-block btn-sm">Submit online</button>
 					</div-->
-					<div class="col-md-1"></div>
-					<div class="col-sm-2 col-md-2">
-						<strong>Marks: <span>25</span></strong>
+					<div class="col-md-offset-1"></div>
+					<div class="col-sm-offset-2 col-md-offset-2">
 					</div>
 					<div class="col-sm-2 col-md-2">
-						<strong>Submitted: <span>${fn:length(post.assignments)}</span></strong>
+						<strong>Marks: <span>22/25</span></strong>
 					</div>
-					<div class="col-sm-2 col-md-2">
-						<strong>Pending: <span></span></strong>
+					<input type="hidden" id="${post.id}_submittedCount" value="${post.likeCount}"/>
+					<div class="col-sm-offset-2 col-md-offset-2" id="submit_online_div">
+						<button id="${post.id}_assignment" class="btn student-submit-assignment">Submit Online</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	</br>
-	<!-- <div id="assignmentPostDiv" class="row">
-		<div class="col-sm-1 col-md-1">
-			<img src="${imageURL}/${user.profilePic}" class="img-rounded" alt="Cinque Terre" width="100%" height="100%">
-			<span>${post.usersByCreatedBy.firstName}</span>
-			<span>${post.usersByCreatedBy.lastName}</span>
-		</div>
-		<div class="col-sm-11 col-md-11">
-			<div class="commentSectionBorder">
-				<div style="padding: 10px;">
-					<input type="file">
-				</div>
-				<div style="padding: 10px;">
-					<textarea rows="2" class="form-control" id="updateComments" style="background: #e9eaec;" placeholder="Enter you comment here..."></textarea>
-				</div>
-				
-				<div class="text-right" style="padding: 10px;">
-					<button type="button" class="btn neuron-btn btn-sm">Submit</button>
-				</div>
-			</div>
-		</div>
-	</div> -->
+	<!-- -->
 	</br>
 	<!-- <div id="submiitedAssignmentList" class="commentSectionBorder">
 		<h4>Submitted: 12</h4>
@@ -149,3 +129,45 @@
 	</c:forEach>
 	</c:when>
 	</c:choose>
+<!-- submit assignment modal -->
+	<div class="modal fade" id="submit-assignment" tabindex="-2" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span class="modal-title" id="failure-popup-title">Schedule</span>
+				</div>
+				<div class="modal-body">
+				<input type="hidden" id="assignemntIdToSubmit" value=""/>
+				<div id="assignmentPostDiv" class="row">
+					<div class="col-sm-1 col-md-1">
+						<img src="${imageURL}/${user.profilePic}" class="img-rounded"
+							alt="Cinque Terre" width="100%" height="100%"> <span>${post.usersByCreatedBy.firstName}</span>
+						<span>${post.usersByCreatedBy.lastName}</span>
+					</div>
+					<div class="col-sm-11 col-md-11">
+						<div class="commentSectionBorder">
+							<div style="padding: 10px;">
+								<a data-toggle="modal" data-target="#document-upload-modal"><img src="${imageURL}/attachment.png" class="img-rounded" width="20" height="20" /></a>
+							</div>
+							<div style="padding: 10px;">
+								<textarea rows="2" class="form-control" id="assignmentComments"
+									style="background: #e9eaec;"
+									placeholder="Enter you comment here..."></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="assignment-submit-modal" class="btn btn-primary neuron-btn"
+						data-dismiss="modal">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--  end submit assignment -->

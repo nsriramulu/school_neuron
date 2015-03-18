@@ -194,3 +194,97 @@ div.commentSectionBorder{
 	height:100%;
 	max-width:100%
 }
+.custom-upload {
+    position:relative;
+	padding:0;
+}
+
+.custom-upload input[type=file]
+{
+    outline:none;
+    position: relative;
+    text-align: right;    
+    -moz-opacity:0 ;
+    filter:alpha(opacity: 0);
+    opacity: 0;
+    z-index: 2;
+    width:100%;
+    height:30px;
+    
+}
+
+.custom-upload .fake-file
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+    height: 30px;
+}
+
+.custom-upload .fake-file input
+{
+	padding:5px;
+	width:100%;
+    height:100%;
+}
+.custom-upload .fake-file button
+{
+    width:100%;
+    height:100%;
+padding:3px;
+}
+input[type="button"], .UploadButton input[type="text"], .UploadButton input[type="password"], .UploadButton input[type="submit"], .UploadButton input[type="reset"] {
+width:100%;
+}
+.UploadButton input[type="submit"], .UploadButton input[type="reset"]{
+	
+	background-image:url(../img/normal_bt.jpg);
+	background-repeat:repeat-x;
+	padding:6px 20px;
+	border:1px solid #CCC;
+	border-radius:3px;
+	color:#555;
+	font-size:11px;
+	font-weight:bold;
+	
+}
+.UploadButton input[type="submit"]:hover , input[type="reset"]:hover{
+background-image:url(../img/press_bt.jpg) ;
+	background-repeat:repeat-x;
+color:#fff;
+}
+.paddingNone{
+	padding-left:0px;
+}
+.paddingZero{
+	padding:0px !important;
+}
+.paddingleft5{
+	padding-left:5px !important;
+}
+.paddingRightNone{
+	padding-right:0px;
+}
+.marginTopBottomReq{
+	margin:10px 0px;
+}
+@media all and (min-width: 320px) and (max-width: 767px) { /* mobile screen */
+.custom-upload .fake-file button
+{
+   
+	padding:3px !important;
+}
+@media all and (min-width: 769px) and (max-width: 1024px) and (min-width: 1025px){ /* Medium & large screen tablet */
+.height30{
+	height:30px;
+}
+}
+.fake-file button
+{
+	padding:3px !important;
+}
+}

@@ -18,4 +18,7 @@ public interface ApplicationConstants {
 	String POSTS_FOR_HOME_PAGE = "1";
 	String POSTS_FOR_EVENT_PAGE = "2";
 	String POSTS_FOR_ASSIGNMENT_PAGE = "3";
+	String POST_TYPE_UPDATE = "update";
+	String POST_TYPE_EVENT = "event";
+	String POST_TYPE_ASSIGNMENT = "assignment";
 }

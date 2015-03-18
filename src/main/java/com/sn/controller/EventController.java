@@ -65,7 +65,7 @@ public class EventController {
 				posts = postService.getPostsForTeacher(WebContextHolder.get().getLoggedInUser().getUid(), classIds,ApplicationConstants.POSTS_FOR_EVENT_PAGE);
 			}
 			else if(StringUtils.equalsIgnoreCase(ApplicationConstants.PARENT_ROLE,user.getRole()) || StringUtils.equalsIgnoreCase(ApplicationConstants.STUDENT_ROLE,user.getRole())){
-				posts = postService.getPostsForStudentOrParent(user.getClassId());
+				posts = postService.getPostsForStudentOrParent(user.getClassId(),ApplicationConstants.POST_TYPE_EVENT);
 			}
 			else if(StringUtils.equalsIgnoreCase(ApplicationConstants.PRINCIPAL_ROLE,user.getRole())){
 				posts = postService.getPostsForPrincipal();
