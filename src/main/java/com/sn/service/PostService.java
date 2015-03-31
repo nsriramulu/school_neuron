@@ -27,4 +27,5 @@ public interface PostService {
 			String docName);
 	List<Post> getPostsForStudentOrParent(Integer classId, String type);
 	String submitOnlineAssignment(Integer postId, String comment, String fileName, Integer submittedCount);
+	String submitQuiz(String quizType,String quizTitle,String dueDate,String pointPerQue,String questionSet);
 }

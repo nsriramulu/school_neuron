@@ -95,6 +95,15 @@ public class PostController {
 		return postService.scheduleEvent(title, Integer.parseInt(eventClass), type, date, desc,time,scheduleDate,scheduleTime,"");
 	}
 	
+	@RequestMapping(value = "/submitQuiz", method = RequestMethod.POST)
+	public @ResponseBody String submitQuiz(ModelMap model,@RequestParam(value = "quizType") String quizType,
+			@RequestParam(value = "quizTitle") String quizTitle,
+			@RequestParam(value = "dueDate") String dueDate,
+			@RequestParam(value = "pointPerQue") String pointPerQue,
+			@RequestParam(value = "questionSet") String questionSet) {
+		return postService.submitQuiz(quizType,quizTitle,dueDate,pointPerQue, questionSet);
+	}
+	
 	@RequestMapping(value = "/checkForNotifications", method = RequestMethod.GET)
 	public @ResponseBody String checkForNotifications() {
 		return postService.checkForNotifications();

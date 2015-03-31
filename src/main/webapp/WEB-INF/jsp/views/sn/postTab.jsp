@@ -140,19 +140,19 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="inputTitle">Title</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control neuron-text" id="assignmentTitle" placeholder="Title">
+					<input type="text" class="form-control neuron-text" id="inputTitle" placeholder="Title">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="inputDesc">Description</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control neuron-text" id="assignmentDesc" placeholder="Description">
+					<input type="text" class="form-control neuron-text" id="inputDesc" placeholder="Description">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="dateEventTime" class="col-sm-2 control-label">Due Date</label>
 				<div class="col-sm-3">
-					<input type="date" class="form-control neuron-text" id="assignmentDate">
+					<input type="date" class="form-control neuron-text" id="dateEventTime">
 				</div>
 				
 				<div class="col-sm-7"></div>
@@ -164,13 +164,12 @@
 				
 			</div>
 			<div class="col-sm-1 col-md-1">
-					<span class="btn btn-default btn-file"> 
-					<a data-toggle="modal" data-target="#document-upload-modal"><img src="${imageURL}/attachment.png" class="img-rounded" width="20" height="20" /></a>
-					</span>
+				<img src="${imageURL}/attachment.png" class="img-rounded" width="20"
+					height="20" />
 			</div>
 			<security:authorize access="hasAnyRole('Principal,Teacher')">
 			<div class="col-sm-3 col-md-3">
-				<select class="form-control neuron-select" id="assignmentClass">
+				<select class="form-control neuron-select">
 					<option id="0">- Select Class -</option>
 					<c:forEach items="${classSubjectTeachers}" var ="classSubjectTeacher">
 								<option id="${classSubjectTeacher.classesByClassId.id}">${classSubjectTeacher.classesBySubjectId.subjectName} - ${classSubjectTeacher.classesByClassId.className}</option>
@@ -186,10 +185,10 @@
 				
 			</div>
 			<div class="col-sm-2 col-md-2" style="padding:10px;">
-				<a id="schedule_assignment_btn" href="#">Schedule</a>
+				<a id="schedule_post-btn" href="#">Schedule</a>
 			</div>
 			<div class="col-sm-2 col-md-2">
-				<button type="button" id="submit-assignment-btn" class="btn neuron-btn btn-block btn-sm">Send</button>
+				<button type="button" class="btn neuron-btn btn-block btn-sm">Send</button>
 			</div>
 		</div>
 	</div>
@@ -223,7 +222,7 @@
 				<a id="add_poll_ans" class="text-right" href="#">Add more ans.</a>
 			</div>
 		</div>
-		<hr class="neuron-Hline">
+		<hr class=0"neuron-Hline">
 		<div class="row">
 			<div class="col-sm-1 col-md-1">
 				
@@ -275,7 +274,7 @@
 				<div class="col-sm-2"></div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="pointPerQue">Points per Que: </label>
+				<label class="col-sm-3 control-label" for="pointPerQue">Points for per Que: </label>
 				<div class="col-sm-2">
 					<input type="text" class="form-control neuron-text" id="pointPerQue">
 				</div>
@@ -286,45 +285,40 @@
 				<div class="col-sm-2"></div>
 			</div>
 			
-			<fieldset>
-			<legend>Que1: </legend>
-			<div class="form-group">
-				<label class="col-sm-2 control-label" for="inputTitle">Question</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control neuron-text" id="inputTitle" placeholder="Enter your question here...">
+			<br>
+			<div id="quizQuestionsDiv" class="commentSectionBorder">
+			<div class="questionDiv">
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="inputTitle">
+						<span class="label label-info" style="float:left;font-size:11px;">1</span>Question
+					</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control neuron-text" id="inputTitle" placeholder="Enter your question here...">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="inputDesc">Answer: </label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control neuron-text" id="inputDesc" placeholder="Enter your answer...">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-8 col-md-8">
+					</div>
+					<div class="col-sm-2 col-md-2 text-right">
+						<a class="add_que_ans" href="#">Add more ans.</a>
+					</div>
+					<div class="col-sm-2 col-md-2">
+					</div>
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label" for="inputDesc">Answer: </label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control neuron-text" id="inputDesc" placeholder="Enter your answer...">
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-8 col-md-8">
-				</div>
-				<div class="col-sm-2 col-md-2 text-right">
-					<a class="add_que_ans" href="#">Add more ans.</a>
-				</div>
-				<div class="col-sm-2 col-md-2">
-				</div>
-			</div>
-			</fieldset>
 			</br>
+			</div>
 			<div class="row">
 				<div class="col-sm-9 col-md-9">
 				</div>
 				<div class="col-sm-3 col-md-3 text-right" >
 					<a id="add_more_que" href="#">Add more Que.</a>
-				</div>
-			</div>
-			
-			</br>
-			<div class="row">
-				<div class="col-sm-10 col-md-10">
-				</div>
-				<div class="col-sm-2 col-md-2 text-right" >
-					<button type="button" class="btn neuron-btn btn-block btn-sm">Submit</button>
 				</div>
 			</div>
 		</form>
@@ -355,11 +349,242 @@
 				
 			</div>
 			<div class="col-sm-2 col-md-2">
-				<button type="button" class="btn neuron-btn btn-block btn-sm">Send</button>
+				<button type="button" id="submit-quiz-btn" class="btn neuron-btn btn-block btn-sm">Send</button>
 			</div>
 		</div>
 	</div>
 	</br>
+	
+
+<!-- 
+<div class="tabGroup">
+	<ul class="nav nav-tabs attribute-tab-items">
+		<li class="active col-md-2 text-center"><a href="#update"
+			data-toggle="tab">Update</a></option>
+		<li class="col-md-2 text-center"><a href="#event"
+			data-toggle="tab">Event</a></option>
+		<li class="col-md-2 text-center"><a href="#poll"
+			data-toggle="tab">Poll</a></option>
+		<li class="col-md-2 text-center"><a href="#quiz"
+			data-toggle="tab">Quiz</a></option>
+	</ul>
+</div>
+<div class="tab-content darkGreyBg">
+	<div class="tab-pane active" id="update">
+		<div>
+			<textarea id="updateText"
+				placeholder="Send an Update to Parents and Students"></textarea>
+		</div>
+			<div class="col-sm-12 paddingTop5">
+		<div class="col-sm-6">
+			<span class="whiteText"></span> 
+				<select class="dropdown_module"	id="postClass">
+					<option id="0">Class</option>
+					<c:forEach items="${classSubjectTeachers}" var ="classSubjectTeacher">
+						<option id="${classSubjectTeacher.classesByClassId.id}">${classSubjectTeacher.classesByClassId.className}
+							<c:choose> <c:when test="${not empty classSubjectTeacher.classesByClassId.section}">- ${classSubjectTeacher.classesByClassId.section}</c:when></c:choose>
+						</option>
+					</c:forEach>
+				</select> 
+				<i class="icon-large icon-attach pointerCursor" id="upload_post" title="Attach File"></i>
+		</div>
+		<div class="col-sm-3">
+			<button type="button" id="schedule_post-btn" class="continue-button">Schedule</button>
+		</div>
+		<div class="col-sm-3">
+			<button type="button" id="submit-post-btn" class="continue-button">Send</button>
+		</div>
+	</div>
+	<div class="buttons_module"></div>
+	<div class="row"></div>
+	</div>
+	<div class="tab-pane whiteBg divBorder" id="event">
+		<div class="row need-padding-bottom need-padding-top">
+			<div class="col-sm-2 paddingLeft50">Title</div>
+			<div class="col-sm-5">
+				<input type="text" id="event_title" placeholder="Title" value=""
+					class="">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2 paddingLeft50">Description</div>
+			<div class="col-sm-5">
+				<input type="text" id="event_desc" placeholder="Description"
+					value="" class="">
+			</div>
+		</div>
+		<div class="row paddingBottom10">
+			<div class="col-sm-2 paddingLeft50">Date</div>
+			<div class="col-sm-5">
+				<div class="form-group">
+					<div class='input-group date' id='datePickerForEvent'>
+						<input type='text' class="form-control" data-date-format="YYYY/MM/DD"/>
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+			<div class="col-sm-12 paddingTop5 darkGreyBg">
+		<div class="col-sm-6">
+			<span class="whiteText"></span> 
+				<select class="dropdown_module"	id="eventClass">
+					<option id="0">Class</option>
+					<option id="1">6th 'D'</option>
+					<option id="2">7th 'A'</option>
+					<option id="3">10th 'C'</option>
+				</select> 
+				<i class="icon-large icon-attach pointerCursor" id="upload_post" title="Attach File"></i>
+		</div>
+		<div class="col-sm-3">
+			<button type="button" id="schedule_event-btn" class="continue-button">Schedule</button>
+		</div>
+		<div class="col-sm-3">
+			<button type="button" id="submit-event-btn" class="continue-button">Send</button>
+		</div>
+	</div>
+	<div class="buttons_module"></div>
+	<div class="row"></div>
+	</div>
+</div>
+  <div class="modal fade" id="schedule-options-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="popup-header">
+        <span class="modal-title">Schedule</span>
+        <span class="close" data-dismiss="modal" aria-hidden="true"><img src="${imageURL}/close_icon.png"/></span>
+      </div>
+      <div class="modal-body container-fluid">
+<div class="row">
+<div class="popup-text col-sm-8  padding-bottom-required check-option">
+	<div class="row">
+			<div class="col-sm-2">Date</div>
+			<div class="col-sm-5">
+				<div class="form-group">
+					<div class='input-group date' id='datePickerForScheduler'>
+						<input type='text' class="form-control" data-date-format="YYYY/MM/DD"/>
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">Time</div>
+             <div class="form-group">
+             <div class="col-sm-5">
+                <div class='input-group date' id='timePickerForScheduler'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+                </div>
+            </div>
+		</div>
+</div>  
+</div>
+</div>
+<div class="row">
+<div class="col-sm-offset-4 col-xs-8">
+<div class="col-xs-6">
+<button type="button" id="post_schedule_btn" data-dismiss="modal" class="continue-button1">Submit</button>
+</div>
+<div class="col-xs-6">
+<button type="button" class="cancel-button2" data-dismiss="modal">Cancel</button></div>
+</div>
+</div>
+</div>
+    </div>
+  </div>
+<div class="modal fade" id="success-post-popup" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="popup-header">
+				<span class="modal-title">Success</span> <span class="close post_success_btn"
+					data-dismiss="modal" aria-hidden="true"><img
+					src="${imageURL}/close_icon.png" /></span>
+			</div>
+			<div class="modal-body container-fluid">
+				<div class="row">
+					<div
+						class="popup-text col-sm-8  padding-bottom-required check-option">
+						<div class="row">
+							<div class="col-sm-7">
+								<div class="" id="postSuccessMessage"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-offset-4 col-xs-8">
+					<div class="col-xs-6">
+						<button type="button" data-dismiss="modal"
+							class="continue-button1 post_success_btn">Ok</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 
+<div class="modal fade" id="failure-post-popup" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="popup-header">
+				<span class="modal-title">Error</span> <span class="close"
+					data-dismiss="modal" aria-hidden="true"><img
+					src="${imageURL}/close_icon.png" /></span>
+			</div>
+			<div class="modal-body container-fluid">
+				<div class="row">
+					<div
+						class="popup-text col-sm-8  padding-bottom-required check-option">
+						<div class="row">
+							<div class="col-sm-7">
+								<div class="" id="postFailureMessage"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-offset-4 col-xs-8">
+					<div class="col-xs-6">
+						<button type="button" id="post_failure_btn" data-dismiss="modal"
+							class="continue-button1">Ok</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>-->
+
+<div class="modal fade" id="failure-post-popup" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span class="modal-title" id="failure-popup-title">Failure</span>
+				</div>
+				<div class="modal-body">
+					<span id="postFailureMessage"></span>
+					<!-- <input id="postFailureMessage" readonly style="background: #e9eaec; height: 50px; padding: 5px;"/> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary neuron-btn"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 <!-- Schedule post Popup -->
 	<div class="modal fade" id="schedule-post-popup" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -2,10 +2,14 @@ package com.sn.service.impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +29,8 @@ import com.sn.entity.Comment;
 import com.sn.entity.EventResult;
 import com.sn.entity.Like;
 import com.sn.entity.Post;
+import com.sn.entity.QuizAnswer;
+import com.sn.entity.QuizQuestion;
 import com.sn.entity.StudentAssignment;
 import com.sn.quartz.JobScheduler;
 import com.sn.service.PostService;
@@ -385,6 +391,45 @@ public class PostServiceImpl implements PostService {
 		else{
 			responseStr = JSONUtils.getErrorJSONRresponse("You already responded as "+responseStr);
 		}
+		return responseStr;
+	}
+	
+	@Override
+	public String submitQuiz(String quizType,String quizTitle,String dueDate,String pointPerQue,String questionSet){
+		String responseStr = "";
+		Post post = new Post();
+		post.setType(quizType);
+		post.setEventTitle(quizTitle);
+		post.setCreatedDate(Calendar.getInstance());
+		post.setUsersByCreatedBy(WebContextHolder.get().getLoggedInUser());
+		System.out.println("dueDate: "+dueDate);
+		post.setPoints(Integer.parseInt(pointPerQue));
+		JSONObject queSet = new JSONObject(questionSet);
+		JSONArray quesArray = queSet.getJSONArray("questions");
+		Set<QuizQuestion> quizSet = new HashSet<QuizQuestion>();
+		for(int i=0;i<quesArray.length();i++){
+			QuizQuestion q = new QuizQuestion();
+			JSONObject queObj = (JSONObject) quesArray.get(i);
+			q.setQuestion(queObj.getString("question"));
+			Set<QuizAnswer> quizAnsSet = new HashSet<QuizAnswer>();
+			int ansCount = queObj.getInt("answerCount");
+			for(int j=1;j<=ansCount;j++){
+				QuizAnswer qAns = new QuizAnswer();
+				qAns.setAnswer(queObj.getString("answer"+j));
+				quizAnsSet.add(qAns);
+			}
+			
+			q.setAnswers(quizAnsSet);
+			
+		}
+		
+		post.setQuizQuestions(quizSet);
+		boolean isSuccess = postDAO.insertPost(post);
+		if(isSuccess)
+			responseStr = JSONUtils.getSuccessJSONResponse(ResponseStatus.SUCCESS.getCode());
+		else
+			responseStr = JSONUtils.getErrorJSONRresponse("Error in setiing quiz...");
+			
 		return responseStr;
 	}
 }

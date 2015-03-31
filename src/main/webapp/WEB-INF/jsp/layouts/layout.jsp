@@ -81,6 +81,7 @@
 									<div class="left-panel-neuron-div"><a href="events">Events</a></div>
 									<div class="left-panel-neuron-div"><a href="assignments">Assignments</a></div>
 									<div class="left-panel-neuron-div"><a href="polls">Polls</a></div>
+									<div class="left-panel-neuron-div"><a href="quizzes">Quizzes</a></div>
 								</div>
 							</div>
 						</div>

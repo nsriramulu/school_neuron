@@ -14,7 +14,12 @@ $(document).ready(function(){
 	});
 	
 	$('body').on('click', 'a.add_que_ans', function() {
-		$(this).closest('div.row').before('<div class="form-group"><label class="col-sm-2 control-label" for="inputDesc">Answer: </label><div class="col-sm-8"><input type="text" class="form-control neuron-text" id="inputDesc" placeholder="Enter your answer..."></div></div>');
+		var ans = $(this).closest('div.row').prev().find('input').val();
+		if(ans.length > 0){
+			$(this).closest('div.row').before('<div class="form-group"><label class="col-sm-2 control-label" for="inputDesc">Answer: </label><div class="col-sm-8"><input type="text" class="form-control neuron-text" id="inputDesc" placeholder="Enter your answer..."></div></div>');
+		} else {
+			alert("Please enter some answer.");
+		}
 	});
 	
 	$('body').on('click', '#add_more_que', function() {
@@ -22,55 +27,60 @@ $(document).ready(function(){
 	});
 	
 	function addQuestion(){
-		var queCount = $('#add_more_que').closest('form.form-horizontal').find('fieldset').size();
+		var queCount = $('#quizQuestionsDiv').find('div.questionDiv').size();
 		var queType = $('#queType').val();
 		
-		var fldset = '';
-		if(queType === 'multiple'){
-		 fldset = '<fieldset>'+
-			'<legend>Que'+(queCount+1)+': </legend>'+
-			'<div class="form-group">'+
-				'<label class="col-sm-2 control-label" for="inputTitle">Question</label>'+
-				'<div class="col-sm-10">'+
-					'<input type="text" class="form-control neuron-text" id="inputTitle" placeholder="Enter your question here...">'+
+		var que = $('#quizQuestionsDiv').find('div.questionDiv:last').find('div.form-group').find('input').val();
+		if(que.length>0){
+			var fldset = '';
+			if(queType === 'multiple'){
+			 fldset = '<div class="questionDiv">'+
+				'<div class="form-group">'+
+					'<label class="col-sm-2 control-label" for="inputTitle"><span class="label label-info" style="float:left;font-size:11px;">'+
+					(queCount+1)+'</span>Question</label>'+
+					'<div class="col-sm-10">'+
+						'<input type="text" class="form-control neuron-text" id="inputTitle" placeholder="Enter your question here...">'+
+					'</div>'+
 				'</div>'+
-			'</div>'+
-			'<div class="form-group">'+
-				'<label class="col-sm-2 control-label" for="inputDesc">Answer: </label>'+
-				'<div class="col-sm-8">'+
-					'<input type="text" class="form-control neuron-text" id="inputDesc" placeholder="Enter your answer...">'+
+				'<div class="form-group">'+
+					'<label class="col-sm-2 control-label" for="inputDesc">Answer: </label>'+
+					'<div class="col-sm-8">'+
+						'<input type="text" class="form-control neuron-text" id="inputDesc" placeholder="Enter your answer...">'+
+					'</div>'+
 				'</div>'+
-			'</div>'+
-			'<div class="row">'+
-				'<div class="col-sm-8 col-md-8">'+
+				'<div class="row">'+
+					'<div class="col-sm-8 col-md-8">'+
+					'</div>'+
+					'<div class="col-sm-2 col-md-2 text-right">'+
+						'<a class="add_que_ans" href="#">Add more ans.</a>'+
+					'</div>'+
+					'<div class="col-sm-2 col-md-2">'+
+					'</div>'+
 				'</div>'+
-				'<div class="col-sm-2 col-md-2 text-right">'+
-					'<a class="add_que_ans" href="#">Add more ans.</a>'+
 				'</div>'+
-				'<div class="col-sm-2 col-md-2">'+
+				'</br>';
+			}else{
+				fldset = '<fieldset>'+
+				'<legend>Que'+(queCount+1)+': </legend>'+
+				'<div class="form-group">'+
+					'<label class="col-sm-2 control-label" for="inputTitle">Question</label>'+
+					'<div class="col-sm-10">'+
+						'<input type="text" class="form-control neuron-text" id="inputTitle" placeholder="Enter your question here...">'+
+					'</div>'+
 				'</div>'+
-			'</div>'+
-			'</fieldset>'+
-			'</br>';
-		}else{
-			fldset = '<fieldset>'+
-			'<legend>Que'+(queCount+1)+': </legend>'+
-			'<div class="form-group">'+
-				'<label class="col-sm-2 control-label" for="inputTitle">Question</label>'+
-				'<div class="col-sm-10">'+
-					'<input type="text" class="form-control neuron-text" id="inputTitle" placeholder="Enter your question here...">'+
+				'<div class="radio">'+
+				  '<div class="col-sm-2"></div>'+
+				  '<label class="col-sm-3" ><input type="radio" name="ans'+(queCount+1)+'" value="true" checked>True</label>'+
 				'</div>'+
-			'</div>'+
-			'<div class="radio">'+
-			  '<div class="col-sm-2"></div>'+
-			  '<label class="col-sm-3" ><input type="radio" name="ans'+(queCount+1)+'" value="true" checked>True</label>'+
-			'</div>'+
-			'<div class="radio">'+
-			  '<div class="col-sm-2"></div>'+
-			  '<label class="col-sm-3"><input type="radio" name="ans'+(queCount+1)+'" value="false">False</label>'+
-			'</div>';
+				'<div class="radio">'+
+				  '<div class="col-sm-2"></div>'+
+				  '<label class="col-sm-3"><input type="radio" name="ans'+(queCount+1)+'" value="false">False</label>'+
+				'</div>';
+			}
+				$('#quizQuestionsDiv').append(fldset);
+		} else {
+			alert("Please enter the question first for question no "+queCount);
 		}
-			$('#add_more_que').closest('div.row').before(fldset);
 	};
 	
 	$('#queType').change(function(){
@@ -168,6 +178,38 @@ var dataTable = $('#example').dataTable();
 			}
 			var json = { "eventTitle" : $('#inputTitle').val(), "eventDesc" : $('#inputDesc').val(), "date" : $('#dateEventTime').val(), "time": $('#timeEventTime').val(), "eventClass" : classId,"type" : "event"};
 			ajaxPostWithoutReload(url,json,"Event posted successfullys");
+		}
+	});
+	
+	$("#submit-quiz-btn").click(function(e){
+		function isValidQuizSet(){
+			return true;
+		}
+		
+		if(isValidQuizSet()){
+			var $div = $('<div />').appendTo('body');
+			$div.addClass('modal-backdrop').css('opacity','0.5');
+			var url = 'submitQuiz.do';
+			var questionSet = [];
+			$('#quizQuestionsDiv').children('div.questionDiv').each(function(){
+				var que = {};
+				var queText = $(this).find('div.form-group:first').find('input').val();
+				que['question'] = queText;
+				var ansCount = 0;
+				$(this).children('div.form-group').not(':first').each(function(){
+					ansCount ++;
+					que['answer'+ansCount] = $(this).find('input').val();
+				});
+				que['answerCount'] = ansCount;
+				questionSet.push(que);
+			});
+			
+			var queSetObj = {};
+			queSetObj['questions'] = questionSet;
+			var jsonStr = JSON.stringify(queSetObj);
+			
+			var json = {"quizType" : $('#queType').val(), "quizTitle" : $('#quizTitle').val(), "dueDate" : $('#dueDate').val(), "pointPerQue" : $('#pointPerQue').val(), "questionSet" : jsonStr};
+			ajaxPostWithoutReload(url,json,"Quiz posted successfullys");
 		}
 	});
 	
